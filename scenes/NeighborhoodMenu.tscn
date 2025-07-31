@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c9d8e7f6g5h4"]
 
 [ext_resource type="Script" path="res://scripts/NeighborhoodMenu.gd" id="1_barrio"]
-[ext_resource type="Texture2D" path="res://assets/images/backgrounds/menu.png" id="2_neighborhood"]
+[ext_resource type="Texture2D" path="res://assets/images/backgrounds/barrio.png" id="2_neighborhood"]
 
 [node name="NeighborhoodMenu" type="Control"]
 layout_mode = 3

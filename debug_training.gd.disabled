@@ -1,0 +1,41 @@
+# Script temporal para debuggear el sistema de entrenamiento
+extends Node
+
+func _ready():
+	# DEBUG COMENTADO - estaba interfiriendo con el flujo normal
+	# print("=== DEBUG TRAINING SYSTEM ===")
+	# print("TrainingManager.training_completed: ", TrainingManager.training_completed)
+	# print("TrainingManager.current_opponent: ", TrainingManager.current_opponent)
+	# print("TrainingManager.current_match_day: ", TrainingManager.current_match_day)
+	# print("=============================")
+	pass
+
+func test_training_flow():
+	print("=== TESTING TRAINING FLOW ===")
+	
+	# Simular el flujo de días
+	for day in range(1, 6):
+		DayManager.current_day = day
+		print("\n--- DÍA ", day, " ---")
+		print("   - is_match_day(): ", TrainingManager.is_match_day())
+		print("   - can_train(): ", TrainingManager.can_train())
+		
+		if day == 1:  # Día de entrenamiento
+			TrainingManager.set_current_opponent("Real Madrid", 1)
+			print("   - Configurado oponente: Real Madrid")
+			TrainingManager.complete_training()
+			print("   - Entrenamiento completado")
+			
+		elif day == 2:  # Día de partido
+			print("   - Día de partido - no se puede entrenar")
+			print("   - training_completed: ", TrainingManager.training_completed)
+			# Simular partido jugado
+			TrainingManager.reset_training_after_match()
+			print("   - Partido jugado, entrenamiento reseteado")
+			
+		elif day == 3:  # Nuevo ciclo de entrenamiento
+			TrainingManager.set_current_opponent("Barcelona", 2)
+			print("   - Configurado nuevo oponente: Barcelona")
+			print("   - can_train(): ", TrainingManager.can_train())
+	
+	print("\n===============================")

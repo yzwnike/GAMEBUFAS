@@ -56,11 +56,18 @@ func create_player_button(player_data: Dictionary):
 			"speed":
 				current_stat = player_data.speed
 			"stamina":
-				current_stat = player_data.stamina
+				# Para stamina, mostrar current_stamina (stamina para partidos) en lugar de la estadística base
+				current_stat = players_manager.get_player_stamina(player_data.id)
 			"skill":
 				current_stat = player_data.skill
 		
-		button_text += " | " + item_data.stat.capitalize() + ": " + str(current_stat)
+		# Formatear la visualización según el tipo de estadística
+		if item_data.stat == "stamina":
+			# Para stamina, mostrar formato X/3
+			button_text += " | Stamina: " + str(current_stat) + "/" + str(players_manager.MAX_STAMINA)
+		else:
+			# Para otras estadísticas, mostrar formato normal
+			button_text += " | " + item_data.stat.capitalize() + ": " + str(current_stat)
 	
 	button.text = button_text
 	button.pressed.connect(_on_player_button_pressed.bind(player_data.id))

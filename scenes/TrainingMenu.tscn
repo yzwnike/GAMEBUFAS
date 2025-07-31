@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7h8i9j0k1l2"]
 
 [ext_resource type="Script" path="res://scripts/TrainingMenu.gd" id="1_train"]
-[ext_resource type="Texture2D" path="res://assets/images/backgrounds/campo.png" id="2_field"]
+[ext_resource type="Texture2D" path="res://assets/images/backgrounds/entrenamiento.png" id="2_field"]
 
 [node name="TrainingMenu" type="Control"]
 layout_mode = 3
@@ -47,6 +47,14 @@ text = "CAMPO DE ENTRENAMIENTO"
 horizontal_alignment = 1
 vertical_alignment = 1
 theme_override_font_sizes/font_size = 56
+
+[node name="DayLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Día 1 - ENTRENAMIENTO"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 20
 
 [node name="MenuButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

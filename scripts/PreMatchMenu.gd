@@ -3,10 +3,20 @@ extends Control
 func _ready():
 	print("PreMatchMenu: Inicializando...")
 	
-	# Conectar botones directamente por ruta
-	var back_btn = get_node("MarginContainer/VBoxContainer/BackButton")
-	var lineup_btn = get_node("MarginContainer/VBoxContainer/ActionButtons/LineupButton")
-	var play_btn = get_node("MarginContainer/VBoxContainer/ActionButtons/PlayButton")
+	# Verificar que los managers necesarios estén disponibles
+	if not verify_managers():
+		print("ERROR: Managers no disponibles, volviendo al torneo")
+		get_tree().change_scene_to_file("res://scenes/TournamentMenu.tscn")
+		return
+	
+	# Conectar botones directamente por ruta con verificación
+	var back_btn = get_node_safe("MarginContainer/VBoxContainer/BackButton")
+	var lineup_btn = get_node_safe("MarginContainer/VBoxContainer/ActionButtons/LineupButton")
+	var play_btn = get_node_safe("MarginContainer/VBoxContainer/ActionButtons/PlayButton")
+	
+	if back_btn == null or lineup_btn == null or play_btn == null:
+		print("ERROR: No se pudieron encontrar los botones necesarios")
+		return
 	
 	back_btn.pressed.connect(_on_back_pressed)
 	lineup_btn.pressed.connect(_on_lineup_pressed)
@@ -28,7 +38,7 @@ func _ready():
 	timer.autostart = true
 	add_child(timer)
 	
-	print("PreMatchMenu: Botones conectados")
+	print("PreMatchMenu: Inicialización completa")
 
 func _on_back_pressed():
 	print("VOLVER AL TORNEO")
@@ -47,10 +57,19 @@ func _on_play_pressed():
 		issues.append("Es necesario completar el entrenamiento primero.")
 
 	# Verificar si existe una alineación válida
-	var lineup_script = load("res://scripts/LineupEditor.gd")
-	var lineup = lineup_script.get_saved_lineup()
-	if not lineup or lineup["players"].size() != 7:
+	if not LineupManager.has_valid_lineup():
 		issues.append("No hay una alineación válida de 7 jugadores guardada.")
+	
+	# Verificar stamina de los jugadores en la alineación
+	var lineup_data = LineupManager.get_saved_lineup()
+	if lineup_data != null:
+		var player_ids = []
+		for pos_name in lineup_data.players:
+			var player_info = lineup_data.players[pos_name]
+			player_ids.append(player_info.id)
+		
+		if not PlayersManager.can_play_match(player_ids):
+			issues.append("Algunos jugadores en la alineación no tienen suficiente stamina (mínimo 1 punto).")
 
 	if issues.size() > 0:
 		print("No es posible ir al campo:")
@@ -65,14 +84,26 @@ func _on_play_pressed():
 func simulate_match():
 	print("Simulando partido...")
 	
+	# Obtener la alineación para actualizar la stamina
+	var lineup_data = LineupManager.get_saved_lineup()
+	var player_ids = []
+	if lineup_data != null:
+		for pos_name in lineup_data.players:
+			var player_info = lineup_data.players[pos_name]
+			player_ids.append(player_info.id)
+	
 	# Generar resultado aleatorio
 	var home_goals = randi() % 4
 	var away_goals = randi() % 4
 	
 	print("Resultado: ", home_goals, "-", away_goals)
 	
+	# Actualizar stamina después del partido
+	PlayersManager.update_stamina_after_match(player_ids)
+	
 	# Completar partido y avanzar día
 	LeagueManager.complete_match(home_goals, away_goals)
+	TrainingManager.reset_training_after_match()
 	DayManager.advance_day()
 	
 	print("Día avanzado")
@@ -82,23 +113,38 @@ func simulate_match():
 
 func load_match_info():
 	var match = LeagueManager.get_next_match()
-	if match:
-		# Determinar quién es el rival de FC Bufas
-		var opponent_id = ""
-		if match.home_team == "fc_bufas":
-			opponent_id = match.away_team
+	if match == null:
+		print("WARNING: No hay partido siguiente disponible")
+		return
+	
+	# Determinar quién es el rival de FC Bufas
+	var opponent_id = ""
+	if match.home_team == "fc_bufas":
+		opponent_id = match.away_team
+	else:
+		opponent_id = match.home_team
+	
+	var opponent_team = LeagueManager.get_team_by_id(opponent_id)
+	if opponent_team:
+		var away_label = get_node_safe("MarginContainer/VBoxContainer/MatchInfoContainer/VSContainer/AwayTeamLabel")
+		if away_label != null:
+			away_label.text = opponent_team.name
 		else:
-			opponent_id = match.home_team
-		
-		var opponent_team = LeagueManager.get_team_by_id(opponent_id)
-		if opponent_team:
-			get_node("MarginContainer/VBoxContainer/MatchInfoContainer/VSContainer/AwayTeamLabel").text = opponent_team.name
-		
-	get_node("MarginContainer/VBoxContainer/MatchInfoContainer/MatchDayLabel").text = "Jornada " + str(match.match_day)
+			print("WARNING: AwayTeamLabel no encontrado")
+	else:
+		print("WARNING: Equipo oponente no encontrado: ", opponent_id)
+	
+	var match_day_label = get_node_safe("MarginContainer/VBoxContainer/MatchInfoContainer/MatchDayLabel")
+	if match_day_label != null:
+		match_day_label.text = "Jornada " + str(match.match_day)
+	else:
+		print("WARNING: MatchDayLabel no encontrado")
 
 func update_play_button_status():
 	"""Actualiza el estado visual del botón IR AL CAMPO según los requisitos"""
-	var play_btn = get_node("MarginContainer/VBoxContainer/ActionButtons/PlayButton")
+	var play_btn = get_node_safe("MarginContainer/VBoxContainer/ActionButtons/PlayButton")
+	if play_btn == null:
+		return
 	var issues = []
 
 	# Verificar entrenamiento
@@ -106,10 +152,19 @@ func update_play_button_status():
 		issues.append("Entrenamiento")
 
 	# Verificar alineación
-	var lineup_script = load("res://scripts/LineupEditor.gd")
-	var lineup = lineup_script.get_saved_lineup()
-	if not lineup or lineup["players"].size() != 7:
+	if not LineupManager.has_valid_lineup():
 		issues.append("Alineación")
+	else:
+		# Verificar stamina solo si hay una alineación válida
+		var lineup_data = LineupManager.get_saved_lineup()
+		if lineup_data != null:
+			var player_ids = []
+			for pos_name in lineup_data.players:
+				var player_info = lineup_data.players[pos_name]
+				player_ids.append(player_info.id)
+			
+			if not PlayersManager.can_play_match(player_ids):
+				issues.append("Stamina")
 
 	# Actualizar texto del botón
 	if issues.size() == 0:
@@ -334,3 +389,38 @@ func _on_save_lineup_pressed():
 func _on_back_from_lineup_pressed():
 	print("Volviendo del editor de alineación...")
 	get_tree().change_scene_to_file("res://scenes/PreMatchMenu.tscn")
+
+# Funciones auxiliares
+func verify_managers() -> bool:
+	"""Verifica que todos los managers necesarios estén disponibles"""
+	var managers_ok = true
+	
+	if not has_node("/root/LeagueManager"):
+		print("ERROR: LeagueManager no encontrado")
+		managers_ok = false
+	
+	if not has_node("/root/PlayersManager"):
+		print("ERROR: PlayersManager no encontrado")
+		managers_ok = false
+	
+	if not has_node("/root/TrainingManager"):
+		print("ERROR: TrainingManager no encontrado")
+		managers_ok = false
+	
+	if not has_node("/root/LineupManager"):
+		print("ERROR: LineupManager no encontrado")
+		managers_ok = false
+	
+	if not has_node("/root/DayManager"):
+		print("ERROR: DayManager no encontrado")
+		managers_ok = false
+	
+	return managers_ok
+
+func get_node_safe(path: String):
+	"""Obtiene un nodo de forma segura, devolviendo null si no existe"""
+	if has_node(path):
+		return get_node(path)
+	else:
+		print("WARNING: Nodo no encontrado: ", path)
+		return null

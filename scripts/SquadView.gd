@@ -90,7 +90,16 @@ func create_player_card(player_data: Dictionary):
 	texture_rect.custom_minimum_size = Vector2(150, 150)
 	vbox.add_child(texture_rect)
 	
-	# Overall
+# Stamina
+	var stamina_label = Label.new()
+	var stamina_value = players_manager.get_player_stamina(player_data.id)
+	stamina_label.text = "Stamina: " + str(stamina_value) + " / " + str(players_manager.MAX_STAMINA)
+	stamina_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	stamina_label.add_theme_font_size_override("font_size", 20)
+	stamina_label.add_theme_color_override("font_color", Color.ORANGE)
+	vbox.add_child(stamina_label)
+
+# Overall
 	var overall_label = Label.new()
 	overall_label.text = "Overall: " + str(player_data.overall)
 	overall_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

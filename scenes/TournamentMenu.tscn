@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1c2b3d4e5f6"]
 
 [ext_resource type="Script" path="res://scripts/TournamentMenu.gd" id="1_abcde"]
-[ext_resource type="Texture2D" path="res://assets/images/backgrounds/campo.png" id="2_fghij"]
+[ext_resource type="Texture2D" path="res://assets/images/backgrounds/partido.png" id="2_fghij"]
 
 [node name="TournamentMenu" type="Control"]
 layout_mode = 3

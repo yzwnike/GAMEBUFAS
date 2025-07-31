@@ -275,6 +275,21 @@ func create_player_card(player_info):
 	ovr_label.add_theme_constant_override("shadow_offset_y", 1)
 	card.add_child(ovr_label)  # Añadirlo directamente al card, no al vbox
 	
+	# Stamina
+	var stamina_label = Label.new()
+	var stamina_value = PlayersManager.get_player_stamina(player_info["id"])
+	stamina_label.text = "Stamina: " + str(stamina_value) + "/" + str(PlayersManager.MAX_STAMINA)
+	stamina_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	stamina_label.add_theme_font_size_override("font_size", 10)
+	# Color según el nivel de stamina
+	if stamina_value == 0:
+		stamina_label.add_theme_color_override("font_color", Color.RED)
+	elif stamina_value == 1:
+		stamina_label.add_theme_color_override("font_color", Color.ORANGE)
+	else:
+		stamina_label.add_theme_color_override("font_color", Color.GREEN)
+	vbox.add_child(stamina_label)
+
 	# Posición
 	var pos_label = Label.new()
 	pos_label.text = player_info["position"]
@@ -495,13 +510,12 @@ func _on_save_pressed():
 	
 	print("Guardando alineación...")
 	
-	# Guardar la alineación actual
-	saved_lineup = field_positions.duplicate(true)
-	# Establecer como última formación utilizada
-	last_used_formation = current_formation
+	# Guardar la alineación actual en LineupManager (no persistente)
+	LineupManager.save_lineup(current_formation, field_positions)
 	
-	# Guardar en archivo
-	save_lineup_to_file()
+	# Actualizar variables locales para compatibilidad
+	saved_lineup = field_positions.duplicate(true)
+	last_used_formation = current_formation
 	
 	# Mostrar confirmación
 	show_success_message("Alineación guardada correctamente")
@@ -549,26 +563,31 @@ func load_lineup_from_file():
 		print("ERROR: No se pudo parsear el archivo de alineación")
 
 func load_saved_lineup():
-	# Cargar alineación desde archivo
-	load_lineup_from_file()
+	# Cargar alineación desde LineupManager (no persistente)
+	var lineup_data = LineupManager.get_saved_lineup()
 	
-	# Si existe una alineación guardada y una formación guardada, usar la última formación
-	if last_used_formation != "" and saved_lineup.size() > 0:
-		current_formation = last_used_formation
-		# Actualizar el selector de formación para reflejar la formación cargada
-		var formation_index = FORMATION_LIST.find(current_formation)
-		if formation_index != -1 and formation_selector:
-			formation_selector.selected = formation_index
-		# Recrear el campo con la formación correcta
-		create_field()
-	
-	# Si existe una alineación guardada, cargarla
-	if saved_lineup.size() > 0:
-		print("Cargando alineación guardada")
-		for pos_name in saved_lineup:
-			var player_info = saved_lineup[pos_name]
-			place_player_in_position(player_info, pos_name)
-		print("Alineación restaurada exitosamente para formación: ", current_formation)
+	if lineup_data != null:
+		last_used_formation = lineup_data["formation"]
+		saved_lineup = lineup_data["players"]
+		
+		# Si existe una alineación guardada y una formación guardada, usar la última formación
+		if last_used_formation != "" and saved_lineup.size() > 0:
+			current_formation = last_used_formation
+			# Actualizar el selector de formación para reflejar la formación cargada
+			var formation_index = FORMATION_LIST.find(current_formation)
+			if formation_index != -1 and formation_selector:
+				formation_selector.selected = formation_index
+			# Recrear el campo con la formación correcta
+			create_field()
+		
+			# Si existe una alineación guardada, cargarla
+			print("Cargando alineación guardada")
+			for pos_name in saved_lineup:
+				var player_info = saved_lineup[pos_name]
+				place_player_in_position(player_info, pos_name)
+			print("Alineación restaurada exitosamente para formación: ", current_formation)
+	else:
+		print("No hay alineación guardada en memoria")
 
 func show_error_message(message):
 	# Crear un popup temporal para mostrar el error
@@ -621,25 +640,8 @@ func get_current_lineup():
 
 # Función estática para obtener la alineación desde otros scripts
 static func get_saved_lineup():
-	var file = FileAccess.open("user://saved_lineup.json", FileAccess.READ)
-	if not file:
-		print("No hay alineación guardada")
-		return null
-	
-	var json_text = file.get_as_text()
-	file.close()
-	
-	var json = JSON.new()
-	var parse_result = json.parse(json_text)
-	
-	if parse_result == OK:
-		var data = json.data
-		if data.has("saved_lineup") and data.has("last_used_formation"):
-			return {
-				"formation": data["last_used_formation"],
-				"players": data["saved_lineup"]
-			}
-	return null
+	# Usar LineupManager en lugar de archivo
+	return LineupManager.get_saved_lineup()
 
 func _on_back_pressed():
 	print("LineupEditor: Volviendo al menú pre-partido...")

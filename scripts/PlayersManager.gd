@@ -5,6 +5,7 @@ signal player_upgraded(player_id: String)
 signal experience_gained(player_id: String, amount: int)
 
 var players: Array = []
+var MAX_STAMINA: int = 3
 
 func _ready():
 	load_players_data()
@@ -30,10 +31,83 @@ func load_players_data():
 	var data = json.data
 	players = data.players
 	
+	# Inicializar la stamina para cada jugador si no está presente
+	for player in players:
+		if not player.has("current_stamina"):
+			player.current_stamina = MAX_STAMINA
+	
 	print("PlayersManager: Jugadores cargados. ", players.size(), " jugadores en la plantilla")
 
 func get_all_players():
 	return players
+
+# Obtener la stamina actual del jugador
+func get_player_stamina(player_id: String) -> int:
+	var player = get_player_by_id(player_id)
+	if player == null:
+		print("ERROR: Jugador no encontrado: ", player_id)
+		return 0
+	
+	# Verificar si current_stamina existe, si no, inicializarla
+	if not player.has("current_stamina"):
+		player.current_stamina = MAX_STAMINA
+		print("INFO: Inicializando stamina para ", player.name)
+	
+	return player.current_stamina
+
+# Función para verificar y reducir stamina antes de un partido
+func can_play_match(lineup: Array) -> bool:
+	# Verificar si todos los jugadores en la alineación tienen al menos 1 de stamina
+	for player_id in lineup:
+		var player = get_player_by_id(player_id)
+		if player == null:
+			print("ERROR: Jugador no encontrado: ", player_id)
+			return false
+		
+		# Verificar si current_stamina existe, si no, inicializarla
+		if not player.has("current_stamina"):
+			player.current_stamina = MAX_STAMINA
+			print("INFO: Inicializando stamina para ", player.name)
+		
+		if player.current_stamina < 1:
+			print("STAMINA: ", player.name, " no tiene suficiente stamina para jugar (stamina actual: ", player.current_stamina, ")")
+			return false
+	return true
+
+# Función para reducir stamina a los jugadores que jugaron y recuperar a los que no jugaron
+func update_stamina_after_match(lineup: Array):
+	# Reducir stamina de los jugadores en la alineación inicial
+	for player_id in lineup:
+		var player = get_player_by_id(player_id)
+		if player:
+			# Verificar si current_stamina existe, si no, inicializarla
+			if not player.has("current_stamina"):
+				player.current_stamina = MAX_STAMINA
+				print("INFO: Inicializando stamina para ", player.name)
+			
+			if player.current_stamina > 0:
+				player.current_stamina -= 1
+				print(player.name, " ha jugado un partido. Stamina restante: ", player.current_stamina)
+
+	# Recuperar stamina de los jugadores que no jugaron
+	for player in players:
+		# Verificar si current_stamina existe, si no, inicializarla
+		if not player.has("current_stamina"):
+			player.current_stamina = MAX_STAMINA
+			print("INFO: Inicializando stamina para ", player.name)
+		
+		if player.id not in lineup and player.current_stamina < MAX_STAMINA:
+			player.current_stamina += 1
+			print(player.name, " no jugó y ha recuperado stamina. Stamina actual: ", player.current_stamina)
+
+# Función para recargar stamina usando ítems de la tienda
+func recharge_stamina(player_id: String, amount: int):
+	var player = get_player_by_id(player_id)
+	if player == null:
+		print("ERROR: Jugador no encontrado: ", player_id)
+		return
+	player.current_stamina = min(player.current_stamina + amount, MAX_STAMINA)
+	print(player.name, " ha recargado stamina. Stamina actual: ", player.current_stamina)
 
 func get_player_by_id(player_id: String):
 	for player in players:

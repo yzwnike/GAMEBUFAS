@@ -2,8 +2,8 @@
   "products": [
     {
       "id": "stamina_small",
-      "name": "Mejora de Stamina Pequeña",
-      "description": "Aumenta la resistencia de un jugador en 1 punto.",
+      "name": "Recarga de Stamina Pequeña",
+      "description": "Recupera 1 punto de stamina para jugar partidos.",
       "image": "res://assets/images/items/stamina_small.png",
       "price": 100,
       "type": "stat_boost",
@@ -12,8 +12,8 @@
     },
     {
       "id": "stamina_large",
-      "name": "Mejora de Stamina Grande",
-      "description": "Aumenta la resistencia de un jugador en 2 puntos.",
+      "name": "Recarga de Stamina Grande",
+      "description": "Recupera 2 puntos de stamina para jugar partidos.",
       "image": "res://assets/images/items/stamina_large.png",
       "price": 180,
       "type": "stat_boost",

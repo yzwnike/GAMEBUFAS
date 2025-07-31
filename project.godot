@@ -12,7 +12,7 @@ config_version=5
 
 config/name="La Velada Visual Novel"
 config/description="Novela visual estilo Doki Doki Literature Club del universo La Velada"
-run/main_scene="res://scenes/NeighborhoodMenu.tscn"
+run/main_scene="res://scenes/InteractiveMenu.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -25,11 +25,15 @@ TransferManager="*res://scripts/TransferManager.gd"
 TransferMarketManager="*res://scripts/TransferMarketManager.gd"
 DayManager="*res://scripts/DayManager.gd"
 TrainingManager="*res://scripts/TrainingManager.gd"
+LineupManager="*res://scripts/LineupManager.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/size/fullscreen=true
 
 [input]
 

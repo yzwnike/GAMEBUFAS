@@ -185,8 +185,13 @@ func _on_player_selected_for_boost(player_id: String, item_data: Dictionary):
 		print("ERROR: PlayersManager no está disponible")
 		return
 	
-	# Aplicar la mejora
-	players_manager.upgrade_player(player_id, item_data.stat, item_data.value)
+	# Verificar si es un ítem de stamina para aplicar correctamente
+	if item_data.stat == "stamina":
+		# Para ítems de stamina, usar recharge_stamina que afecta current_stamina
+		players_manager.recharge_stamina(player_id, item_data.value)
+	else:
+		# Para otros stats, usar upgrade_player
+		players_manager.upgrade_player(player_id, item_data.stat, item_data.value)
 	
 	# Reducir la cantidad del item
 	if game_manager != null:
