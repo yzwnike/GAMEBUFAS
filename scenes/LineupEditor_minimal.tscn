@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpx1hflwl42x9"]
+
+[ext_resource type="Script" path="res://scripts/LineupEditor_minimal.gd" id="1_9hfv6"]
+
+[node name="LineupEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_9hfv6")

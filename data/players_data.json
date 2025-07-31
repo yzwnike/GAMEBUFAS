@@ -1,0 +1,102 @@
+{
+  "players": [
+    {
+      "id": "usuario",
+      "name": "Usuario",
+      "position": "Delantero",
+      "overall": 70,
+      "attack": 75,
+      "defense": 45,
+      "speed": 70,
+      "stamina": 65,
+      "skill": 70,
+      "experience": 0,
+      "image": "res://assets/images/characters/proximamente1.png",
+      "description": "Un delantero prometedor con mucho potencial por desarrollar."
+    },
+    {
+      "id": "yazawa",
+      "name": "Yazawa",
+      "position": "Portero",
+      "overall": 71,
+      "attack": 30,
+      "defense": 85,
+      "speed": 60,
+      "stamina": 70,
+      "skill": 75,
+      "experience": 0,
+      "image": "res://assets/images/characters/yazawa.png",
+      "description": "Un portero confiable con buenos reflejos y gran concentración."
+    },
+    {
+      "id": "marcos",
+      "name": "Marcos",
+      "position": "Delantero",
+      "overall": 72,
+      "attack": 78,
+      "defense": 50,
+      "speed": 72,
+      "stamina": 68,
+      "skill": 74,
+      "experience": 0,
+      "image": "res://assets/images/characters/marcos.png",
+      "description": "Un delantero hábil con buen control del balón y visión de juego."
+    },
+    {
+      "id": "pablo",
+      "name": "Pablo",
+      "position": "Defensa",
+      "overall": 71,
+      "attack": 45,
+      "defense": 85,
+      "speed": 65,
+      "stamina": 72,
+      "skill": 68,
+      "experience": 0,
+      "image": "res://assets/images/characters/pablo.png",
+      "description": "Un defensa sólido que sabe posicionarse bien y anticipar las jugadas."
+    },
+    {
+      "id": "perma",
+      "name": "Perma",
+      "position": "Defensa",
+      "overall": 72,
+      "attack": 48,
+      "defense": 82,
+      "speed": 70,
+      "stamina": 75,
+      "skill": 72,
+      "experience": 0,
+      "image": "res://assets/images/characters/perma.png",
+      "description": "Un defensa versátil que puede jugar en diferentes posiciones defensivas."
+    },
+    {
+      "id": "javo",
+      "name": "Javo",
+      "position": "Mediocentro",
+      "overall": 72,
+      "attack": 70,
+      "defense": 68,
+      "speed": 72,
+      "stamina": 78,
+      "skill": 75,
+      "experience": 0,
+      "image": "res://assets/images/characters/javo.png",
+      "description": "Un centrocampista equilibrado que conecta bien la defensa con el ataque."
+    },
+    {
+      "id": "fan",
+      "name": "Fan",
+      "position": "Mediocentro",
+      "overall": 71,
+      "attack": 68,
+      "defense": 65,
+      "speed": 72,
+      "stamina": 75,
+      "skill": 73,
+      "experience": 0,
+      "image": "res://assets/images/characters/fan.png",
+      "description": "Un mediocentro creativo con buena técnica para distribuir el juego."
+    }
+  ]
+}

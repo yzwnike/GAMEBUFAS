@@ -1,0 +1,22 @@
+{
+  "teams": [
+    { "id": "fc_bufas", "name": "FC Bufas", "logo": "res://assets/images/logos/bufas_logo.png" },
+    { "id": "deportivo_magadios", "name": "Deportivo Magadios", "logo": "res://assets/images/logos/magadios_logo.png" },
+    { "id": "patrulla_canina", "name": "Patrulla Canina", "logo": "res://assets/images/logos/patrulla_logo.png" },
+    { "id": "reyes_jalisco", "name": "Reyes de Jalisco", "logo": "res://assets/images/logos/jalisco_logo.png" },
+    { "id": "inter_panzones", "name": "Inter de Panzones", "logo": "res://assets/images/logos/panzones_logo.png" },
+    { "id": "chocolateros_fc", "name": "Chocolateros FC", "logo": "res://assets/images/logos/chocolateros_logo.png" },
+    { "id": "fantasy_fc", "name": "Fantasy FC", "logo": "res://assets/images/logos/fantasy_logo.png" },
+    { "id": "picacachorras_fc", "name": "Picacachorras FC", "logo": "res://assets/images/logos/picacachorras_logo.png" }
+  ],
+  "schedule": [
+    { "match_day": 1, "home_team": "fc_bufas", "away_team": "deportivo_magadios", "dialogue_scene": "res://dialogues/match1_vs_magadios.json" },
+    { "match_day": 2, "home_team": "patrulla_canina", "away_team": "fc_bufas", "dialogue_scene": "res://dialogues/match2_vs_patrulla.json" },
+    { "match_day": 3, "home_team": "fc_bufas", "away_team": "reyes_jalisco", "dialogue_scene": "res://dialogues/match3_vs_jalisco.json" },
+    { "match_day": 4, "home_team": "inter_panzones", "away_team": "fc_bufas", "dialogue_scene": "res://dialogues/match4_vs_panzones.json" },
+    { "match_day": 5, "home_team": "fc_bufas", "away_team": "chocolateros_fc", "dialogue_scene": "res://dialogues/match5_vs_chocolateros.json" },
+    { "match_day": 6, "home_team": "fantasy_fc", "away_team": "fc_bufas", "dialogue_scene": "res://dialogues/match6_vs_fantasy.json" },
+    { "match_day": 7, "home_team": "fc_bufas", "away_team": "picacachorras_fc", "dialogue_scene": "res://dialogues/match7_vs_picacachorras.json" }
+  ]
+}
+

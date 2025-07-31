@@ -1,0 +1,100 @@
+{
+  "all_players": [
+    {
+      "id": "usuario", "name": "Usuario", "position": "Delantero", "overall": 70, "attack": 75, "defense": 45, "speed": 70, "stamina": 65, "skill": 70, "image": "res://assets/images/characters/proximamente1.png", "description": "Un delantero prometedor con mucho potencial por desarrollar.", "team": "FC Bufas"
+    },
+    {
+      "id": "yazawa", "name": "Yazawa", "position": "Portero", "overall": 71, "attack": 30, "defense": 85, "speed": 60, "stamina": 70, "skill": 75, "image": "res://assets/images/characters/yazawa.png", "description": "Un portero confiable con buenos reflejos y gran concentración.", "team": "FC Bufas"
+    },
+    {
+      "id": "marcos", "name": "Marcos", "position": "Delantero", "overall": 72, "attack": 78, "defense": 50, "speed": 72, "stamina": 68, "skill": 74, "image": "res://assets/images/characters/marcos.png", "description": "Un delantero hábil con buen control del balón y visión de juego.", "team": "FC Bufas"
+    },
+    {
+      "id": "pablo", "name": "Pablo", "position": "Defensa", "overall": 71, "attack": 45, "defense": 85, "speed": 65, "stamina": 72, "skill": 68, "image": "res://assets/images/characters/pablo.png", "description": "Un defensa sólido que sabe posicionarse bien y anticipar las jugadas.", "team": "FC Bufas"
+    },
+    {
+      "id": "perma", "name": "Perma", "position": "Defensa", "overall": 72, "attack": 48, "defense": 82, "speed": 70, "stamina": 75, "skill": 72, "image": "res://assets/images/characters/perma.png", "description": "Un defensa versátil que puede jugar en diferentes posiciones defensivas.", "team": "FC Bufas"
+    },
+    {
+      "id": "javo", "name": "Javo", "position": "Mediocentro", "overall": 72, "attack": 70, "defense": 68, "speed": 72, "stamina": 78, "skill": 75, "image": "res://assets/images/characters/javo.png", "description": "Un centrocampista equilibrado que conecta bien la defensa con el ataque.", "team": "FC Bufas"
+    },
+    {
+      "id": "fan", "name": "Fan", "position": "Mediocentro", "overall": 71, "attack": 68, "defense": 65, "speed": 72, "stamina": 75, "skill": 73, "image": "res://assets/images/characters/fan.png", "description": "Un mediocentro creativo con buena técnica para distribuir el juego.", "team": "FC Bufas"
+    },
+    {
+      "id": "mario", "name": "Mario", "position": "Mediocentro", "overall": 78, "attack": 76, "defense": 72, "speed": 78, "stamina": 82, "skill": 80, "image": "res://assets/images/characters/mario.png", "description": "Un centrocampista excepcional con gran visión de juego y pases precisos.", "team": "Deportivo Magadios"
+    },
+    {
+      "id": "nicou", "name": "Nicou", "position": "Mediocentro", "overall": 76, "attack": 74, "defense": 70, "speed": 76, "stamina": 80, "skill": 78, "image": "res://assets/images/characters/nicou.png", "description": "Un mediocentro dinámico con gran capacidad de llegada al área rival.", "team": "Inter de Panzones"
+    },
+    {
+      "id": "albert", "name": "Albert", "position": "Defensa", "overall": 73, "attack": 50, "defense": 85, "speed": 68, "stamina": 75, "skill": 70, "image": "res://assets/images/characters/albert.png", "description": "Un defensa inteligente con buen juego aéreo y salida de balón.", "team": "Inter de Panzones"
+    },
+    {
+      "id": "mister", "name": "Mister", "position": "Defensa", "overall": 76, "attack": 52, "defense": 88, "speed": 70, "stamina": 78, "skill": 72, "image": "res://assets/images/characters/mister.png", "description": "Un defensa veterano con gran experiencia y liderazgo en el campo.", "team": "Reyes de Jalisco"
+    },
+    {
+      "id": "hugo", "name": "Hugo", "position": "Delantero", "overall": 78, "attack": 85, "defense": 45, "speed": 82, "stamina": 75, "skill": 80, "image": "res://assets/images/characters/proximamente1.png", "description": "Un delantero letal con gran instinto goleador y excelente definición.", "team": "Fantasy FC"
+    },
+    {
+      "id": "aznar", "name": "Aznar", "position": "Delantero", "overall": 74, "attack": 80, "defense": 48, "speed": 76, "stamina": 72, "skill": 74, "image": "res://assets/images/characters/aznar.png", "description": "Un delantero rápido con buen control y capacidad para desbordar.", "team": "Chocolateros FC"
+    },
+    {
+      "id": "bustos", "name": "Bustos", "position": "Defensa", "overall": 76, "attack": 55, "defense": 88, "speed": 72, "stamina": 80, "skill": 74, "image": "res://assets/images/characters/proximamente1.png", "description": "Un defensa robusto con gran fortaleza física y buen marcaje.", "team": "Patrulla Canina"
+    },
+    {
+      "id": "jorge", "name": "Jorge", "position": "Defensa", "overall": 76, "attack": 58, "defense": 86, "speed": 74, "stamina": 78, "skill": 76, "image": "res://assets/images/characters/proximamente1.png", "description": "Un defensa técnico con buena salida de balón y precisión en los pases.", "team": "Picacachorras FC"
+    },
+    {
+      "id": "juanete", "name": "Juanete", "position": "Mediocentro", "overall": 77, "attack": 75, "defense": 72, "speed": 77, "stamina": 80, "skill": 79, "image": "res://assets/images/characters/proximamente1.png", "description": "Un centrocampista completo con gran resistencia y versatilidad táctica.", "team": "Deportivo Magadios"
+    },
+    {
+      "id": "joan_alain", "name": "Joan Alain", "position": "Defensa", "overall": 72, "attack": 48, "defense": 84, "speed": 68, "stamina": 74, "skill": 72, "image": "res://assets/images/characters/proximamente1.png", "description": "Un defensa confiable con buen posicionamiento y capacidad de anticipación.", "team": "Fantasy FC"
+    },
+    {
+      "id": "manu", "name": "Manu", "position": "Mediocentro", "overall": 75, "attack": 73, "defense": 70, "speed": 75, "stamina": 78, "skill": 77, "image": "res://assets/images/characters/proximamente1.png", "description": "Un mediocentro inteligente con buena lectura del juego y pases largos.", "team": "Chocolateros FC"
+    },
+    {
+      "id": "oblak", "name": "Oblak", "position": "Portero", "overall": 84, "attack": 35, "defense": 95, "speed": 65, "stamina": 85, "skill": 88, "image": "res://assets/images/characters/proximamente1.png", "description": "Un portero de élite mundial con reflejos excepcionales y gran seguridad bajo palos.", "team": "Reyes de Jalisco"
+    },
+    {
+      "id": "joan_garcia", "name": "Joan García", "position": "Portero", "overall": 76, "attack": 32, "defense": 88, "speed": 62, "stamina": 78, "skill": 80, "image": "res://assets/images/characters/proximamente1.png", "description": "Un portero joven con gran potencial y excelente juego con los pies.", "team": "Patrulla Canina"
+    },
+    {
+      "id": "szczesny", "name": "Szczesny", "position": "Portero", "overall": 79, "attack": 38, "defense": 90, "speed": 68, "stamina": 80, "skill": 82, "image": "res://assets/images/characters/proximamente1.png", "description": "Un portero experimentado con gran personalidad y liderazgo desde la portería.", "team": "Inter de Panzones"
+    },
+    {
+      "id": "araujo", "name": "Araujo", "position": "Defensa", "overall": 79, "attack": 62, "defense": 90, "speed": 78, "stamina": 82, "skill": 76, "image": "res://assets/images/characters/proximamente1.png", "description": "Un defensa central moderno con gran velocidad y fortaleza física.", "team": "Deportivo Magadios"
+    },
+    {
+      "id": "lenglet", "name": "Lenglet", "position": "Defensa", "overall": 78, "attack": 58, "defense": 88, "speed": 74, "stamina": 80, "skill": 78, "image": "res://assets/images/characters/proximamente1.png", "description": "Un defensa elegante con excelente salida de balón y precisión en los pases.", "team": "Fantasy FC"
+    },
+    {
+      "id": "vallejo", "name": "Vallejo", "position": "Defensa", "overall": 73, "attack": 52, "defense": 85, "speed": 70, "stamina": 75, "skill": 73, "image": "res://assets/images/characters/proximamente1.png", "description": "Un defensa prometedor con buen juego aéreo y capacidad de recuperación.", "team": "Chocolateros FC"
+    },
+    {
+      "id": "pedri", "name": "Pedri", "position": "Mediocentro", "overall": 84, "attack": 82, "defense": 75, "speed": 80, "stamina": 88, "skill": 92, "image": "res://assets/images/characters/proximamente1.png", "description": "Un centrocampista de clase mundial con técnica exquisita y visión de juego excepcional.", "team": "Picacachorras FC"
+    },
+    {
+      "id": "barrios", "name": "Barrios", "position": "Mediocentro", "overall": 79, "attack": 77, "defense": 74, "speed": 79, "stamina": 85, "skill": 81, "image": "res://assets/images/characters/proximamente1.png", "description": "Un mediocentro box-to-box con gran llegada al área y capacidad de recuperación.", "team": "Patrulla Canina"
+    },
+    {
+      "id": "julian_alvarez", "name": "Julián Álvarez", "position": "Delantero", "overall": 84, "attack": 92, "defense": 52, "speed": 88, "stamina": 85, "skill": 86, "image": "res://assets/images/characters/proximamente1.png", "description": "Un delantero de élite con gran movilidad, instinto goleador y versatilidad ofensiva.", "team": "Reyes de Jalisco"
+    },
+    {
+      "id": "joao_felix", "name": "Joao Félix", "position": "Delantero", "overall": 78, "attack": 85, "defense": 48, "speed": 82, "stamina": 75, "skill": 88, "image": "res://assets/images/characters/proximamente1.png", "description": "Un delantero creativo con gran técnica individual y capacidad de desequilibrio.", "team": "Inter de Panzones"
+    },
+    {
+      "id": "rashford", "name": "Rashford", "position": "Delantero", "overall": 79, "attack": 86, "defense": 50, "speed": 90, "stamina": 80, "skill": 82, "image": "res://assets/images/characters/proximamente1.png", "description": "Un delantero explosivo con gran velocidad y potencia en el disparo.", "team": "Deportivo Magadios"
+    },
+    {
+      "id": "tarta_dl", "name": "Tarta", "position": "Delantero", "overall": 75, "attack": 82, "defense": 45, "speed": 78, "stamina": 72, "skill": 76, "image": "res://assets/images/characters/proximamente1.png", "description": "Un delantero con buen olfato goleador y capacidad para crear espacios.", "team": "Fantasy FC"
+    },
+    {
+      "id": "etarky_df", "name": "Etarky", "position": "Defensa", "overall": 75, "attack": 55, "defense": 87, "speed": 72, "stamina": 78, "skill": 74, "image": "res://assets/images/characters/proximamente1.png", "description": "Un defensa sólido con buen posicionamiento y capacidad de marcaje.", "team": "Picacachorras FC"
+    },
+    {
+      "id": "raigo_mc", "name": "Raigo", "position": "Mediocentro", "overall": 75, "attack": 73, "defense": 70, "speed": 75, "stamina": 80, "skill": 77, "image": "res://assets/images/characters/proximamente1.png", "description": "Un centrocampista trabajador con buena distribución del juego y llegada al área.", "team": "Chocolateros FC"
+    }
+  ]
+}

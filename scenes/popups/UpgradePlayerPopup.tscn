@@ -1,0 +1,153 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8nv2qwm55p5s"]
+
+[ext_resource type="Script" path="res://scripts/popups/UpgradePlayerPopup.gd" id="1_7pq5x"]
+
+[node name="UpgradePlayerPopup" type="AcceptDialog"]
+title = "Mejorar Jugador"
+size = Vector2i(450, 500)
+script = ExtResource("1_7pq5x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 36.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerName" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Mejorar a Nombre del Jugador"
+horizontal_alignment = 1
+
+[node name="ExperienceLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Puntos de Experiencia: 0"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="InstructionLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Selecciona una estadística para mejorar:"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StatsContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AttackUpgrade" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="AttackInfo" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/StatsContainer/AttackUpgrade"]
+layout_mode = 2
+
+[node name="AttackLabel" type="Label" parent="VBoxContainer/ScrollContainer/StatsContainer/AttackUpgrade/AttackInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Ataque:"
+
+[node name="AttackValue" type="Label" parent="VBoxContainer/ScrollContainer/StatsContainer/AttackUpgrade/AttackInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "85"
+
+[node name="AttackUpgradeButton" type="Button" parent="VBoxContainer/ScrollContainer/StatsContainer/AttackUpgrade"]
+layout_mode = 2
+text = "Mejorar (+1) - Costo: 150"
+
+[node name="DefenseUpgrade" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="DefenseInfo" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/StatsContainer/DefenseUpgrade"]
+layout_mode = 2
+
+[node name="DefenseLabel" type="Label" parent="VBoxContainer/ScrollContainer/StatsContainer/DefenseUpgrade/DefenseInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Defensa:"
+
+[node name="DefenseValue" type="Label" parent="VBoxContainer/ScrollContainer/StatsContainer/DefenseUpgrade/DefenseInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "70"
+
+[node name="DefenseUpgradeButton" type="Button" parent="VBoxContainer/ScrollContainer/StatsContainer/DefenseUpgrade"]
+layout_mode = 2
+text = "Mejorar (+1) - Costo: 120"
+
+[node name="SpeedUpgrade" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="SpeedInfo" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/StatsContainer/SpeedUpgrade"]
+layout_mode = 2
+
+[node name="SpeedLabel" type="Label" parent="VBoxContainer/ScrollContainer/StatsContainer/SpeedUpgrade/SpeedInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Velocidad:"
+
+[node name="SpeedValue" type="Label" parent="VBoxContainer/ScrollContainer/StatsContainer/SpeedUpgrade/SpeedInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "80"
+
+[node name="SpeedUpgradeButton" type="Button" parent="VBoxContainer/ScrollContainer/StatsContainer/SpeedUpgrade"]
+layout_mode = 2
+text = "Mejorar (+1) - Costo: 140"
+
+[node name="StaminaUpgrade" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="StaminaInfo" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/StatsContainer/StaminaUpgrade"]
+layout_mode = 2
+
+[node name="StaminaLabel" type="Label" parent="VBoxContainer/ScrollContainer/StatsContainer/StaminaUpgrade/StaminaInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Resistencia:"
+
+[node name="StaminaValue" type="Label" parent="VBoxContainer/ScrollContainer/StatsContainer/StaminaUpgrade/StaminaInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "75"
+
+[node name="StaminaUpgradeButton" type="Button" parent="VBoxContainer/ScrollContainer/StatsContainer/StaminaUpgrade"]
+layout_mode = 2
+text = "Mejorar (+1) - Costo: 130"
+
+[node name="SkillUpgrade" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="SkillInfo" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/StatsContainer/SkillUpgrade"]
+layout_mode = 2
+
+[node name="SkillLabel" type="Label" parent="VBoxContainer/ScrollContainer/StatsContainer/SkillUpgrade/SkillInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Habilidad:"
+
+[node name="SkillValue" type="Label" parent="VBoxContainer/ScrollContainer/StatsContainer/SkillUpgrade/SkillInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "82"
+
+[node name="SkillUpgradeButton" type="Button" parent="VBoxContainer/ScrollContainer/StatsContainer/SkillUpgrade"]
+layout_mode = 2
+text = "Mejorar (+1) - Costo: 160"

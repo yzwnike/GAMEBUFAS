@@ -1,0 +1,108 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk3m4n5o6p7q"]
+
+[ext_resource type="Script" path="res://scripts/PreMatchMenu.gd" id="1_prematch"]
+[ext_resource type="Texture2D" path="res://assets/images/backgrounds/campo.png" id="2_field_bg"]
+
+[node name="PreMatchMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_prematch")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_field_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0.3, 0, 0.8)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+text = "PRÓXIMO PARTIDO"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 48
+
+[node name="MatchInfoContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MatchDayLabel" type="Label" parent="MarginContainer/VBoxContainer/MatchInfoContainer"]
+layout_mode = 2
+text = "Jornada 1"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+
+[node name="VSContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MatchInfoContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HomeTeamLabel" type="Label" parent="MarginContainer/VBoxContainer/MatchInfoContainer/VSContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "FC BUFAS"
+horizontal_alignment = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="VSLabel" type="Label" parent="MarginContainer/VBoxContainer/MatchInfoContainer/VSContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "VS"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 40
+
+[node name="AwayTeamLabel" type="Label" parent="MarginContainer/VBoxContainer/MatchInfoContainer/VSContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = ""
+horizontal_alignment = 0
+theme_override_font_sizes/font_size = 32
+
+[node name="ActionButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="LineupButton" type="Button" parent="MarginContainer/VBoxContainer/ActionButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "COMPROBAR ALINEACIÓN"
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/ActionButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "IR AL CAMPO"
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Volver al Torneo"

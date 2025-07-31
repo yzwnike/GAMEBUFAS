@@ -1,0 +1,93 @@
+[gd_scene load_steps=3 format=3 uid="uid://c9d8e7f6g5h4"]
+
+[ext_resource type="Script" path="res://scripts/NeighborhoodMenu.gd" id="1_barrio"]
+[ext_resource type="Texture2D" path="res://assets/images/backgrounds/menu.png" id="2_neighborhood"]
+
+[node name="NeighborhoodMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_barrio")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_neighborhood")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.3, 0.1, 0.0, 0.7)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+text = "EL BARRIO"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 64
+
+[node name="MainButtonContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FichajesButton" type="Button" parent="MarginContainer/VBoxContainer/MainButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "FICHAJES"
+
+[node name="SecondaryButtons" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+alignment = 1
+
+[node name="FirstRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SecondaryButtons"]
+layout_mode = 2
+alignment = 1
+
+[node name="EncyclopediaButton" type="Button" parent="MarginContainer/VBoxContainer/SecondaryButtons/FirstRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ENCICLOPEDIA DE JUGADORES"
+
+[node name="ShopButton" type="Button" parent="MarginContainer/VBoxContainer/SecondaryButtons/FirstRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TIENDA DE SUPLEMENTOS"
+
+[node name="SecondRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SecondaryButtons"]
+layout_mode = 2
+alignment = 1
+
+[node name="TransferMarketButton" type="Button" parent="MarginContainer/VBoxContainer/SecondaryButtons/SecondRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MERCADO DE TRASPASOS"
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Volver al Menú Principal"

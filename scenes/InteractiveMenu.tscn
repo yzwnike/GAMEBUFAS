@@ -1,0 +1,132 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8x5xk1jqn1g6"]
+
+[ext_resource type="Script" path="res://scripts/InteractiveMenu.gd" id="1_0x5p2"]
+[ext_resource type="Texture2D" path="res://assets/images/backgrounds/menu.png" id="2_0x5p3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 48
+font_color = Color(1, 1, 1, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="InteractiveMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_0x5p2")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_0x5p3")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="TitleContainer" type="VBoxContainer" parent="UILayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -150.0
+offset_right = 400.0
+offset_bottom = -50.0
+
+[node name="GameTitle" type="Label" parent="UILayer/TitleContainer"]
+layout_mode = 2
+text = "FC BUFAS"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="UILayer/TitleContainer"]
+layout_mode = 2
+text = "Elige tu destino"
+horizontal_alignment = 1
+
+[node name="DayContainer" type="VBoxContainer" parent="UILayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 100.0
+
+[node name="DayLabel" type="Label" parent="UILayer/DayContainer"]
+layout_mode = 2
+text = "Día 1"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="HoverInfo" type="Panel" parent="UILayer"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -350.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = 200.0
+
+[node name="InfoLabel" type="Label" parent="UILayer/HoverInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+text = "Información del área seleccionada"
+autowrap_mode = 3
+
+[node name="ClickableAreas" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="EstadioArea" type="Button" parent="ClickableAreas"]
+layout_mode = 0
+anchors_preset = 4
+anchor_left = 0.0
+anchor_top = 0.5
+anchor_right = 0.0
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -75.0
+offset_right = 250.0
+offset_bottom = 75.0
+flat = true
+
+[node name="CampoArea" type="Button" parent="ClickableAreas"]
+layout_mode = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = 50.0
+offset_right = 125.0
+offset_bottom = 200.0
+flat = true
+
+[node name="BarrioArea" type="Button" parent="ClickableAreas"]
+layout_mode = 0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -75.0
+offset_right = -50.0
+offset_bottom = 75.0
+flat = true
+

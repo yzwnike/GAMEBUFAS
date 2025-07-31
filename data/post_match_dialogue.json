@@ -1,0 +1,158 @@
+
+{
+  "win_branch": [
+    {
+      "character": "narrator",
+      "text": "El silbato final suena. Contra todo pronóstico, has ganado el partido 3 vs 3. Tus rivales están boquiabiertos.",
+      "background": "campo"
+    },
+    {
+      "character": "pablo",
+      "text": "No... no puede ser. ¿Cómo es posible que nos hayáis ganado? ¡Nuestra formación era... perfecta!"
+    },
+    {
+      "character": "perma",
+      "text": "¡Mi six-pack de acero ha sido derrotado! ¡Esto es inaceptable! Exijo la revancha, o... unirme a vosotros. El catering del equipo ganador siempre es mejor."
+    },
+    {
+      "character": "javo",
+      "text": "Hmph. Vuestra tenacidad es... interesante. Sería logísticamente más eficiente aplastar al resto de equipos desde dentro de vuestras filas. Os ofrezco mi inconmensurable talento."
+    },
+    {
+      "character": "narrator",
+      "text": "Los tres rivales, cada uno con sus extrañas motivaciones, te miran fijamente. Parece que te están ofreciendo unirse a tu equipo."
+    },
+    {
+      "character": "yazawa",
+      "text": "Esto es... inesperado. ¿Estáis seguros? Ayer mismo queríais mandarme al hospital."
+    },
+    {
+      "character": "perma",
+      "text": "Detalles, detalles. Además, desde tu equipo podré vigilar de cerca tus rutinas de entrenamiento... y tus snacks. Sobre todo los snacks."
+    },
+    {
+      "character": "narrator",
+      "text": "Y así, de la forma más extraña posible, los tres prodigios del equipo rival ahora son parte de tu equipo. Esto va a ser un caos... o una genialidad."
+    }
+  ],
+  "win_7v7_branch": [
+    {
+      "character": "narrator",
+      "text": "¡Final del partido! FC Bufas ha ganado su primer partido clandestino en una épica batalla 7vs7.",
+      "background": "campo"
+    },
+    {
+      "character": "fan",
+      "text": "¡¡¡SIIIIII!!! ¡Hemos ganado! ¡FC Bufas es imparable! ¡Soy oficialmente parte del mejor equipo del mundo!"
+    },
+    {
+      "character": "pablo",
+      "text": "Increible... con Fan en el equipo somos invencibles. Su entusiasmo es contagioso."
+    },
+    {
+      "character": "perma",
+      "text": "Tengo que admitir que Fan tiene un talento natural. ¡Y sus snacks me dieron la energía extra!"
+    },
+    {
+      "character": "javo",
+      "text": "La química del equipo ha mejorado exponencialmente. FC Bufas... tiene un buen sonido comercial."
+    },
+    {
+      "character": "yazawa",
+      "text": "Entonces... ¿qué hacemos ahora? ¿Seguimos siendo FC Bufas?"
+    },
+    {
+      "character": "fan",
+      "text": "¡POR SUPUESTO! ¡Y propongo que nos apuntemos al torneo clandestino oficial! ¡Podemos conquistar el mundo del fútbol underground!"
+    },
+    {
+      "character": "pablo",
+      "text": "Suena peligroso... ¡Me apunto!"
+    },
+    {
+      "character": "narrator",
+      "text": "Y así, después de su primera victoria, FC Bufas decidió adentrarse en el mundo del fútbol clandestino...",
+      "transition_to": "prologue_end"
+    }
+  ],
+  "loss_7v7_branch": [
+    {
+      "character": "narrator",
+      "text": "Derrota. FC Bufas ha perdido su primer partido clandestino, pero el espíritu de equipo sigue intacto.",
+      "background": "campo"
+    },
+    {
+      "character": "fan",
+      "text": "Bueno... hemos perdido, pero ¡QUÉ PARTIDAZO! ¡Me lo he pasado genial! ¡Esto es mejor que cualquier videojuego!"
+    },
+    {
+      "character": "pablo",
+      "text": "Fan tiene razón. Hemos perdido, pero como equipo hemos dado todo. Eso es lo que importa."
+    },
+    {
+      "character": "perma",
+      "text": "La derrota duele, pero he sentido más adrenalina en este partido que en cualquier rutina de gimnasio."
+    },
+    {
+      "character": "javo",
+      "text": "Analízandolo lógicamente: hemos perdido el partido, pero hemos ganado experiencia de equipo invaluable."
+    },
+    {
+      "character": "yazawa",
+      "text": "Entonces... ¿qué tal si seguimos siendo FC Bufas? Podemos mejorar."
+    },
+    {
+      "character": "fan",
+      "text": "¡SÍ! ¡Y propongo que nos entrenemos más y nos apuntemos al torneo clandestino! ¡La revancha será épica!"
+    },
+    {
+      "character": "pablo",
+      "text": "Una derrota no nos define. ¡Vamos a por ese torneo!"
+    },
+    {
+      "character": "narrator",
+      "text": "Y así, incluso después de la derrota, FC Bufas decidió mantenerse unido y buscar su lugar en el fútbol clandestino...",
+      "transition_to": "prologue_end"
+    }
+  ],
+  "loss_branch": [
+    {
+      "character": "narrator",
+      "text": "El partido termina. Has perdido. Los rivales celebran con un baile de la victoria un tanto ridículo y ofensivo.",
+      "background": "campo"
+    },
+    {
+      "character": "pablo",
+      "text": "¡JA! ¡Victoria aplastante! ¡Somos los mejores, los más guapos y los que mejor olemos! ¡El pack completo!"
+    },
+    {
+      "character": "perma",
+      "text": "¡Toma ya! Ahora, a lo importante. La tradición no escrita del fútbol de barrio y de los romances de una noche dice que... ¡el que pierde paga las bebidas!"
+    },
+    {
+      "character": "yazawa",
+      "text": "(...Me quiero morir...)"
+    },
+    {
+      "character": "javo",
+      "text": "Vuestra derrota ha sido... patética. Pero he de admitir que mostrasteis destellos de potencial. Es un desperdicio que sigáis con ese entrenador."
+    },
+    {
+      "character": "pablo",
+      "text": "¡Tiene razón! Mirad, os seremos sinceros. Nosotros no somos un equipo de verdad. Somos mercenarios. Nos pagaron para poneros a prueba."
+    },
+    {
+      "character": "perma",
+      "text": "¡Y nuestro contrato acaba... AHORA! Nos ha gustado vuestro... ¿cómo se dice? ¿Corazón? ¿Garra? Bah, nos habéis caído bien. Y vuestro equipo parece un circo divertido."
+    },
+    {
+      "character": "javo",
+      "text": "Nuestro antiguo cliente era un aburrido. Unirse a vosotros parece una inversión de futuro más... caótica. Aceptamos un puesto en vuestro equipo. No es una pregunta."
+    },
+    {
+      "character": "narrator",
+      "text": "Sin que pudieras reaccionar, los tres mercenarios renegados se autoproclaman nuevos miembros de tu equipo. Tu vida acaba de volverse mucho más complicada."
+    }
+  ]
+}
+

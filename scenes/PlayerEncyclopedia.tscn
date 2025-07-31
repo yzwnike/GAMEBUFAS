@@ -1,0 +1,107 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfg5xqr6n8n04"]
+
+[ext_resource type="Script" path="res://scripts/PlayerEncyclopedia.gd" id="1_k6m7d"]
+
+[node name="PlayerEncyclopedia" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k6m7d")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.08, 0.12, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Header"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer/Header/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "ENCICLOPEDIA DE JUGADORES"
+horizontal_alignment = 1
+
+[node name="SearchContainer" type="HBoxContainer" parent="VBoxContainer/Header/VBoxContainer"]
+layout_mode = 2
+
+[node name="SearchLabel" type="Label" parent="VBoxContainer/Header/VBoxContainer/SearchContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Buscar:"
+
+[node name="SearchLineEdit" type="LineEdit" parent="VBoxContainer/Header/VBoxContainer/SearchContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Nombre del jugador..."
+
+[node name="FilterContainer" type="HBoxContainer" parent="VBoxContainer/Header/VBoxContainer"]
+layout_mode = 2
+
+[node name="PositionLabel" type="Label" parent="VBoxContainer/Header/VBoxContainer/FilterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Posición:"
+
+[node name="PositionFilter" type="OptionButton" parent="VBoxContainer/Header/VBoxContainer/FilterContainer"]
+layout_mode = 2
+
+[node name="TeamLabel" type="Label" parent="VBoxContainer/Header/VBoxContainer/FilterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Equipo:"
+
+[node name="TeamFilter" type="OptionButton" parent="VBoxContainer/Header/VBoxContainer/FilterContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 4
+
+[node name="Footer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BackButton" type="Button" parent="VBoxContainer/Footer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Volver"

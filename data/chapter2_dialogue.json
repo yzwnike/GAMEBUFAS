@@ -1,0 +1,94 @@
+
+{
+  "title": "Capítulo 2: El Nacimiento de FC Bufas",
+  "dialogue": [
+    {
+      "character": "narrator",
+      "text": "Con tus nuevos (y extraños) compañeros de equipo, recibes una carta misteriosa...",
+      "background": "campo"
+    },
+    {
+      "character": "yazawa",
+      "text": "¿Qué es esto? 'Quedas invitado al Torneo Clandestino de Fútbol 7 de Streamers'. Suena... ilegal. ¡Me apunto!"
+    },
+    {
+      "character": "pablo",
+      "text": "¡Fútbol 7! ¡Mi especialidad! Y ahora que somos 6, necesitamos solo uno más para completar el equipo."
+    },
+    {
+      "character": "perma",
+      "text": "Espera, ¿no éramos 4 antes? ¡Ahora somos 6! Yazawa, tú, yo, Javo, y los otros dos... ¡hemos crecido!"
+    },
+    {
+      "character": "javo",
+      "text": "Efectivamente. La matemática no miente. Necesitamos exactamente una persona más para el fútbol 7."
+    },
+    {
+      "character": "narrator",
+      "text": "De repente, un grupo de 7 figuras misteriosas aparece en el campo. Parecen listas para un partido."
+    },
+    {
+      "character": "desconocido_1",
+      "text": "Hemos oído que buscáis gente para el torneo. Nosotros somos 7. Vosotros sois 6. ¡Demostrad vuestra valía en un 7 contra 6!"
+    },
+    {
+      "character": "yazawa",
+      "text": "¡Un 7 contra 6! ¡Eso es injusto! ... ¡Me encanta!"
+    },
+    {
+      "character": "pablo",
+      "text": "Esperad, eso no es justo. ¿No tenéis a alguien que pueda unirse a nosotros para igualar?"
+    },
+    {
+      "character": "narrator",
+      "text": "De repente, aparece una figura corriendo desde las gradas. Es un fan entusiasta con una camiseta de todos los equipos habidos y por haber."
+    },
+    {
+      "character": "fan",
+      "text": "¡¡¡PARTIDOOOO!!! ¡Me apunto! ¡Soy el mejor suplente del mundo! ¡He jugado FIFA desde los 6 años!"
+    },
+    {
+      "character": "perma",
+      "text": "Es... muy entusiasta. Y lleva calcetines de colores diferentes. ¿Eso es buena señal?"
+    },
+    {
+      "character": "javo",
+      "text": "En el fútbol clandestino, la moda extravagante siempre es señal de talento oculto."
+    },
+    {
+      "character": "yazawa",
+      "text": "¡Perfecto! ¡Ahora somos 7! Fan, ¿estás listo para el partido más loco de tu vida?"
+    },
+    {
+      "character": "fan",
+      "text": "¡¡¡NACÍ LISTO!!! ¡Tengo snacks, bebidas energéticas y 3 inhaladores por si acaso!"
+    },
+    {
+      "character": "desconocido_1",
+      "text": "Muy bien... 7 vs 7. Si ganáis, os respetaremos. Si perdemos... queremos vuestras cuentas de redes sociales."
+    },
+    {
+      "character": "pablo",
+      "text": "¡Eso es peor que las mascotas!"
+    },
+    {
+      "character": "fan",
+      "text": "¡Y si ganamos, propongo que el equipo se llame FC BUFAS! ¡Porque somos unos bufas pero con estilo!"
+    },
+    {
+      "character": "yazawa",
+      "text": "FC Bufas... ¡Me gusta! ¡Suena a campeones!"
+    },
+    {
+      "character": "narrator",
+      "text": "Y así nació FC Bufas, en el momento más ridículo posible. Ahora, el partido más absurdo de la historia: 7 vs 7, donde todo puede pasar...",
+      "effect": "flash"
+    },
+    {
+      "character": "narrator",
+      "text": "¡A jugar!",
+      "transition_to": "match_7v7"
+    }
+  ]
+}
+

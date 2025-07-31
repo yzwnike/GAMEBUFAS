@@ -1,0 +1,68 @@
+{
+  "products": [
+    {
+      "id": "stamina_small",
+      "name": "Mejora de Stamina Pequeña",
+      "description": "Aumenta la resistencia de un jugador en 1 punto.",
+      "image": "res://assets/images/items/stamina_small.png",
+      "price": 100,
+      "type": "stat_boost",
+      "stat": "stamina",
+      "value": 1
+    },
+    {
+      "id": "stamina_large",
+      "name": "Mejora de Stamina Grande",
+      "description": "Aumenta la resistencia de un jugador en 2 puntos.",
+      "image": "res://assets/images/items/stamina_large.png",
+      "price": 180,
+      "type": "stat_boost",
+      "stat": "stamina",
+      "value": 2
+    },
+    {
+      "id": "disquette_oblak",
+      "name": "Disquete de Highlights de Oblak",
+      "description": "Mejora las habilidades de todos los porteros de tu plantilla.",
+      "image": "res://assets/images/items/disquette_oblak.png",
+      "price": 500,
+      "type": "position_boost",
+      "position": "Portero",
+      "stat": "defense",
+      "value": 1
+    },
+    {
+      "id": "disquette_puyol",
+      "name": "Disquete de Highlights de Puyol",
+      "description": "Mejora la defensa de todos los defensas de tu plantilla.",
+      "image": "res://assets/images/items/disquette_puyol.png",
+      "price": 500,
+      "type": "position_boost",
+      "position": "Defensa",
+      "stat": "defense",
+      "value": 1
+    },
+    {
+      "id": "disquette_iniesta",
+      "name": "Disquete de Highlights de Iniesta",
+      "description": "Mejora la habilidad de todos los centrocampistas de tu plantilla.",
+      "image": "res://assets/images/items/disquette_iniesta.png",
+      "price": 500,
+      "type": "position_boost",
+      "position": "Centrocampista",
+      "stat": "skill",
+      "value": 1
+    },
+    {
+      "id": "disquette_falcao",
+      "name": "Disquete de Highlights de Falcao",
+      "description": "Mejora el ataque de todos los delanteros de tu plantilla.",
+      "image": "res://assets/images/items/disquette_falcao.png",
+      "price": 500,
+      "type": "position_boost",
+      "position": "Delantero",
+      "stat": "attack",
+      "value": 1
+    }
+  ]
+}

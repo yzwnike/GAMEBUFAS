@@ -1,0 +1,130 @@
+[gd_scene load_steps=2 format=3 uid="uid://brcxj3b1pqhim"]
+
+[ext_resource type="Script" path="res://scripts/popups/PlayerInfoPopup.gd" id="1_l7t6s"]
+
+[node name="PlayerInfoPopup" type="AcceptDialog"]
+title = "Información del Jugador"
+size = Vector2i(500, 600)
+script = ExtResource("1_l7t6s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 36.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerImage" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2(200, 200)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PlayerName" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Nombre del Jugador"
+horizontal_alignment = 1
+
+[node name="PlayerPosition" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Posición"
+horizontal_alignment = 1
+
+[node name="PlayerOverall" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Overall: 80"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="StatsContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="AttackStat" type="HBoxContainer" parent="VBoxContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="AttackLabel" type="Label" parent="VBoxContainer/StatsContainer/AttackStat"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Ataque:"
+
+[node name="AttackValue" type="Label" parent="VBoxContainer/StatsContainer/AttackStat"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "85"
+
+[node name="DefenseStat" type="HBoxContainer" parent="VBoxContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="DefenseLabel" type="Label" parent="VBoxContainer/StatsContainer/DefenseStat"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Defensa:"
+
+[node name="DefenseValue" type="Label" parent="VBoxContainer/StatsContainer/DefenseStat"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "70"
+
+[node name="SpeedStat" type="HBoxContainer" parent="VBoxContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="SpeedLabel" type="Label" parent="VBoxContainer/StatsContainer/SpeedStat"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Velocidad:"
+
+[node name="SpeedValue" type="Label" parent="VBoxContainer/StatsContainer/SpeedStat"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "80"
+
+[node name="StaminaStat" type="HBoxContainer" parent="VBoxContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="StaminaLabel" type="Label" parent="VBoxContainer/StatsContainer/StaminaStat"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Resistencia:"
+
+[node name="StaminaValue" type="Label" parent="VBoxContainer/StatsContainer/StaminaStat"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "75"
+
+[node name="SkillStat" type="HBoxContainer" parent="VBoxContainer/StatsContainer"]
+layout_mode = 2
+
+[node name="SkillLabel" type="Label" parent="VBoxContainer/StatsContainer/SkillStat"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Habilidad:"
+
+[node name="SkillValue" type="Label" parent="VBoxContainer/StatsContainer/SkillStat"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "82"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerDescription" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Descripción del jugador aquí..."
+fit_content = true

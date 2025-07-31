@@ -1,0 +1,77 @@
+{
+  "title": "Capítulo 1: El Comienzo de la Velada",
+  "dialogue": [
+    {
+      "background": "campo",
+      "text": "Un nuevo día amanece en el mundo del boxeo y los streamers...",
+      "character": "narrator"
+    },
+    {
+      "background": "campo",
+      "character": "grefg",
+      "text": "¡Por fin! Después de meses de preparación, ha llegado el momento de formar el equipo más épico de todos los tiempos."
+    },
+    {
+      "character": "grefg",
+      "text": "TheGrefg FC será imparable. Tenemos a los mejores luchadores, streamers y atletas de toda Latinoamérica."
+    },
+    {
+      "background": "campo",
+      "character": "westcol",
+      "text": "¡Ey parcero! No te emociones tanto, que nosotros también venimos con todo."
+    },
+    {
+      "character": "westcol", 
+      "text": "El Team Westcol va a demostrar de qué estamos hechos. ¡Dale que vamos!"
+    },
+    {
+      "character": "narrator",
+      "text": "Los equipos se han formado y la tensión se puede sentir en el aire..."
+    },
+    {
+      "character": "perxitaa",
+      "text": "Chicos, esto va a ser increíble. Nunca pensé que estaría aquí compitiendo junto a mis ídols."
+    },
+    {
+      "background": "campo",
+      "character": "viruzz",
+      "text": "La competencia será feroz, pero estoy listo. He estado entrenando para este momento."
+    },
+    {
+      "character": "narrator",
+      "text": "¿Cómo quieres abordar la formación de tu equipo?",
+      "choices": [
+        {
+          "text": "Enfocarse en la estrategia y táctica",
+          "id": "strategy_focus"
+        },
+        {
+          "text": "Priorizar la química entre jugadores",
+          "id": "chemistry_focus"
+        },
+        {
+          "text": "Ir con todo al ataque",
+          "id": "attack_focus"
+        }
+      ]
+    },
+    {
+      "character": "narrator",
+      "text": "Tu decisión afectará el desarrollo del equipo en los próximos partidos...",
+      "effect": "flash"
+    },
+    {
+      "background": "campo",
+      "character": "tomas",
+      "text": "¡Vamos team! Sea cual sea la estrategia, daremos todo en el campo."
+    },
+    {
+      "character": "rivaldios",
+      "text": "Esto apenas está comenzando. La Velada del Año será épica."
+    },
+    {
+      "character": "narrator",
+      "text": "Y así comenzó una aventura que cambiaría el mundo del entretenimiento para siempre..."
+    }
+  ]
+}
