@@ -15,6 +15,19 @@ func _ready():
 	# Cargar info del partido
 	load_match_info()
 	
+	# Configurar entrenamiento para el oponente actual
+	setup_training_for_opponent()
+	
+	# Actualizar estado del botón de jugar
+	update_play_button_status()
+	
+	# Configurar un timer para actualizar el estado periódicamente (por si vuelves del entrenamiento)
+	var timer = Timer.new()
+	timer.wait_time = 1.0
+	timer.timeout.connect(update_play_button_status)
+	timer.autostart = true
+	add_child(timer)
+	
 	print("PreMatchMenu: Botones conectados")
 
 func _on_back_pressed():
@@ -26,8 +39,28 @@ func _on_lineup_pressed():
 	get_tree().change_scene_to_file("res://scenes/LineupEditor.tscn")
 
 func _on_play_pressed():
-	print("IR AL CAMPO - SIMULANDO PARTIDO")
-	simulate_match()
+	# Verificar los requisitos antes del partido
+	var issues = []
+
+	# Verificar si se ha completado el entrenamiento
+	if not TrainingManager.has_completed_training():
+		issues.append("Es necesario completar el entrenamiento primero.")
+
+	# Verificar si existe una alineación válida
+	var lineup_script = load("res://scripts/LineupEditor.gd")
+	var lineup = lineup_script.get_saved_lineup()
+	if not lineup or lineup["players"].size() != 7:
+		issues.append("No hay una alineación válida de 7 jugadores guardada.")
+
+	if issues.size() > 0:
+		print("No es posible ir al campo:")
+		for issue in issues:
+			print("- " + issue)
+		# Mostrar un diálogo con todos los problemas
+		show_requirements_dialog(issues)
+	else:
+		print("IR AL CAMPO - SIMULANDO PARTIDO")
+		simulate_match()
 
 func simulate_match():
 	print("Simulando partido...")
@@ -61,7 +94,68 @@ func load_match_info():
 		if opponent_team:
 			get_node("MarginContainer/VBoxContainer/MatchInfoContainer/VSContainer/AwayTeamLabel").text = opponent_team.name
 		
-		get_node("MarginContainer/VBoxContainer/MatchInfoContainer/MatchDayLabel").text = "Jornada " + str(match.match_day)
+	get_node("MarginContainer/VBoxContainer/MatchInfoContainer/MatchDayLabel").text = "Jornada " + str(match.match_day)
+
+func update_play_button_status():
+	"""Actualiza el estado visual del botón IR AL CAMPO según los requisitos"""
+	var play_btn = get_node("MarginContainer/VBoxContainer/ActionButtons/PlayButton")
+	var issues = []
+
+	# Verificar entrenamiento
+	if not TrainingManager.has_completed_training():
+		issues.append("Entrenamiento")
+
+	# Verificar alineación
+	var lineup_script = load("res://scripts/LineupEditor.gd")
+	var lineup = lineup_script.get_saved_lineup()
+	if not lineup or lineup["players"].size() != 7:
+		issues.append("Alineación")
+
+	# Actualizar texto del botón
+	if issues.size() == 0:
+		play_btn.text = "IR AL CAMPO ✓"
+		play_btn.modulate = Color.WHITE
+		play_btn.disabled = false
+	elif issues.size() == 1:
+		play_btn.text = "IR AL CAMPO (Falta: " + issues[0] + ")"
+		play_btn.modulate = Color.LIGHT_GRAY
+		play_btn.disabled = false
+	else:
+		play_btn.text = "IR AL CAMPO (Faltan " + str(issues.size()) + " pasos)"
+		play_btn.modulate = Color.LIGHT_GRAY
+		play_btn.disabled = false
+
+func show_requirements_dialog(issues):
+	"""Muestra un diálogo con los requisitos faltantes"""
+	var dialog = AcceptDialog.new()
+	dialog.title = "Requisitos para jugar"
+	
+	var message = "Antes de ir al campo debes completar:\n\n"
+	for i in range(issues.size()):
+		message += str(i + 1) + ". " + issues[i] + "\n"
+	
+	dialog.dialog_text = message
+	get_tree().current_scene.add_child(dialog)
+	dialog.popup_centered()
+	
+	# Auto-destruir después de cerrar
+	dialog.confirmed.connect(func(): dialog.queue_free())
+
+func setup_training_for_opponent():
+	"""Configura el TrainingManager para el oponente actual"""
+	var match = LeagueManager.get_next_match()
+	if match:
+		# Determinar quién es el rival de FC Bufas
+		var opponent_id = ""
+		if match.home_team == "fc_bufas":
+			opponent_id = match.away_team
+		else:
+			opponent_id = match.home_team
+		
+		var opponent_team = LeagueManager.get_team_by_id(opponent_id)
+		if opponent_team:
+			TrainingManager.set_current_opponent(opponent_team.name)
+			print("PreMatchMenu: Configurado entrenamiento vs ", opponent_team.name)
 
 func create_lineup_editor():
 	print("Creando editor de alineación...")

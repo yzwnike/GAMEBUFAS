@@ -55,13 +55,13 @@
       "id": "manu", "name": "Manu", "position": "Mediocentro", "overall": 75, "attack": 73, "defense": 70, "speed": 75, "stamina": 78, "skill": 77, "image": "res://assets/images/characters/proximamente1.png", "description": "Un mediocentro inteligente con buena lectura del juego y pases largos.", "team": "Chocolateros FC"
     },
     {
-      "id": "oblak", "name": "Oblak", "position": "Portero", "overall": 84, "attack": 35, "defense": 95, "speed": 65, "stamina": 85, "skill": 88, "image": "res://assets/images/characters/proximamente1.png", "description": "Un portero de élite mundial con reflejos excepcionales y gran seguridad bajo palos.", "team": "Reyes de Jalisco"
+"id": "oblak", "name": "Oblak", "position": "Portero", "overall": 84, "attack": 35, "defense": 95, "speed": 65, "stamina": 85, "skill": 88, "image": "res://assets/images/characters/oblak.png", "description": "Un portero de élite mundial con reflejos excepcionales y gran seguridad bajo palos.", "team": "Reyes de Jalisco"
     },
     {
-      "id": "joan_garcia", "name": "Joan García", "position": "Portero", "overall": 76, "attack": 32, "defense": 88, "speed": 62, "stamina": 78, "skill": 80, "image": "res://assets/images/characters/proximamente1.png", "description": "Un portero joven con gran potencial y excelente juego con los pies.", "team": "Patrulla Canina"
+"id": "joan_garcia", "name": "Joan García", "position": "Portero", "overall": 76, "attack": 32, "defense": 88, "speed": 62, "stamina": 78, "skill": 80, "image": "res://assets/images/characters/joan_garcia.png", "description": "Un portero joven con gran potencial y excelente juego con los pies.", "team": "Patrulla Canina"
     },
     {
-      "id": "szczesny", "name": "Szczesny", "position": "Portero", "overall": 79, "attack": 38, "defense": 90, "speed": 68, "stamina": 80, "skill": 82, "image": "res://assets/images/characters/proximamente1.png", "description": "Un portero experimentado con gran personalidad y liderazgo desde la portería.", "team": "Inter de Panzones"
+"id": "szczesny", "name": "Szczesny", "position": "Portero", "overall": 79, "attack": 38, "defense": 90, "speed": 68, "stamina": 80, "skill": 82, "image": "res://assets/images/characters/szczesny.png", "description": "Un portero experimentado con gran personalidad y liderazgo desde la portería.", "team": "Inter de Panzones"
     },
     {
       "id": "araujo", "name": "Araujo", "position": "Defensa", "overall": 79, "attack": 62, "defense": 90, "speed": 78, "stamina": 82, "skill": 76, "image": "res://assets/images/characters/proximamente1.png", "description": "Un defensa central moderno con gran velocidad y fortaleza física.", "team": "Deportivo Magadios"

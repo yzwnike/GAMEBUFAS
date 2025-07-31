@@ -22,6 +22,10 @@ func advance_day():
 	# Notificar al TransferMarketManager
 	if TransferMarketManager:
 		TransferMarketManager.advance_day()
+	
+	# Reiniciar estado de entrenamiento para nuevo día
+	if TrainingManager:
+		TrainingManager.reset_training()
 
 func get_day_text() -> String:
 	return "Día %d de la aventura" % current_day

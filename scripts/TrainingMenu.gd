@@ -14,7 +14,13 @@ func _ready():
 	
 	# Conectar señales de botones
 	connect_buttons()
+
+	# Configurar oponente actual para el entrenamiento
+	setup_training_opponent()
 	
+	# Actualizar estado del botón de entrenamiento
+	update_training_button()
+
 	print("TrainingMenu: Menú de entrenamiento listo")
 
 func setup_styles():
@@ -53,13 +59,17 @@ func _on_training_button_pressed():
 	if players_manager != null:
 		players_manager.add_experience_after_training()
 		print("¡Entrenamiento completado! Todos los jugadores ganaron 2 puntos de experiencia.")
-	
+
+	# Marcar entrenamiento como completado en TrainingManager
+	TrainingManager.complete_training()
+	print("TrainingMenu: Entrenamiento marcado como completado")
+
 	# Avanzar un día después del entrenamiento
 	if DayManager:
 		DayManager.advance_day()
 		print("TrainingMenu: Día avanzado después del entrenamiento")
-	
-	# TODO: Implementar minijuego de entrenamiento más complejo en el futuro
+
+	update_training_button()
 
 func _on_inventory_button_pressed():
 	print("TrainingMenu: Botón 'Inventario' presionado")
@@ -68,6 +78,40 @@ func _on_inventory_button_pressed():
 func _on_back_button_pressed():
 	print("TrainingMenu: Volviendo al menú principal...")
 	get_tree().change_scene_to_file("res://scenes/InteractiveMenu.tscn")
+
+func setup_training_opponent():
+	"""Configura el oponente actual para el entrenamiento"""
+	var match = LeagueManager.get_next_match()
+	if match:
+		# Determinar quién es el rival de FC Bufas
+		var opponent_id = ""
+		if match.home_team == "fc_bufas":
+			opponent_id = match.away_team
+		else:
+			opponent_id = match.home_team
+		
+		var opponent_team = LeagueManager.get_team_by_id(opponent_id)
+		if opponent_team:
+			TrainingManager.set_current_opponent(opponent_team.name)
+			print("TrainingMenu: Configurado entrenamiento vs ", opponent_team.name)
+
+func update_training_button():
+	"""Actualiza el estado del botón de entrenamiento según el estado del entrenamiento"""
+	var opponent = TrainingManager.get_current_opponent()
+	var training_completed = TrainingManager.has_completed_training()
+	
+	if training_completed and opponent != "":
+		training_button.text = "ENTRENAMIENTO COMPLETADO, HORA DE JUGAR"
+		training_button.disabled = true
+		training_button.modulate = Color.GRAY  # Hacer el botón más oscuro
+	elif opponent != "":
+		training_button.text = "INICIAR ENTRENAMIENTO vs " + opponent
+		training_button.disabled = false
+		training_button.modulate = Color.WHITE
+	else:
+		training_button.text = "INICIAR ENTRENAMIENTO"
+		training_button.disabled = false
+		training_button.modulate = Color.WHITE
 
 # Función para manejar la tecla ESC (volver atrás)
 func _input(event):

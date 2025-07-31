@@ -24,6 +24,7 @@ PlayersManager="*res://scripts/PlayersManager.gd"
 TransferManager="*res://scripts/TransferManager.gd"
 TransferMarketManager="*res://scripts/TransferMarketManager.gd"
 DayManager="*res://scripts/DayManager.gd"
+TrainingManager="*res://scripts/TrainingManager.gd"
 
 [display]
 
