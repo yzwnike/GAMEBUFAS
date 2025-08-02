@@ -7,6 +7,7 @@ extends Control
 @onready var event_panel = $EventPanel
 @onready var event_description = $EventPanel/EventDescription
 @onready var event_choices_container = $EventPanel/EventChoices
+@onready var player_image = $EventPanel/PlayerImage
 @onready var feedback_panel = $FeedbackPanel
 @onready var feedback_label = $FeedbackPanel/FeedbackLabel
 
@@ -17,12 +18,53 @@ var current_event_index = 0
 var total_events = 10
 var match_events = []
 
+# --- Variables para eventos dinámicos ---
+var dynamic_events = []
+var played_players = []  # Jugadores que participaron en el partido dinámico
+
+# --- Variables para debugging y eventos encadenados ---
+var force_next_position = ""  # Para forzar la siguiente posición después de un éxito
+var debug_enabled = true
+var is_dynamic_match = false  # Variable para controlar si es un partido dinámico
+
 # --- Configuración de colores para bordes ---
 var attack_color = Color(0, 1, 0, 1)  # Verde brillante y opaco
 var defense_color = Color(1, 0, 0, 1)  # Rojo brillante y opaco
 var neutral_color = Color(1, 1, 1, 1)  # Blanco brillante
 
 func _ready():
+	# CONFIGURACIÓN AUTOMÁTICA PARA TESTING
+	GameManager.set_story_flag("match_type", "dynamic")
+	GameManager.set_story_flag("rival_team", "Deportivo Magadios")
+	
+	# LIMPIAR ALINEACIÓN ANTERIOR Y CARGAR DESDE ARCHIVO
+	print("=== INICIALIZANDO ALINEACIÓN ===")
+	if LineupManager:
+		LineupManager.clear_lineup()
+		print("Alineación anterior limpiada")
+		
+		# CARGAR ALINEACIÓN DESDE ARCHIVO
+		load_lineup_from_file()
+		
+		# VERIFICAR ALINEACIÓN CARGADA
+		var saved_lineup = LineupManager.get_saved_lineup()
+		if saved_lineup and saved_lineup.players:
+			print("=== ALINEACIÓN CARGADA EXITOSAMENTE ===")
+			print("Formación: ", saved_lineup.formation)
+			print("Jugadores en alineación: ", saved_lineup.players.size())
+			for key in saved_lineup.players.keys():
+				var player = saved_lineup.players[key]
+				if player:
+					print("  " + key + ": " + player.name + " (" + player.get("position", "Sin posición") + ")")
+				else:
+					print("  " + key + ": [VACÍO]")
+			print("=========================================")
+		else:
+			print("ADVERTENCIA: No se pudo cargar alineación. Usará eventos estáticos.")
+	else:
+		print("ERROR: LineupManager no disponible")
+	
+	
 	# Detectar tipo de partido
 	var match_type = GameManager.get_story_flag("match_type", "3v3")
 	var rival_team = GameManager.get_story_flag("rival_team", "equipo desconocido")
@@ -52,6 +94,7 @@ func start_match():
 	score_blue = 0
 	score_red = 0
 	current_event_index = 0
+	played_players.clear()  # Limpiar lista de jugadores que participaron
 	feedback_panel.visible = false
 	_next_event()
 
@@ -59,8 +102,46 @@ func _next_event():
 	if current_event_index >= total_events:
 		end_match()
 		return
-
-	var current_event = match_events[current_event_index]
+	
+	# GENERAR EVENTO DINÁMICAMENTE PARA PARTIDOS DINÁMICOS
+	var current_event
+	if is_dynamic_match:
+		# Generar evento dinámico en tiempo real
+		var position = choose_event_based_on_probability()
+		var event_template = find_event_for_position(position)
+		
+		if not event_template:
+			print("ERROR: No se encontró evento para posición: " + position)
+			_next_event()  # Intentar con otro evento
+			return
+		
+		current_event = create_processed_event(event_template)
+		
+		if not current_event:
+			print("ERROR: No se pudo crear evento procesado")
+			_next_event()  # Intentar con otro evento
+			return
+		
+		if debug_enabled:
+			print("=== EVENTO DINÁMICO GENERADO ===")
+			print("Posición: " + position)
+			print("Evento: " + current_event.text)
+			print("================================")
+	else:
+		# Para partidos estáticos, usar la lista pre-generada
+		if match_events.size() == 0:
+			print("ERROR CRITICO: No hay eventos generados. Usando eventos estáticos como fallback")
+			match_events = get_3v3_events()
+			if match_events.size() == 0:
+				print("ERROR CRITICO: Tampoco se pudieron cargar eventos estáticos")
+				return
+		
+		if current_event_index >= match_events.size():
+			print("ERROR: Índice fuera de rango. Eventos disponibles: ", match_events.size(), ", Índice actual: ", current_event_index)
+			end_match()
+			return
+		
+		current_event = match_events[current_event_index]
 	
 	# Determinar tipo de evento y establecer color del borde
 	var event_type = get_event_type(current_event)
@@ -70,6 +151,9 @@ func _next_event():
 	event_panel.visible = true
 	feedback_panel.visible = false
 	event_description.text = current_event.text
+	
+	# Actualizar imagen del jugador si es un evento dinámico
+	update_player_image(current_event)
 	
 	# Aplicar color del borde al panel de eventos
 	if event_panel.has_method("add_theme_stylebox_override"):
@@ -117,41 +201,452 @@ func _on_choice_selected(choice):
 	_next_event()
 
 func resolve_action(choice) -> String:
-	var success_chance = 100 - choice.difficulty
+	# Calcular probabilidad según el tipo de evento
+	var success_chance = 50  # Valor por defecto
+	if choice.has("player") and choice.has("substat"):
+		# Eventos dinámicos: usar substats
+		success_chance = calculate_success_probability(choice)
+	else:
+		# Eventos tradicionales: usar dificultad
+		success_chance = 100 - choice.get("difficulty", 50)
+	
+	# Debug info
+	if debug_enabled:
+		print("======= EVENTO ACTUAL =======")
+		print("Resolving action: '" + choice.text + "'")
+		if choice.has("player"):
+			print("Jugador: " + choice.player.name)
+		if choice.has("substat"):
+			print("Substat utilizado: " + choice.substat)
+		print("Probabilidad de éxito: " + str(success_chance) + "%")
+		if force_next_position != "":
+			print("FORZANDO próximo evento a: " + force_next_position)
+	
 	var roll = randi_range(1, 100)
-	var success = roll < success_chance
+	var success = roll <= success_chance
+	
+	if debug_enabled:
+		print("Tirada: " + str(roll) + " vs " + str(success_chance))
+		print("Resultado: " + ("ÉXITO" if success else "FALLO"))
+	
+	# APLICAR LÓGICA DE ENCADENAMIENTO
+	# Determinar la posición actual del evento
+	var current_position = ""
+	if choice.has("player"):
+		current_position = choice.player.get("position", "")
+	
+	# Lógica de encadenamiento
+	if success and current_position == "Mediocentro":
+		# Si un Mediocentro ACIERTA -> siguiente evento 100% Delantero
+		force_next_position = "Delantero"
+		if debug_enabled:
+			print("=== ENCADENAMIENTO ACTIVADO ===")
+			print("Mediocentro acertó -> Próximo evento será 100% Delantero")
+			print("Acción exitosa: " + choice.action)
+			print("==============================")
+	elif not success and current_position == "Defensa":
+		# Si un Defensa FALLA -> siguiente evento 100% Portero
+		force_next_position = "Portero"
+		if debug_enabled:
+			print("=== ENCADENAMIENTO ACTIVADO ===")
+			print("Defensa falló -> Próximo evento será 100% Portero")
+			print("==============================")
 	
 	var feedback = ""
 
 	if success:
 		feedback = choice.success_text
 		match choice.action:
-			"score_goal": score_blue += 1
-			"concede_goal": score_red += 1
+			"score_goal": 
+				score_blue += 1
+				if debug_enabled:
+					print("¡GOL MARCADO! Yazawa's Team: " + str(score_blue))
+			"concede_goal": 
+				# Éxito en concede_goal significa que se EVITA el gol
+				if debug_enabled:
+					print("¡GOL DEL RIVAL EVITADO! Buena defensa.")
 	else:
 		feedback = choice.fail_text
 		# Casos específicos donde el rival marca al fallar
 		match choice.action:
 			"concede_goal":
 				score_red += 1
+				if debug_enabled:
+					print("¡GOL DEL RIVAL! Equipo Rival: " + str(score_red))
 			"block_shot":
 				if "marca a placer" in choice.fail_text or "marca con comodidad" in choice.fail_text or "marca desde los once metros" in choice.fail_text:
 					score_red += 1
+					if debug_enabled:
+						print("¡GOL DEL RIVAL por fallo en bloqueo! Equipo Rival: " + str(score_red))
 			"tackle":
 				if "marca con comodidad" in choice.fail_text or "marca desde los once metros" in choice.fail_text:
 					score_red += 1
+					if debug_enabled:
+						print("¡GOL DEL RIVAL por fallo en tackle! Equipo Rival: " + str(score_red))
 			"contain":
 				if "marca" in choice.fail_text:
 					score_red += 1
+					if debug_enabled:
+						print("¡GOL DEL RIVAL por fallo en contención! Equipo Rival: " + str(score_red))
 			"pass_short":
 				if "marca el rebote" in choice.fail_text:
 					score_red += 1
-				elif randi_range(1, 100) < 25:
+					if debug_enabled:
+						print("¡GOL DEL RIVAL en rebote! Equipo Rival: " + str(score_red))
+				elif not is_dynamic_match and randi_range(1, 100) < 25:
 					feedback += "\n¡El rival roba el balón y marca en un contraataque!"
 					score_red += 1
-	
+					if debug_enabled:
+						print("¡GOL DEL RIVAL en contraataque! Equipo Rival: " + str(score_red))
+
 	score_label.text = "Yazawa's Team %d - %d Equipo Rival" % [score_blue, score_red]
+	
+	if debug_enabled:
+		print("Marcador actual: Yazawa " + str(score_blue) + " - " + str(score_red) + " Rival")
+		print("==============================")
+	
 	return feedback
+
+func calculate_success_probability(choice) -> int:
+	# Verificar si tiene substat y jugador
+	if not choice.has("substat") or not choice.has("player"):
+		return 50
+
+	# Obtener el valor del substat
+	var player = choice.player
+	var substat_value = player.get(choice.substat, 50)
+	
+	# Obtener la moral actual del jugador
+	var current_morale = player.get("current_morale", 5)
+	
+	# Calcular modificador de moral
+	# Moral 5 = 0 modificador, cada punto arriba/abajo de 5 da +1/-1
+	var morale_modifier = current_morale - 5
+	
+	# Aplicar modificador de moral al substat
+	var modified_substat = substat_value + morale_modifier
+
+	# Calcular probabilidad: substat modificado - 15
+	var probability = modified_substat - 15
+
+	# Asegurar la probabilidad está en el rango 5% a 95%
+	probability = max(5, min(95, probability))
+
+	if debug_enabled:
+		print("=== Probabilidad de Éxito ===")
+		print("Jugador: " + player.name)
+		print("Substat: " + choice.substat)
+		print("Valor base del Substat: " + str(substat_value))
+		print("Moral actual: " + str(current_morale))
+		print("Modificador de moral: " + str(morale_modifier))
+		print("Substat con moral: " + str(modified_substat))
+		print("Probabilidad final: " + str(probability) + "%")
+		print("============================")
+
+	return probability
+
+func load_dynamic_events():
+	dynamic_events = [
+		# EVENTO PORTERO
+		{
+			"position": "Portero",
+			"text": "¡Tiro sorpresivo desde fuera del área! %s tiene que reaccionar rápidamente.",
+			"choices": [
+				{
+					"text": "Estirarse al máximo para desviar con la mano",
+					"substat": "reflexes",
+					"action": "concede_goal",
+					"success_text": "%s realiza una parada espectacular desviando el balón con la punta de los dedos.",
+					"fail_text": "%s se estira pero no llega al balón."
+				},
+				{
+					"text": "Anticipar el rebote y posicionarse",
+					"substat": "positioning",
+					"action": "concede_goal",
+					"success_text": "%s se posiciona bien y captura el rebote.",
+					"fail_text": "%s se posiciona mal y el rebote es aprovechado por el rival."
+				},
+				{
+					"text": "Gritar para agrupar a la defensa",
+					"substat": "concentration",
+					"action": "concede_goal",
+					"success_text": "%s organiza la defensa que bloquea el disparo.",
+					"fail_text": "%s grita pero la defensa no reacciona a tiempo."
+				}
+			]
+		},
+		# EVENTO DEFENSA
+		{
+			"position": "Defensa",
+			"text": "¡El delantero rival avanza con peligro! %s debe actuar.",
+			"choices": [
+				{
+					"text": "Marcar estrechamente al atacante",
+					"substat": "marking",
+					"action": "defend",
+					"success_text": "%s marca perfectamente y el atacante no puede avanzar.",
+					"fail_text": "%s pierde el marcaje y el atacante se escapa."
+				},
+				{
+					"text": "Hacer una entrada para robar el balón",
+					"substat": "tackling",
+					"action": "defend",
+					"success_text": "%s realiza un tackle limpio y recupera el balón.",
+					"fail_text": "%s falla el tackle y comete falta."
+				},
+				{
+					"text": "Posicionarse para cerrar espacios",
+					"substat": "positioning",
+					"action": "defend",
+					"success_text": "%s se posiciona bien y cierra todos los espacios.",
+					"fail_text": "%s se posiciona mal y deja huecos peligrosos."
+				}
+			]
+		},
+		# EVENTO MEDIOCENTRO (corrigiendo el nombre)
+		{
+			"position": "Mediocentro",
+			"text": "¡%s recibe el balón en el centro del campo con tiempo para decidir!",
+			"choices": [
+				{
+					"text": "Pase corto al compañero más cercano",
+					"substat": "short_pass",
+					"action": "pass_short",
+					"success_text": "%s hace un pase corto preciso que mantiene la posesión.",
+					"fail_text": "%s falla el pase corto y lo intercepta el rival."
+				},
+				{
+					"text": "Pase largo al delantero",
+					"substat": "long_pass",
+					"action": "pass_long",
+					"success_text": "%s ejecuta un pase largo perfecto al delantero.",
+					"fail_text": "%s envía el pase largo fuera del alcance del delantero."
+				},
+				{
+					"text": "Regatear y avanzar con el balón",
+					"substat": "dribbling",
+					"action": "dribble",
+					"success_text": "%s supera a dos rivales con un regate espectacular.",
+					"fail_text": "%s pierde el balón al intentar el regate."
+				}
+			]
+		},
+		# EVENTO DELANTERO
+		{
+			"position": "Delantero",
+			"text": "¡Oportunidad de gol! %s está solo en el área rival.",
+			"choices": [
+				{
+					"text": "Disparo potente al arco",
+					"substat": "shooting",
+					"action": "score_goal",
+					"success_text": "%s dispara con potencia y anota un golazo.",
+					"fail_text": "%s dispara fuerte pero el balón se va por encima del arco."
+				},
+				{
+					"text": "Remate de cabeza",
+					"substat": "heading",
+					"action": "score_goal",
+					"success_text": "%s cabecea perfectamente y marca de cabeza.",
+					"fail_text": "%s falla el cabezazo y el balón se va fuera."
+				},
+				{
+					"text": "Amagar y buscar mejor ángulo",
+					"substat": "dribbling",
+					"action": "dribble_shot",
+					"success_text": "%s engaña al portero con una amague y marca.",
+					"fail_text": "%s demora demasiado y un defensa le quita el balón."
+				}
+			]
+		}
+	]
+	
+func setup_match_events():
+	match_events.clear()
+	played_players.clear()  # Asegurar que esté limpio
+	# NO GENERAR TODOS LOS EVENTOS AL INICIO
+	# Los eventos se generarán dinámicamente durante el partido
+	
+	if debug_enabled:
+		print("=== SISTEMA DINÁMICO ACTIVADO ===")
+		print("Los eventos se generarán durante el partido con encadenamiento")
+		print("======================================")
+
+func choose_event_based_on_probability():
+	# Si hay una posición forzada, usarla
+	if force_next_position != "":
+		var forced_position = force_next_position
+		force_next_position = ""  # Resetear después de usar
+		if debug_enabled:
+			print("Usando evento FORZADO: " + forced_position)
+		return forced_position
+	
+	# Si no, usar probabilidades normales
+	# 10% Portero, 40% Defensa, 40% Mediocentro, 10% Delantero
+	var roll = randi_range(1, 100)
+	if debug_enabled:
+		print("Evento aleatorio - tirada: " + str(roll))
+	
+	if roll <= 10:
+		if debug_enabled:
+			print("Selección: Portero (1-10)")
+		return "Portero"
+	elif roll <= 50:  # 10 + 40 = 50
+		if debug_enabled:
+			print("Selección: Defensa (11-50)")
+		return "Defensa"
+	elif roll <= 90:  # 50 + 40 = 90
+		if debug_enabled:
+			print("Selección: Mediocentro (51-90)")
+		return "Mediocentro"
+	else:  # 91-100 (10%)
+		if debug_enabled:
+			print("Selección: Delantero (91-100)")
+		return "Delantero"
+
+func create_processed_event(event):
+	var selected_player = get_random_player_by_position(event.position)
+	if not selected_player:
+		if debug_enabled:
+			print("ERROR: No se pudo seleccionar jugador para posición " + event.position)
+		return null
+
+	if debug_enabled:
+		print("=== CREANDO EVENTO PROCESADO ===")
+		print("Posición del evento: " + event.position)
+		print("Jugador seleccionado: " + selected_player.name)
+		print("Texto del evento: " + (event.text % selected_player.name))
+
+	var processed_event = {
+		"text": event.text % selected_player.name,
+		"choices": [],
+		"event_position": event.position  # Añadir para debug
+	}
+
+	# Registrar que este jugador participó en el partido
+	if selected_player.id not in played_players:
+		played_players.append(selected_player.id)
+		if debug_enabled:
+			print("Jugador añadido a la lista de participantes: ", selected_player.name, " (ID: ", selected_player.id, ")")
+
+	for choice in event.choices:
+		var processed_choice = {
+			"text": choice.text,
+			"action": choice.action,
+			"substat": choice.substat,
+			"player": selected_player,
+			"success_text": choice.success_text % selected_player.name,
+			"fail_text": choice.fail_text % selected_player.name
+		}
+		processed_event.choices.append(processed_choice)
+	
+	if debug_enabled:
+		print("=== EVENTO PROCESADO CREADO ===")
+	
+	return processed_event
+
+func find_event_for_position(position: String):
+	for event in dynamic_events:
+		if event.position == position:
+			return event
+	return null
+
+func get_random_player_by_position(position: String):
+	if not LineupManager:
+		if debug_enabled:
+			print("ERROR: LineupManager no disponible")
+		return null
+	
+	var saved_lineup = LineupManager.get_saved_lineup()
+	if not saved_lineup:
+		if debug_enabled:
+			print("ERROR: No hay alineación guardada")
+		return null
+	
+	# DEBUG EXTRA: Mostrar toda la información del lineup
+	if debug_enabled:
+		print("=== DEBUG DETALLADO LINEUP ===")
+		print("Formación guardada: ", saved_lineup.formation)
+		print("Jugadores guardados:")
+		for key in saved_lineup.players.keys():
+			var player = saved_lineup.players[key]
+			if player:
+				print("  " + key + ": " + player.name + " (" + player.get("position", "Sin posición") + ")")
+			else:
+				print("  " + key + ": [NULL]")
+		print("================================")
+	
+	var lineup_data = saved_lineup.players
+	var formation = saved_lineup.formation  # Usar la formación real guardada
+	if not lineup_data:
+		if debug_enabled:
+			print("ERROR: No hay datos de jugadores en la alineación")
+		return null
+	
+	if debug_enabled:
+		print("=== BÚSQUEDA DE JUGADOR ===")
+		print("Formación detectada: " + str(formation))
+		print("Buscando jugador para posición: " + position)
+		print("Jugadores disponibles en alineación: " + str(lineup_data.size()))
+	
+	# Buscar jugadores por posición real - ahora recorremos todos los jugadores guardados
+	var available_players = []
+	for key in lineup_data.keys():
+		var player = lineup_data[key]
+		if player != null and player.has("position") and player.position == position:
+			available_players.append(player)
+	
+	if available_players.size() > 0:
+		var selected_player = available_players[randi() % available_players.size()]
+		if debug_enabled:
+			print("Jugadores disponibles para " + position + ": " + str(available_players.size()))
+			var player_names = []
+			for p in available_players:
+				player_names.append(p.name)
+			print("Lista de jugadores: " + str(player_names))
+			print(position + " seleccionado: " + selected_player.name)
+		return selected_player
+	else:
+		if debug_enabled:
+			print("ERROR: No hay jugadores disponibles en la alineación para la posición " + position)
+			# Mostrar todos los jugadores disponibles para debug
+			print("Jugadores en la alineación:")
+			for key in lineup_data.keys():
+				var player = lineup_data[key]
+				if player != null:
+					var player_pos = player.get("position", "Sin posición")
+					print("  " + player.name + " - Posición: " + str(player_pos))
+		return null
+	
+	if debug_enabled:
+		print("=== FIN BÚSQUEDA ===")
+	return null
+
+func get_player_position(player) -> String:
+	# Función para determinar la posición de un jugador basándose en la alineación
+	if not LineupManager:
+		return ""
+	
+	var saved_lineup = LineupManager.get_saved_lineup()
+	if not saved_lineup or not saved_lineup.players:
+		return ""
+	
+	var lineup_data = saved_lineup.players
+	
+	# Buscar en qué posición está el jugador
+	for position_key in lineup_data.keys():
+		var position_player = lineup_data[position_key]
+		if position_player and position_player.name == player.name:
+			if position_key.begins_with("GK"):
+				return "Portero"
+			elif position_key.begins_with("DEF"):
+				return "Defensa"
+			elif position_key.begins_with("MID"):
+				return "Centrocampista"
+			elif position_key.begins_with("ATT"):
+				return "Delantero"
+	
+	return ""
 
 func end_match():
 	event_panel.visible = false
@@ -175,6 +670,13 @@ func end_match():
 	# Registrar el resultado en el GameManager
 	GameManager.add_match_result(score_blue, score_red)
 	
+	# La moral se actualizará en BranchingDialogue.gd junto con la stamina
+	if debug_enabled:
+		print("=== RESULTADO FINAL ===")
+		print("Marcador final: Yazawa ", score_blue, " - ", score_red, " Rival")
+		print("La moral se actualizará en el diálogo post-partido")
+		print("=========================")
+	
 	# Preparar la transición al diálogo post-partido después de 3 segundos
 	var transition_timer = get_tree().create_timer(3.0)
 	await transition_timer.timeout
@@ -190,6 +692,9 @@ func end_match():
 		else:
 			# Para derrotas y empates en 7v7, usar la rama de derrota 7v7
 			dialogue_branch = "loss_7v7"
+	elif match_type == "dynamic":
+		# Para partidos dinámicos, usar las ramas estándar
+		dialogue_branch = match_result if match_result != "draw" else "loss"
 	else:
 		# Para partidos 3v3, usar las ramas originales
 		dialogue_branch = match_result if match_result != "draw" else "loss"
@@ -241,11 +746,18 @@ func get_border_color(event_type: String) -> Color:
 
 func setup_events():
 	var all_events = []
-	# Cargar eventos según el tipo de partido
+# Cargar eventos según el tipo de partido
 	var match_type = GameManager.get_story_flag("match_type", "3v3")
 	if match_type == "7v7":
+		is_dynamic_match = false
 		all_events = get_7v7_events()
+	elif match_type == "dynamic":
+		is_dynamic_match = true
+		load_dynamic_events()
+		setup_match_events()
+		return
 	else:
+		is_dynamic_match = false
 		all_events = get_3v3_events()
 
 	match_events.clear()
@@ -561,6 +1073,84 @@ func get_3v3_events():
 			]
 		}
 	]
+
+func skip_entire_dialogue():
+	# Esta función no aplica al simulador de fútbol ya que no es un diálogo
+	# pero la incluimos para compatibilidad
+	print("FootballSimulator: skip_entire_dialogue llamado, pero no es aplicable en el simulador")
+	# Podríamos hacer que termine el partido inmediatamente como "cheat"
+	# end_match()
+
+# Función para cargar alineación desde archivo
+func load_lineup_from_file():
+	var file = FileAccess.open("user://saved_lineup.json", FileAccess.READ)
+	if not file:
+		print("No hay archivo de alineación guardado")
+		return
+	
+	var json_text = file.get_as_text()
+	file.close()
+	
+	var json = JSON.new()
+	var parse_result = json.parse(json_text)
+	
+	if parse_result == OK:
+		var data = json.data
+		var saved_lineup = {}
+		var last_used_formation = ""
+		
+		if data.has("saved_lineup"):
+			saved_lineup = data["saved_lineup"]
+			print("✓ Alineación cargada desde archivo - Jugadores: ", saved_lineup.size())
+		if data.has("last_used_formation"):
+			last_used_formation = data["last_used_formation"]
+			print("✓ Formación cargada: ", last_used_formation)
+		
+		# Guardar en LineupManager para que esté disponible
+		if saved_lineup.size() > 0 and last_used_formation != "":
+			LineupManager.save_lineup(last_used_formation, saved_lineup)
+			print("✓ Alineación transferida a LineupManager")
+	else:
+		print("ERROR: No se pudo parsear el archivo de alineación")
+
+func update_player_image(event):
+	# Verificar que player_image existe
+	if not player_image:
+		if debug_enabled:
+			print("ADVERTENCIA: player_image no está disponible")
+		return
+	
+	# Actualizar la imagen del jugador solo para eventos dinámicos
+	if not event.has("choices") or event.choices.size() == 0:
+		player_image.texture = null
+		return
+	
+	# Obtener el jugador del primer choice (todos deberían tener el mismo jugador)
+	var first_choice = event.choices[0]
+	if not first_choice.has("player"):
+		player_image.texture = null
+		return
+	
+	var player = first_choice.player
+	if not player.has("image_path"):
+		# Si no tiene image_path, ocultar la imagen
+		player_image.texture = null
+		if debug_enabled:
+			print("No se encontró image_path para el jugador: " + player.name)
+		return
+	
+	# Cargar la imagen del jugador
+	var image_path = player.image_path
+	var texture = load(image_path)
+	
+	if texture:
+		player_image.texture = texture
+		if debug_enabled:
+			print("Imagen cargada para " + player.name + ": " + image_path)
+	else:
+		player_image.texture = null
+		if debug_enabled:
+			print("No se pudo cargar la imagen para " + player.name + ": " + image_path)
 
 func get_7v7_events():
 	return [

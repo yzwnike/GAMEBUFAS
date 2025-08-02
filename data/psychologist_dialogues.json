@@ -1,0 +1,154 @@
+{
+  "psychologist_session_1": [
+    {
+      "character": "psicologo",
+      "text": "Hola {player_name}, me alegra verte por aquí. Soy el Dr. Martínez, psicólogo deportivo del club.",
+      "background": "ofipsico"
+    },
+    {
+      "character": "psicologo", 
+      "text": "He estado revisando tu rendimiento y creo que podemos trabajar juntos para mejorar tu confianza en el campo."
+    },
+    {
+      "character": "{player_name}",
+      "text": "Gracias, doctor. La verdad es que últimamente me he sentido un poco perdido..."
+    },
+    {
+      "character": "psicologo",
+      "text": "Es completamente normal, {player_name}. El fútbol no es solo físico, la mente juega un papel crucial."
+    },
+    {
+      "character": "psicologo",
+      "text": "Vamos a hacer un ejercicio de visualización. Imagina tu mejor partido, ese momento en el que te sentiste invencible."
+    },
+    {
+      "character": "{player_name}",
+      "text": "¡SÍ! Recuerdo ese gol que marqué... fue increíble. Me sentía como si pudiera conquistar el mundo."
+    },
+    {
+      "character": "psicologo",
+      "text": "Exacto. Esa sensación está dentro de ti siempre. Solo necesitas recordar cómo acceder a ella."
+    },
+    {
+      "character": "psicologo",
+      "text": "Aquí tienes algunas técnicas de respiración y concentración. Practícalas antes de cada partido.",
+      "effect": {
+        "type": "morale_boost",
+        "amount": 3,
+        "message": "¡{player_name} se siente mucho más confiado después de la sesión! +3 Moral"
+      }
+    }
+  ],
+  "psychologist_session_2": [
+    {
+      "character": "psicologo",
+      "text": "Buenos días {player_name}. ¿Cómo te has sentido desde nuestra última charla?",
+      "background": "ofipsico"
+    },
+    {
+      "character": "{player_name}",
+      "text": "Bueno... algunos días mejor que otros, doctor. A veces siento que no estoy dando mi 100%."
+    },
+    {
+      "character": "psicologo",
+      "text": "Entiendo. La presión puede ser abrumadora. Hablemos sobre la gestión de expectativas."
+    },
+    {
+      "character": "psicologo",
+      "text": "No necesitas ser perfecto en cada jugada. El fútbol es un deporte de errores y aciertos."
+    },
+    {
+      "character": "{player_name}",
+      "text": "Es difícil no pensar en los errores cuando el público está ahí..."
+    },
+    {
+      "character": "psicologo",
+      "text": "El público puede ser tu aliado. Transforma esa energía en motivación, no en presión."
+    },
+    {
+      "character": "psicologo",
+      "text": "Recuerda: cada profesional ha fallado miles de veces. Lo importante es levantarse.",
+      "effect": {
+        "type": "morale_boost", 
+        "amount": 2,
+        "message": "{player_name} comprende mejor cómo manejar la presión. +2 Moral"
+      }
+    }
+  ],
+  "psychologist_session_3": [
+    {
+      "character": "psicologo",
+      "text": "Hola {player_name}, hoy quiero que hablemos sobre el trabajo en equipo y tu rol.",
+      "background": "ofipsico"
+    },
+    {
+      "character": "{player_name}",
+      "text": "Está bien, doctor. A veces siento que no encajo bien con algunos compañeros."
+    },
+    {
+      "character": "psicologo",
+      "text": "Eso es más común de lo que crees. Cada jugador tiene su personalidad y estilo de juego."
+    },
+    {
+      "character": "psicologo",
+      "text": "Lo importante es encontrar tu lugar y comunicarte efectivamente con tus compañeros."
+    },
+    {
+      "character": "{player_name}",
+      "text": "¿Cómo puedo mejorar eso? A veces no sé cómo expresar lo que pienso en el campo."
+    },
+    {
+      "character": "psicologo",
+      "text": "La comunicación en el fútbol es tanto verbal como no verbal. Tu lenguaje corporal habla volúmenes."
+    },
+    {
+      "character": "psicologo",
+      "text": "Pero sabes qué... creo que necesitas más tiempo para procesar estas ideas. A veces el cambio toma tiempo.",
+      "effect": {
+        "type": "morale_boost",
+        "amount": 1, 
+        "message": "{player_name} reflexiona sobre el trabajo en equipo. +1 Moral"
+      }
+    }
+  ],
+  "psychologist_session_4": [
+    {
+      "character": "psicologo",
+      "text": "Buenos días {player_name}. Hoy quería conversar sobre metas y motivación personal.",
+      "background": "ofipsico"
+    },
+    {
+      "character": "{player_name}",
+      "text": "Hola doctor. Últimamente he estado pensando mucho en mi futuro en el fútbol."
+    },
+    {
+      "character": "psicologo",
+      "text": "Es bueno que reflexiones sobre tus objetivos. ¿Qué es lo que más te motiva a jugar?"
+    },
+    {
+      "character": "{player_name}",
+      "text": "Me gusta la sensación de competir, de dar todo por el equipo... pero a veces me pregunto si es suficiente."
+    },
+    {
+      "character": "psicologo", 
+      "text": "Hmm, entiendo. Parece que hay una desconexión entre tus valores y tus acciones actuales."
+    },
+    {
+      "character": "psicologo",
+      "text": "A veces, cuando no estamos seguros de nuestro propósito, es normal sentirse desmotivado."
+    },
+    {
+      "character": "{player_name}",
+      "text": "Exacto... es como si estuviera jugando en piloto automático últimamente."
+    },
+    {
+      "character": "psicologo",
+      "text": "Bueno, esto es algo profundo que requiere tiempo para trabajar. No siempre las respuestas llegan inmediatamente.",
+      "effect": {
+        "type": "morale_boost",
+        "amount": 0,
+        "message": "{player_name} reflexiona profundamente pero no encuentra claridad inmediata. Sin cambios en la moral."
+      }
+    }
+  ]
+}

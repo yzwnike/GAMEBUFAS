@@ -26,6 +26,10 @@ TransferMarketManager="*res://scripts/TransferMarketManager.gd"
 DayManager="*res://scripts/DayManager.gd"
 TrainingManager="*res://scripts/TrainingManager.gd"
 LineupManager="*res://scripts/LineupManager.gd"
+MailManager="*res://scripts/MailManager.gd"
+EncargosManager="*res://scripts/EncargosManager.gd"
+CampaignsManager="*res://scripts/CampaignsManager.gd"
+LeaguesManager="*res://scripts/LeaguesManager.gd"
 
 [display]
 

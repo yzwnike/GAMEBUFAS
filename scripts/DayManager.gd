@@ -43,6 +43,11 @@ func advance_day_with_origin(origin: String):
 	if TransferMarketManager:
 		TransferMarketManager.advance_day()
 	
+	# Auto-guardar el progreso al avanzar el día
+	if GameManager:
+		GameManager.mark_progress_unsaved()
+		GameManager.auto_save()
+	
 	# NO reiniciar el estado de entrenamiento aquí automáticamente
 	# El entrenamiento solo se reinicia después de jugar un partido
 	# if TrainingManager:

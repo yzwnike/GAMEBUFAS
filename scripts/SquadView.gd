@@ -99,9 +99,54 @@ func create_player_card(player_data: Dictionary):
 	stamina_label.add_theme_color_override("font_color", Color.ORANGE)
 	vbox.add_child(stamina_label)
 
-# Overall
+	# Moral con barra visual y colores
+	var morale_value = players_manager.get_player_morale(player_data.id)
+	var morale_info = get_morale_info(morale_value)
+	
+	# Contenedor para moral
+	var morale_container = VBoxContainer.new()
+	vbox.add_child(morale_container)
+	
+	# Etiqueta de moral con emoticón y texto
+	var morale_label = Label.new()
+	morale_label.text = morale_info.emoji + " " + morale_info.text + " (" + str(morale_value) + "/10)"
+	morale_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	morale_label.add_theme_font_size_override("font_size", 18)
+	morale_label.add_theme_color_override("font_color", morale_info.color)
+	morale_container.add_child(morale_label)
+	
+	# Barra de progreso para moral
+	var morale_bar = ProgressBar.new()
+	morale_bar.min_value = 0
+	morale_bar.max_value = 10
+	morale_bar.value = morale_value
+	morale_bar.custom_minimum_size = Vector2(150, 8)
+	morale_bar.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	
+	# Crear StyleBox para la barra de progreso con el color apropiado
+	var morale_stylebox = StyleBoxFlat.new()
+	morale_stylebox.bg_color = morale_info.color
+	morale_stylebox.corner_radius_top_left = 4
+	morale_stylebox.corner_radius_top_right = 4
+	morale_stylebox.corner_radius_bottom_left = 4
+	morale_stylebox.corner_radius_bottom_right = 4
+	morale_bar.add_theme_stylebox_override("fill", morale_stylebox)
+	
+	# Fondo de la barra
+	var morale_bg_stylebox = StyleBoxFlat.new()
+	morale_bg_stylebox.bg_color = Color(0.3, 0.3, 0.3, 0.8)
+	morale_bg_stylebox.corner_radius_top_left = 4
+	morale_bg_stylebox.corner_radius_top_right = 4
+	morale_bg_stylebox.corner_radius_bottom_left = 4
+	morale_bg_stylebox.corner_radius_bottom_right = 4
+	morale_bar.add_theme_stylebox_override("background", morale_bg_stylebox)
+	
+	morale_container.add_child(morale_bar)
+
+# Overall (calculado dinámicamente)
+	var calculated_overall = calculate_player_overall(player_data)
 	var overall_label = Label.new()
-	overall_label.text = "Overall: " + str(player_data.overall)
+	overall_label.text = "Overall: " + str(calculated_overall)
 	overall_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	overall_label.add_theme_font_size_override("font_size", 22)
 	vbox.add_child(overall_label)
@@ -158,3 +203,64 @@ func _on_back_button_pressed():
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		_on_back_button_pressed()
+
+# Función para obtener información de moral basada en el valor
+func get_morale_info(morale_value: int) -> Dictionary:
+	match morale_value:
+		0:
+			return {"text": "Hundido", "color": Color(1, 0, 0), "emoji": "😞"}
+		1, 2:
+			return {"text": "Tenso", "color": Color(1, 0.5, 0), "emoji": "😟"}
+		3, 4:
+			return {"text": "Decaído", "color": Color(1, 1, 0), "emoji": "😕"}
+		5, 6:
+			return {"text": "Normal", "color": Color(0, 1, 0), "emoji": "🙂"}
+		7, 8:
+			return {"text": "En Forma", "color": Color(0, 1, 1), "emoji": "😃"}
+		9:
+			return {"text": "Motivado", "color": Color(0, 0, 1), "emoji": "😄"}
+		10:
+			return {"text": "Inspirado", "color": Color(1, 0.84, 0), "emoji": "🌟"}
+		_:
+			return {"text": "Desconocido", "color": Color(0.5, 0.5, 0.5), "emoji": "❓"}
+
+
+
+# Función para calcular el OVR dinámicamente basado en substats y posición
+func calculate_player_overall(player: Dictionary) -> int:
+	# Calcular overall basado en substats y posición (5 substats con 0.2 cada uno = 100%)
+	var total = 0.0
+	match player.position:
+		"Delantero":
+			total += player.shooting * 0.2
+			total += player.heading * 0.2
+			total += player.dribbling * 0.2
+			total += player.speed * 0.2
+			total += player.positioning * 0.2
+		"Mediocentro":
+			total += player.short_pass * 0.2
+			total += player.long_pass * 0.2
+			total += player.dribbling * 0.2
+			total += player.concentration * 0.2
+			total += player.speed * 0.2
+		"Defensa":
+			total += player.marking * 0.2
+			total += player.tackling * 0.2
+			total += player.positioning * 0.2
+			total += player.speed * 0.2
+			total += player.heading * 0.2
+		"Portero":
+			total += player.reflexes * 0.2
+			total += player.positioning * 0.2
+			total += player.concentration * 0.2
+			total += player.short_pass * 0.2
+			total += player.speed * 0.2
+		_:
+			# Para posiciones desconocidas, usar un promedio general
+			total += player.shooting + player.heading + player.short_pass + player.long_pass + player.dribbling
+			total += player.speed + player.marking + player.tackling + player.reflexes + player.positioning
+			total += player.concentration
+			total /= 11.0
+			return int(total)
+	
+	return int(total)

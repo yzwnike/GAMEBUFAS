@@ -131,12 +131,13 @@ func create_player_card(player_data: Dictionary):
 	texture_rect.custom_minimum_size = Vector2(120, 120)
 	vbox.add_child(texture_rect)
 	
-	# Overall
+	# Overall (calculado dinámicamente)
+	var calculated_overall = calculate_player_overall(player_data)
 	var overall_label = Label.new()
-	overall_label.text = "Overall: " + str(player_data.overall)
+	overall_label.text = "Overall: " + str(calculated_overall)
 	overall_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	overall_label.add_theme_font_size_override("font_size", 16)
-	overall_label.add_theme_color_override("font_color", get_overall_color(player_data.overall))
+	overall_label.add_theme_color_override("font_color", get_overall_color(calculated_overall))
 	vbox.add_child(overall_label)
 	
 	# Posición
@@ -168,20 +169,6 @@ func get_team_color(team_name: String) -> Color:
 	match team_name:
 		"FC Bufas":
 			return Color.YELLOW
-		"Deportivo Magadios":
-			return Color.RED
-		"Patrulla Canina":
-			return Color.BLUE
-		"Reyes de Jalisco":
-			return Color.ORANGE
-		"Inter de Panzones":
-			return Color.GREEN
-		"Chocolateros FC":
-			return Color(0.6, 0.3, 0.1)  # Brown
-		"Fantasy FC":
-			return Color.MAGENTA
-		"Picacachorras FC":
-			return Color.CYAN
 		_:
 			return Color.WHITE
 
@@ -240,3 +227,42 @@ func _on_back_button_pressed():
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		_on_back_button_pressed()
+
+# Función para calcular el OVR dinámicamente basado en substats y posición
+func calculate_player_overall(player: Dictionary) -> int:
+	# Calcular overall basado en substats y posición (5 substats con 0.2 cada uno = 100%)
+	var total = 0.0
+	match player.position:
+		"Delantero":
+			total += player.shooting * 0.2
+			total += player.heading * 0.2
+			total += player.dribbling * 0.2
+			total += player.speed * 0.2
+			total += player.positioning * 0.2
+		"Mediocentro":
+			total += player.short_pass * 0.2
+			total += player.long_pass * 0.2
+			total += player.dribbling * 0.2
+			total += player.concentration * 0.2
+			total += player.speed * 0.2
+		"Defensa":
+			total += player.marking * 0.2
+			total += player.tackling * 0.2
+			total += player.positioning * 0.2
+			total += player.speed * 0.2
+			total += player.heading * 0.2
+		"Portero":
+			total += player.reflexes * 0.2
+			total += player.positioning * 0.2
+			total += player.concentration * 0.2
+			total += player.short_pass * 0.2
+			total += player.speed * 0.2
+		_:
+			# Para posiciones desconocidas, usar un promedio general
+			total += player.shooting + player.heading + player.short_pass + player.long_pass + player.dribbling
+			total += player.speed + player.marking + player.tackling + player.reflexes + player.positioning
+			total += player.concentration
+			total /= 11.0
+			return int(total)
+	
+	return int(total)

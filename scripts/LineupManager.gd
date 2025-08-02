@@ -12,9 +12,21 @@ func _ready():
 # Guardar alineación en memoria (no persistente)
 func save_lineup(formation: String, players_dict: Dictionary):
 	current_formation = formation
-	current_lineup = players_dict.duplicate(true)
+	# Convertir el diccionario de posiciones a una lista simple de jugadores
+	current_lineup = {}
+	var player_count = 0
+	for position_key in players_dict.keys():
+		var player = players_dict[position_key]
+		if player != null:
+			player_count += 1
+			current_lineup["player_" + str(player_count)] = player
+	
 	lineup_saved = true
-	print("LineupManager: Alineación guardada - Formación: ", formation, ", Jugadores: ", players_dict.size())
+	print("LineupManager: Alineación guardada - Formación: ", formation, ", Jugadores: ", player_count)
+	# Debug: mostrar qué jugadores se guardaron
+	for key in current_lineup.keys():
+		var player = current_lineup[key]
+		print("  Guardado: ", player.name, " (", player.get("position", "Sin posición"), ")")
 
 # Obtener alineación actual
 func get_saved_lineup():

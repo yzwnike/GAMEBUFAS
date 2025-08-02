@@ -66,6 +66,9 @@ func _ready():
 	# Configurar título
 	title_label.text = "LA VELADA VISUAL NOVEL"
 	
+	# Configurar animaciones avanzadas de hover para todos los botones
+	setup_advanced_hover_effects()
+	
 	# Animación de entrada
 	play_intro_animation()
 
@@ -121,6 +124,15 @@ func _on_settings_pressed():
 
 func _on_quit_pressed():
 	get_tree().quit()
+
+func setup_advanced_hover_effects():
+	# Usar el helper para configurar fácilmente todos los botones
+	MenuSetupHelper.setup_menu_hover_effects(self, {
+		"MenuContainer/NewGameButton": "new_game",
+		"MenuContainer/ContinueButton": "continue",
+		"MenuContainer/SettingsButton": "settings",
+		"MenuContainer/QuitButton": "quit"
+	})
 
 func transition_to_scene(scene_path):
 	# Efecto de transición

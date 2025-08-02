@@ -6,6 +6,8 @@ signal experience_gained(player_id: String, amount: int)
 
 var players: Array = []
 var MAX_STAMINA: int = 3
+var MAX_MORALE: int = 10
+var DEFAULT_MORALE: int = 5
 
 func _ready():
 	load_players_data()
@@ -31,10 +33,12 @@ func load_players_data():
 	var data = json.data
 	players = data.players
 	
-	# Inicializar la stamina para cada jugador si no está presente
+	# Inicializar la stamina y moral para cada jugador si no están presentes
 	for player in players:
 		if not player.has("current_stamina"):
 			player.current_stamina = MAX_STAMINA
+		if not player.has("current_morale"):
+			player.current_morale = DEFAULT_MORALE
 	
 	print("PlayersManager: Jugadores cargados. ", players.size(), " jugadores en la plantilla")
 
@@ -109,10 +113,88 @@ func recharge_stamina(player_id: String, amount: int):
 	player.current_stamina = min(player.current_stamina + amount, MAX_STAMINA)
 	print(player.name, " ha recargado stamina. Stamina actual: ", player.current_stamina)
 
+# === SISTEMA DE MORAL ===
+
+# Obtener la moral actual del jugador
+func get_player_morale(player_id: String) -> int:
+	var player = get_player_by_id(player_id)
+	if player == null:
+		print("ERROR: Jugador no encontrado: ", player_id)
+		return DEFAULT_MORALE
+	
+	# Verificar si current_morale existe, si no, inicializarla
+	if not player.has("current_morale"):
+		player.current_morale = DEFAULT_MORALE
+		print("INFO: Inicializando moral para ", player.name)
+	
+	return player.current_morale
+
+# Función para actualizar la moral después de un partido
+func update_morale_after_match(lineup: Array, match_won: bool):
+	print("PlayersManager: Actualizando moral post-partido. Victoria: ", match_won)
+	
+	# Para los jugadores que jugaron
+	for player_id in lineup:
+		var player = get_player_by_id(player_id)
+		if player:
+			# Verificar si current_morale existe, si no, inicializarla
+			if not player.has("current_morale"):
+				player.current_morale = DEFAULT_MORALE
+				print("INFO: Inicializando moral para ", player.name)
+			
+			if match_won:
+				# Si ganó el partido, +1 de moral
+				var previous_morale = player.current_morale
+				player.current_morale = min(player.current_morale + 1, MAX_MORALE)
+				print(player.name, " jugó y ganó. Moral anterior: ", previous_morale, " -> Moral nueva: ", player.current_morale, " (MAX: ", MAX_MORALE, ")")
+			else:
+				# Si perdió el partido, la moral no cambia
+				print(player.name, " jugó pero perdió. Moral se mantiene: ", player.current_morale)
+	
+	# Para los jugadores que NO jugaron - pierden 1 de moral
+	for player in players:
+		# Verificar si current_morale existe, si no, inicializarla
+		if not player.has("current_morale"):
+			player.current_morale = DEFAULT_MORALE
+			print("INFO: Inicializando moral para ", player.name)
+		
+		if player.id not in lineup:
+			# Pierde 1 de moral por no jugar
+			player.current_morale = max(player.current_morale - 1, 0)
+			print(player.name, " no jugó y perdió moral. Moral actual: ", player.current_morale)
+
+# Función para aumentar moral usando ítems de la tienda (discurso motivador)
+func boost_morale(player_id: String, amount: int = 1):
+	var player = get_player_by_id(player_id)
+	if player == null:
+		print("ERROR: Jugador no encontrado: ", player_id)
+		return
+	
+	# Verificar si current_morale existe, si no, inicializarla
+	if not player.has("current_morale"):
+		player.current_morale = DEFAULT_MORALE
+		print("INFO: Inicializando moral para ", player.name)
+	
+	player.current_morale = min(player.current_morale + amount, MAX_MORALE)
+	print(player.name, " ha recibido un boost de moral. Moral actual: ", player.current_morale)
+
+# Función para aumentar moral a todos los jugadores (discurso motivador grupal)
+func boost_morale_all_players(amount: int = 1):
+	print("PlayersManager: Aplicando boost de moral a todos los jugadores (+", amount, ")")
+	for player in players:
+		# Verificar si current_morale existe, si no, inicializarla
+		if not player.has("current_morale"):
+			player.current_morale = DEFAULT_MORALE
+			print("INFO: Inicializando moral para ", player.name)
+		
+		player.current_morale = min(player.current_morale + amount, MAX_MORALE)
+		print(player.name, " recibió boost de moral. Moral actual: ", player.current_morale)
+
 func get_player_by_id(player_id: String):
 	for player in players:
 		if player.id == player_id:
 			return player
+	print("DEBUG: No se encontró el jugador con ID: ", player_id)
 	return null
 
 func upgrade_player(player_id: String, stat: String, amount: int = 1):
@@ -203,10 +285,93 @@ func upgrade_player_with_experience(player_id: String, stat: String, experience_
 	player_upgraded.emit(player_id)
 	return true
 
+func upgrade_player_with_substat(player_id: String, substat: String, experience_cost: int = 1) -> bool:
+	print("DEBUG: Intentando mejorar jugador - ID: ", player_id, ", Stat: ", substat)
+	
+	# Buscar el jugador directamente en el array
+	var player_index = -1
+	for i in range(players.size()):
+		if players[i].has("id") and players[i].id == player_id:
+			player_index = i
+			break
+	
+	if player_index == -1:
+		print("ERROR: Jugador no encontrado: ", player_id)
+		return false
+	
+	var player = players[player_index]
+	print("DEBUG: Jugador encontrado: ", player.get("name", "Unknown"))
+	
+	# Verificar si tiene suficiente experiencia
+	var player_exp = player.get("experience", 0)
+	if player_exp < experience_cost:
+		print("ERROR: Experiencia insuficiente. Necesita: ", experience_cost, ", Tiene: ", player_exp)
+		return false
+	
+	# Verificar si la substat existe en el jugador
+	if not player.has(substat):
+		print("ERROR: El jugador no tiene la estadística: ", substat)
+		print("DEBUG: Estadísticas disponibles: ", player.keys())
+		return false
+	
+	# Límite máximo de estadísticas
+	var max_stat = 99
+	var current_stat = player.get(substat, 0)
+	
+	if current_stat >= max_stat:
+		print("ERROR: Estadística ", substat, " ya está al máximo")
+		return false
+	
+	# Incrementar la estadística directamente en el array
+	var new_stat_value = min(current_stat + 1, max_stat)
+	var new_experience = player_exp - experience_cost
+	
+	# Modificar directamente el dictionary en el array
+	players[player_index][substat] = new_stat_value
+	players[player_index]["experience"] = new_experience
+	
+	# Recalcular overall
+	update_player_overall(players[player_index])
+	
+	print("PlayersManager: Jugador mejorado con experiencia - ", players[player_index].get("name", "Unknown"), " (", substat, ": ", current_stat, " -> ", new_stat_value, ") - Experiencia restante: ", new_experience)
+	player_upgraded.emit(player_id)
+	return true
+
 func update_player_overall(player: Dictionary):
-	# Calcular overall basado en todas las estadísticas
-	var total = player.attack + player.defense + player.speed + player.stamina + player.skill
-	player.overall = int(total / 5.0)
+	# Calcular overall basado en substats y posición (5 substats con 0.2 cada uno = 100%)
+	var total = 0.0
+	match player.position:
+		"Delantero":
+			total += player.shooting * 0.2
+			total += player.heading * 0.2
+			total += player.dribbling * 0.2
+			total += player.speed * 0.2
+			total += player.positioning * 0.2
+		"Mediocentro":
+			total += player.short_pass * 0.2
+			total += player.long_pass * 0.2
+			total += player.dribbling * 0.2
+			total += player.concentration * 0.2
+			total += player.speed * 0.2
+		"Defensa":
+			total += player.marking * 0.2
+			total += player.tackling * 0.2
+			total += player.positioning * 0.2
+			total += player.speed * 0.2
+			total += player.heading * 0.2
+		"Portero":
+			total += player.reflexes * 0.2
+			total += player.positioning * 0.2
+			total += player.concentration * 0.2
+			total += player.short_pass * 0.2
+			total += player.speed * 0.2
+		_:
+			total += player.shooting + player.heading + player.short_pass + player.long_pass + player.dribbling
+			total += player.speed + player.marking + player.tackling + player.reflexes + player.positioning
+			total += player.stamina + player.concentration
+			total /= 12.0
+	
+	player.overall = int(total)
 
 func get_upgrade_cost(player_id: String, stat: String) -> int:
 	var player = get_player_by_id(player_id)

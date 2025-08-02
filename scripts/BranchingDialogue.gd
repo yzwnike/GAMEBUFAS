@@ -33,7 +33,8 @@ var characters = {
 # Backgrounds disponibles
 var backgrounds = {
 	"campo": "res://assets/images/backgrounds/campo.png",
-	"campovertical": "res://assets/images/backgrounds/campovertical.png"
+	"campovertical": "res://assets/images/backgrounds/campovertical.png",
+	"partido": "res://assets/images/backgrounds/partido.png"
 }
 
 func _ready():
@@ -131,6 +132,14 @@ func _input(event):
 			advance_dialogue()
 		else:
 			finish_dialogue()
+	
+	# Función para saltar todo el diálogo con la tecla F
+	if event.is_action_pressed("ui_skip") or (event is InputEventKey and event.keycode == KEY_F and event.pressed):
+		if not choice_container.visible:
+			print("BranchingDialogue: SALTANDO TODO EL DIÁLOGO con tecla F")
+			skip_entire_dialogue()
+		else:
+			print("BranchingDialogue: No se puede saltar diálogo mientras se muestran opciones")
 
 func show_dialogue_line():
 	if current_index >= current_dialogue.size():
@@ -364,12 +373,10 @@ func load_chapter(chapter_number):
 func finish_dialogue():
 	print("Diálogo completado.")
 	
-	# Si venimos de un post-partido, cargamos el capítulo 2
+	# Si venimos de un post-partido, procesar fin de partido completo
 	if GameManager.get_story_flag("post_match_branch") != null:
-		print("Secuencia post-partido finalizada. Cargando capítulo 2...")
-		GameManager.set_story_flag("post_match_branch", null) # Limpiar flag
-		GameManager.set_story_flag("load_chapter_2", true) # Marcar que vamos a cargar el capítulo 2
-		load_chapter(2)
+		print("=== PROCESANDO FIN DE PARTIDO ===")
+		process_post_match_actions()
 		return
 	
 	# Si acabamos de terminar el capítulo 2, ir al partido 7vs7
@@ -425,3 +432,118 @@ func handle_special_transition(transition_type: String):
 			tween.tween_property(self, "modulate:a", 0.0, 1.0)
 			await tween.finished
 			get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+
+func skip_entire_dialogue():
+	# Detener cualquier animación de escritura en curso
+	complete_current_text()
+	
+	# Buscar la última línea que no tenga opciones para evitar saltarse decisiones importantes
+	var target_index = current_dialogue.size() - 1
+	for i in range(current_index, current_dialogue.size()):
+		if current_dialogue[i].has("choices"):
+			# Si encontramos opciones, pararse justo antes
+			target_index = i
+			break
+	
+	# Ir al índice objetivo
+	current_index = target_index
+	
+	# Mostrar la línea objetivo o finalizar si llegamos al final
+	if current_index < current_dialogue.size():
+		show_dialogue_line()
+	else:
+		finish_dialogue()
+	
+	print("BranchingDialogue: Diálogo saltado hasta el índice: ", current_index)
+
+# === FUNCIONES POST-PARTIDO ===
+
+func process_post_match_actions():
+	print("🏆 === INICIANDO PROCESAMIENTO POST-PARTIDO ===")
+	
+	# 1. Otorgar EXP a todos los jugadores
+	print("📈 Otorgando experiencia post-partido...")
+	if PlayersManager:
+		PlayersManager.add_experience_after_match()  # Otorga 2 EXP a todos
+	else:
+		print("ERROR: PlayersManager no disponible")
+	
+	# 2. Reducir stamina de los jugadores que jugaron
+	print("💪 Actualizando stamina de jugadores...")
+	if PlayersManager and LineupManager:
+		# Obtener la alineación que jugó el partido
+		var saved_lineup = LineupManager.get_saved_lineup()
+		if saved_lineup and saved_lineup.players:
+			# Extraer los IDs de los jugadores que jugaron
+			var lineup_ids = []
+			for key in saved_lineup.players.keys():
+				var player = saved_lineup.players[key]
+				if player:
+					lineup_ids.append(player.id)
+					print("  📋 " + player.name + " jugó el partido (stamina -1)")
+			
+			# Aplicar reducción de stamina
+			PlayersManager.update_stamina_after_match(lineup_ids)
+			
+			# 3. Actualizar moral de los jugadores basado en el resultado
+			print("😄 Actualizando moral de jugadores...")
+			var match_won = determine_match_result()
+			PlayersManager.update_morale_after_match(lineup_ids, match_won)
+			print("  📋 Moral actualizada - Victoria: ", match_won)
+		else:
+			print("⚠️ ADVERTENCIA: No se pudo obtener la alineación del partido")
+			# Como fallback, aplicar stamina a todos los jugadores principales
+			apply_stamina_and_morale_fallback()
+	else:
+		print("ERROR: PlayersManager o LineupManager no disponibles")
+	
+	# 3. Limpiar flag del post-partido
+	print("🧹 Limpiando flags de partido...")
+	GameManager.set_story_flag("post_match_branch", null)
+	
+	# 4. Cambiar de día y volver al InteractiveMenu
+	print("🌅 Avanzando al siguiente día...")
+	if DayManager:
+		# Usar "tournament" como origen para que el InteractiveMenu haga zoom al estadio
+		DayManager.advance_day_with_origin("tournament")
+	else:
+		print("ERROR: DayManager no disponible, volviendo al InteractiveMenu directamente")
+		# Fallback: ir directamente al InteractiveMenu
+		get_tree().change_scene_to_file("res://scenes/InteractiveMenu.tscn")
+	
+	print("✅ === PROCESAMIENTO POST-PARTIDO COMPLETADO ===")
+
+func determine_match_result() -> bool:
+	"""Determina si ganamos el partido basándose en los resultados almacenados en GameManager"""
+	# El GameManager debería tener guardado el último resultado del partido
+	var last_match = GameManager.get_last_match_result()
+	if last_match and last_match.has("player_score") and last_match.has("rival_score"):
+		var won = last_match.player_score > last_match.rival_score
+		print("🏆 Resultado del partido: Yazawa ", last_match.player_score, " - ", last_match.rival_score, " Rival (Victoria: ", won, ")")
+		return won
+	else:
+		print("⚠️ No se pudo determinar el resultado del partido, asumiendo empate")
+		return false  # En caso de empate o error, consideramos que no ganamos
+
+func apply_stamina_and_morale_fallback():
+	"""Función de respaldo para aplicar stamina y moral cuando no se puede obtener la alineación exacta"""
+	print("⚠️ Aplicando reducción de stamina y actualización de moral como fallback...")
+	
+	# Como no podemos obtener la alineación exacta, aplicamos stamina a los primeros 7 jugadores
+	# Esto asume que son los que más probablemente jugaron
+	if PlayersManager:
+		var all_players = PlayersManager.get_all_players()
+		var fallback_lineup = []
+		
+		# Tomar los primeros 7 jugadores como alineación de respaldo
+		for i in range(min(7, all_players.size())):
+			fallback_lineup.append(all_players[i].id)
+			print("  📋 " + all_players[i].name + " (fallback stamina -1, moral actualizada)")
+		
+		# Aplicar reducción de stamina
+		PlayersManager.update_stamina_after_match(fallback_lineup)
+		
+		# Aplicar actualización de moral
+		var match_won = determine_match_result()
+		PlayersManager.update_morale_after_match(fallback_lineup, match_won)
+		print("  📋 Moral actualizada (fallback) - Victoria: ", match_won)

@@ -60,11 +60,17 @@ func create_player_button(player_data: Dictionary):
 				current_stat = players_manager.get_player_stamina(player_data.id)
 			"skill":
 				current_stat = player_data.skill
+			"morale":
+				# Para moral, obtener la moral actual del jugador
+				current_stat = players_manager.get_player_morale(player_data.id)
 		
 		# Formatear la visualización según el tipo de estadística
 		if item_data.stat == "stamina":
 			# Para stamina, mostrar formato X/3
 			button_text += " | Stamina: " + str(current_stat) + "/" + str(players_manager.MAX_STAMINA)
+		elif item_data.stat == "morale":
+			# Para moral, mostrar formato especial con límite
+			button_text += " | Moral: " + str(current_stat) + "/" + str(players_manager.MAX_MORALE)
 		else:
 			# Para otras estadísticas, mostrar formato normal
 			button_text += " | " + item_data.stat.capitalize() + ": " + str(current_stat)

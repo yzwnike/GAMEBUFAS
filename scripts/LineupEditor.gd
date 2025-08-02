@@ -76,7 +76,10 @@ func _ready():
 	# Crear campo de fútbol
 	create_field()
 	
-	# Cargar alineación guardada si existe
+	# Cargar alineación desde archivo si existe (persistente)
+	load_lineup_from_file()
+	
+	# Cargar alineación guardada si existe (memoria)
 	load_saved_lineup()
 	
 	print("LineupEditor: Editor listo para usar")
@@ -289,6 +292,15 @@ func create_player_card(player_info):
 	else:
 		stamina_label.add_theme_color_override("font_color", Color.GREEN)
 	vbox.add_child(stamina_label)
+
+	# Moral
+	var morale_label = Label.new()
+	var morale_value = PlayersManager.get_player_morale(player_info["id"])
+	morale_label.text = "Moral: " + str(morale_value)
+	morale_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	morale_label.add_theme_font_size_override("font_size", 10)
+	morale_label.add_theme_color_override("font_color", Color.CYAN)
+	vbox.add_child(morale_label)
 
 	# Posición
 	var pos_label = Label.new()
@@ -508,7 +520,12 @@ func _on_save_pressed():
 		show_error_message("Debes completar todas las posiciones antes de guardar: " + str(missing_positions))
 		return
 	
-	print("Guardando alineación...")
+	print("=== GUARDANDO ALINEACIÓN ===")
+	print("Formación actual: ", current_formation)
+	print("Jugadores en el campo:")
+	for pos_name in field_positions:
+		var player = field_positions[pos_name]
+		print("  ", pos_name, ": ", player["name"], " (", player.get("position", "Sin posición"), ")")
 	
 	# Guardar la alineación actual en LineupManager (no persistente)
 	LineupManager.save_lineup(current_formation, field_positions)
@@ -517,12 +534,19 @@ func _on_save_pressed():
 	saved_lineup = field_positions.duplicate(true)
 	last_used_formation = current_formation
 	
+	# GUARDAR TAMBIÉN EN ARCHIVO PARA PERSISTENCIA
+	save_lineup_to_file()
+	
+	# DEBUG: Verificar que se guardó correctamente
+	var saved_data = LineupManager.get_saved_lineup()
+	if saved_data:
+		print("✓ Guardado en LineupManager exitoso - Jugadores: ", saved_data.players.size())
+	else:
+		print("✗ ERROR: No se guardó en LineupManager")
+	
 	# Mostrar confirmación
 	show_success_message("Alineación guardada correctamente")
-	
-	for pos_name in field_positions:
-		var player = field_positions[pos_name]
-		print(pos_name, ": ", player["name"])
+	print("==============================")
 
 func save_lineup_to_file():
 	var save_data = {
@@ -563,10 +587,36 @@ func load_lineup_from_file():
 		print("ERROR: No se pudo parsear el archivo de alineación")
 
 func load_saved_lineup():
-	# Cargar alineación desde LineupManager (no persistente)
-	var lineup_data = LineupManager.get_saved_lineup()
+	print("=== CARGANDO ALINEACIÓN ===")
 	
+	# Prioritariamente, usar datos del archivo si existen
+	if saved_lineup.size() > 0 and last_used_formation != "":
+		print("Usando alineación cargada desde archivo")
+		# Guardar en LineupManager para consistencia
+		LineupManager.save_lineup(last_used_formation, saved_lineup)
+		
+		# Configurar formación
+		current_formation = last_used_formation
+		var formation_index = FORMATION_LIST.find(current_formation)
+		if formation_index != -1 and formation_selector:
+			formation_selector.selected = formation_index
+		
+		# Recrear el campo con la formación correcta
+		create_field()
+		
+		# Colocar jugadores en sus posiciones
+		print("Restaurando jugadores:")
+		for pos_name in saved_lineup:
+			var player_info = saved_lineup[pos_name]
+			print("  ", pos_name, ": ", player_info["name"])
+			place_player_in_position(player_info, pos_name)
+		print("Alineación restaurada exitosamente para formación: ", current_formation)
+		return
+	
+	# Alternativa: cargar desde LineupManager (memoria)
+	var lineup_data = LineupManager.get_saved_lineup()
 	if lineup_data != null:
+		print("Usando alineación de LineupManager")
 		last_used_formation = lineup_data["formation"]
 		saved_lineup = lineup_data["players"]
 		
@@ -581,13 +631,15 @@ func load_saved_lineup():
 			create_field()
 		
 			# Si existe una alineación guardada, cargarla
-			print("Cargando alineación guardada")
+			print("Cargando alineación guardada desde memoria")
 			for pos_name in saved_lineup:
 				var player_info = saved_lineup[pos_name]
 				place_player_in_position(player_info, pos_name)
 			print("Alineación restaurada exitosamente para formación: ", current_formation)
 	else:
-		print("No hay alineación guardada en memoria")
+		print("No hay alineación guardada disponible")
+	
+	print("=============================")
 
 func show_error_message(message):
 	# Crear un popup temporal para mostrar el error
@@ -637,6 +689,26 @@ func get_current_lineup():
 		"formation": last_used_formation if last_used_formation != "" else current_formation,
 		"players": saved_lineup.duplicate(true)
 	}
+
+# Función para obtener información de moral basada en el valor
+func get_morale_info(morale_value: int) -> Dictionary:
+	match morale_value:
+		0:
+			return {"text": "Hundido", "color": Color(1, 0, 0), "emoji": "😞"}
+		1, 2:
+			return {"text": "Tenso", "color": Color(1, 0.5, 0), "emoji": "😟"}
+		3, 4:
+			return {"text": "Decaído", "color": Color(1, 1, 0), "emoji": "😕"}
+		5, 6:
+			return {"text": "Normal", "color": Color(0, 1, 0), "emoji": "🙂"}
+		7, 8:
+			return {"text": "En Forma", "color": Color(0, 1, 1), "emoji": "😃"}
+		9:
+			return {"text": "Motivado", "color": Color(0, 0, 1), "emoji": "😄"}
+		10:
+			return {"text": "Inspirado", "color": Color(1, 0.84, 0), "emoji": "🌟"}
+		_:
+			return {"text": "Desconocido", "color": Color(0.5, 0.5, 0.5), "emoji": "❓"}
 
 # Función estática para obtener la alineación desde otros scripts
 static func get_saved_lineup():

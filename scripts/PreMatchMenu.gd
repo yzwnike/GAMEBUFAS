@@ -78,8 +78,8 @@ func _on_play_pressed():
 		# Mostrar un diálogo con todos los problemas
 		show_requirements_dialog(issues)
 	else:
-		print("IR AL CAMPO - SIMULANDO PARTIDO")
-		simulate_match()
+		print("IR AL CAMPO - INICIANDO DIÁLOGO DE PARTIDO")
+		get_tree().change_scene_to_file("res://scenes/MatchDialogueScene.tscn")
 
 func simulate_match():
 	print("Simulando partido...")

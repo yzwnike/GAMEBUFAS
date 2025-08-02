@@ -2,7 +2,10 @@ extends Node
 
 # Singleton para gestionar el estado de entrenamientos
 
-var training_completed = false
+signal training_completed
+signal training_status_changed
+
+var training_completed_status = false
 var current_opponent = ""
 var current_match_day = -1  # Para trackear para qué jornada es el entrenamiento
 
@@ -11,12 +14,14 @@ func _ready():
 
 # Verificar si se ha completado el entrenamiento para el partido actual
 func has_completed_training() -> bool:
-	return training_completed
+	return training_completed_status
 
 # Marcar entrenamiento como completado
 func complete_training():
-	training_completed = true
+	training_completed_status = true
 	print("TrainingManager: Entrenamiento completado")
+	training_completed.emit()
+	training_status_changed.emit()
 
 # Establecer el oponente actual para el entrenamiento
 func set_current_opponent(opponent_name: String, match_day: int = -1):
@@ -24,7 +29,7 @@ func set_current_opponent(opponent_name: String, match_day: int = -1):
 	if current_opponent != opponent_name or (match_day != -1 and current_match_day != match_day):
 		current_opponent = opponent_name
 		current_match_day = match_day
-		training_completed = false
+		training_completed_status = false
 		print("TrainingManager: Oponente establecido: ", opponent_name, " (Jornada: ", match_day, ")")
 	else:
 		print("TrainingManager: Mismo oponente y jornada, manteniendo estado actual")
@@ -35,7 +40,7 @@ func get_current_opponent() -> String:
 
 # Reiniciar estado de entrenamiento solo cuando se juega el partido
 func reset_training_after_match():
-	training_completed = false
+	training_completed_status = false
 	current_opponent = ""
 	current_match_day = -1
 	print("TrainingManager: Estado de entrenamiento reiniciado después del partido")
@@ -52,10 +57,10 @@ func is_match_day() -> bool:
 # Verificar si se puede entrenar
 func can_train() -> bool:
 	# No se puede entrenar en día de partido o si ya se completó
-	return not is_match_day() and not training_completed
+	return not is_match_day() and not training_completed_status
 
 # Simular entrenamiento (para pruebas)
 func simulate_training():
 	print("TrainingManager: Simulando entrenamiento...")
-	training_completed = true
+	training_completed_status = true
 	print("TrainingManager: Entrenamiento simulado completado")

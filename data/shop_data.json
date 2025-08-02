@@ -63,6 +63,26 @@
       "position": "Delantero",
       "stat": "attack",
       "value": 1
+    },
+    {
+      "id": "discurso_capitan",
+      "name": "Discurso Motivador de Capitán",
+      "description": "Aumenta 1 punto de moral a un jugador seleccionado.",
+      "image": "res://assets/images/items/discurso_capitan.png",
+      "price": 150,
+      "type": "stat_boost",
+      "stat": "morale",
+      "value": 1
+    },
+    {
+      "id": "test_bad_news",
+      "name": "[TEST] Malas Noticias",
+      "description": "Reduce 5 puntos de moral a un jugador seleccionado. Solo para testing.",
+      "image": "res://assets/images/items/placeholder.png",
+      "price": 1,
+      "type": "stat_boost",
+      "stat": "morale",
+      "value": -5
     }
   ]
 }

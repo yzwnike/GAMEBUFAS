@@ -482,6 +482,12 @@ func transition_to_next_scene():
     tween.tween_property(overlay, "modulate:a", 1.0, 1.0)
     await tween.finished
     
+    # Configurar flags para el partido 3v3 del prólogo
+    if GameManager:
+        GameManager.set_story_flag("match_type", "3v3")
+        GameManager.set_story_flag("prologue_3v3_match", true)
+        GameManager.set_story_flag("rival_team", "Equipo Rival del Barrio")
+    
     # Ir al simulador de fútbol para la pachanga 3vs3
     get_tree().change_scene_to_file("res://scenes/FootballSimulator.tscn")
 

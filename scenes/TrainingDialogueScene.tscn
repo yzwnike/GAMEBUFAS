@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/TrainingDialogueScene.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/DialogueSystem.gd" id="2"]
-[ext_resource type="Texture2D" path="res://assets/images/backgrounds/campo.webp" id="3"]
+[ext_resource type="Texture2D" path="res://assets/images/backgrounds/entrenamiento.png" id="3"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 bg_color = Color(0, 0, 0, 0.8)

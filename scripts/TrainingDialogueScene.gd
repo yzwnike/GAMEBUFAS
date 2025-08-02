@@ -109,10 +109,20 @@ func _on_dialogue_finished():
 	# Ir al minijuego de marcaje en lugar de completar directamente
 	get_tree().change_scene_to_file("res://scenes/MarkingMiniGame.tscn")
 
-# Función para manejar la tecla ESC (saltar diálogo)
+# Función para manejar las teclas ESC y F (saltar diálogo)
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		_on_dialogue_finished()
+	
+	# Saltar diálogo con la tecla F
+	if event.is_action_pressed("ui_skip") or (event is InputEventKey and event.keycode == KEY_F and event.pressed):
+		if dialogue_system and dialogue_system.has_method("skip_entire_dialogue"):
+			print("TrainingDialogueScene: SALTANDO TODO EL DIÁLOGO con tecla F")
+			dialogue_system.skip_entire_dialogue()
+		else:
+			# Si no hay método de salto, finalizar directamente
+			print("TrainingDialogueScene: Finalizando diálogo directamente (sin método skip)")
+			_on_dialogue_finished()
 
 # DEBUG: Función para mostrar la estructura de nodos
 func _print_node_structure(node: Node, depth: int):

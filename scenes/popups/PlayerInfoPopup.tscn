@@ -56,7 +56,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
-text = "Ataque:"
+text = ""
 
 [node name="AttackValue" type="Label" parent="VBoxContainer/StatsContainer/AttackStat"]
 layout_mode = 2
@@ -70,7 +70,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
-text = "Defensa:"
+text = ""
 
 [node name="DefenseValue" type="Label" parent="VBoxContainer/StatsContainer/DefenseStat"]
 layout_mode = 2
@@ -84,7 +84,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
-text = "Velocidad:"
+text = ""
 
 [node name="SpeedValue" type="Label" parent="VBoxContainer/StatsContainer/SpeedStat"]
 layout_mode = 2
@@ -98,7 +98,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
-text = "Resistencia:"
+text = ""
 
 [node name="StaminaValue" type="Label" parent="VBoxContainer/StatsContainer/StaminaStat"]
 layout_mode = 2
@@ -112,7 +112,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
-text = "Habilidad:"
+text = ""
 
 [node name="SkillValue" type="Label" parent="VBoxContainer/StatsContainer/SkillStat"]
 layout_mode = 2

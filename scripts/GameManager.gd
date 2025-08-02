@@ -6,14 +6,27 @@ extends Node
 signal money_updated(new_amount: int)
 signal tickets_updated(new_amount: int)
 signal inventory_updated()
+signal match_completed(resultado: Dictionary)
+signal season_ended()
+signal fame_updated(new_amount: int, reason: String)
 
 var current_scene_path = ""
 var previous_scene_path = ""
 
-# Sistema de dinero e inventario
+# Sistema de dinero, fama e inventario
 var money: int = 22000  # Dinero inicial + 20k para testing
 var tickets_bufas: int = 3  # Tickets Bufas iniciales para debug
-var inventory: Dictionary = {} # {item_id: quantity}
+var fame: int = 100  # Puntos de fama del club (iniciar con algunos fanes)
+var inventory: Dictionary = {
+	# Ítems de testing para debug
+	"discurso_capitan": 3,  # Para aumentar moral
+	"test_bad_news": 5,     # Para reducir moral y testing del sistema de correos
+	"stamina_small": 2      # Para testing de stamina
+} # {item_id: quantity}
+
+# Sistema de historial de fama
+var fame_history: Array[Dictionary] = []  # [{"day": int, "change": int, "reason": String, "new_total": int}]
+var max_fame_history_entries: int = 10  # Máximo de entradas en el historial
 
 # Estados del juego
 enum GameState {
@@ -43,6 +56,8 @@ var team_chemistry = 50.0
 
 # Sistema de guardado
 var save_file_path = "user://savegame.json"
+var auto_save_enabled = true
+var has_unsaved_progress = false
 
 # Sistema de diálogos dinámicos
 var current_dialogue_data = []
@@ -52,25 +67,33 @@ signal game_state_changed
 
 func _ready():
 	print("=== GameManager._ready() ejecutado ===")
-	# MODO DEBUG: Puedes cambiar estas configuraciones para probar diferentes partes del juego
+	# Habilitar procesamiento de input para cheats
+	set_process_unhandled_input(true)
 	
-	# OPCIÓN 1: Debug del partido 3vs3 (comentar las otras opciones)
+	# CONFIGURACIÓN NORMAL DEL JUEGO
+	# El juego comienza desde el MainMenu por defecto
+	print("Iniciando juego desde MainMenu...")
+	
+	# Configuración inicial limpia
+	current_state = GameState.MAIN_MENU
+	
+	# MODO DEBUG: Descomenta estas líneas para probar diferentes partes del juego
+	# DEBUG - OPCIÓN 1: Debug del partido 3vs3
 	# set_story_flag("chapter1_completed", true)
 	# set_story_flag("ready_for_3v3_match", true)
 	# set_story_flag("rival_team", "perma pablo javo")
 	
-	# OPCIÓN 2: Debug directo al capítulo 2 + partido 7vs7
+	# DEBUG - OPCIÓN 2: Debug directo al capítulo 2 + partido 7vs7
 	# set_story_flag("chapter1_completed", true)
-	# set_story_flag("load_chapter_2", true) # Ir directamente al capítulo 2
-	# OPCIÓN 3: Debug del último diálogo del prólogo (ACTIVO)
-	print("Configurando flags de debug para diálogo post-partido 7vs7...")
-	set_story_flag("chapter1_completed", true)
-	set_story_flag("chapter_2_7v7", true)
-	set_story_flag("post_match_branch", "win_7v7") # Puedes cambiar a "loss_7v7" si quieres ver la rama de derrota
-	print("Flag post_match_branch configurado a: ", get_story_flag("post_match_branch"))
+	# set_story_flag("load_chapter_2", true)
 	
-	# Cargar progreso del juego si existe
-	# load_game()  # Comentado para debug
+	# DEBUG - OPCIÓN 3: Debug del último diálogo del prólogo
+	# set_story_flag("chapter1_completed", true)
+	# set_story_flag("chapter_2_7v7", true)
+	# set_story_flag("post_match_branch", "win_7v7")
+	
+	# Cargar progreso del juego si existe (deshabilitado para testing)
+	# load_game()  # Comentado para evitar cargar partidas guardadas durante desarrollo
 	
 	# Conectar señales (si es necesario)
 	# get_tree().tree_changed.connect(_on_tree_changed)
@@ -118,16 +141,25 @@ func save_game():
 		"team_formation": team_formation,
 		"starting_eleven": starting_eleven,
 		"team_chemistry": team_chemistry,
-		"current_scene": current_scene_path
+		"current_scene": current_scene_path,
+		"current_day": DayManager.get_current_day() if DayManager else 1,
+		"money": money,
+		"tickets_bufas": tickets_bufas,
+		"fame": fame,
+		"inventory": inventory,
+		"save_timestamp": Time.get_unix_time_from_system()
 	}
 	
 	var file = FileAccess.open(save_file_path, FileAccess.WRITE)
 	if file:
 		file.store_string(JSON.stringify(save_data))
 		file.close()
-		print("Juego guardado correctamente")
+		has_unsaved_progress = false
+		print("Juego guardado correctamente - Día ", save_data.get("current_day", 1))
+		return true
 	else:
 		print("Error al guardar el juego")
+		return false
 
 func load_game():
 	var file = FileAccess.open(save_file_path, FileAccess.READ)
@@ -144,11 +176,25 @@ func load_game():
 			team_formation = save_data.get("team_formation", "4-3-3")
 			starting_eleven = save_data.get("starting_eleven", [])
 			team_chemistry = save_data.get("team_chemistry", 50.0)
-			print("Juego cargado correctamente")
+			money = save_data.get("money", 22000)
+			tickets_bufas = save_data.get("tickets_bufas", 3)
+			fame = save_data.get("fame", 0)
+			inventory = save_data.get("inventory", {})
+			
+			# Restaurar día actual en DayManager
+			var saved_day = save_data.get("current_day", 1)
+			if DayManager:
+				DayManager.current_day = saved_day
+			
+			has_unsaved_progress = false
+			print("Juego cargado correctamente - Día ", saved_day)
+			return true
 		else:
 			print("Error al parsear el archivo de guardado")
+			return false
 	else:
 		print("No se encontró archivo de guardado previo")
+		return false
 
 # Funciones para el progreso de la historia
 func set_story_flag(flag_name, value):
@@ -157,20 +203,51 @@ func set_story_flag(flag_name, value):
 func get_story_flag(flag_name, default_value = false):
 	return story_progress.get(flag_name, default_value)
 
+# Variables para el último partido jugado
+var last_match_result: Dictionary = {}
+
 # Funciones para estadísticas del equipo
 func add_match_result(goals_for, goals_against):
 	team_stats.goals_for += goals_for
 	team_stats.goals_against += goals_against
 	
+	# Determinar el resultado del partido
+	var result = ""
 	if goals_for > goals_against:
 		team_stats.wins += 1
+		result = "win"
 	elif goals_for < goals_against:
 		team_stats.losses += 1
+		result = "loss"
 	else:
 		team_stats.draws += 1
+		result = "draw"
+	
+	# Guardar información del último partido
+	last_match_result = {
+		"goals_for": goals_for,
+		"goals_against": goals_against,
+		"result": result,
+		"timestamp": Time.get_unix_time_from_system(),
+		"victoria": result == "win",
+		"goles_jugador": goals_for,
+		"goles_rival": goals_against,
+		"max_goles_jugador": 1  # TODO: Implementar seguimiento de goles individuales
+	}
+	
+	print("Último resultado guardado: ", last_match_result)
+	
+	# Procesar cambios de fama basados en el resultado
+	process_match_fame_changes(goals_for, goals_against, result)
+	
+	# Emitir señal de partido completado para EncargosManager
+	match_completed.emit(last_match_result)
 	
 	# Guardar automáticamente después de cada partido
 	save_game()
+
+func get_last_match_result() -> Dictionary:
+	return last_match_result
 
 func get_win_percentage():
 	var total_matches = team_stats.wins + team_stats.losses + team_stats.draws
@@ -238,6 +315,30 @@ func get_current_dialogue_data():
 func clear_dialogue_data():
 	current_dialogue_data = []
 
+# Sistema de autoguardado
+func auto_save():
+	if auto_save_enabled:
+		print("Auto-guardando progreso...")
+		return save_game()
+	return false
+
+func mark_progress_unsaved():
+	has_unsaved_progress = true
+
+func has_save_file() -> bool:
+	return FileAccess.file_exists(save_file_path)
+
+# Función para salir al menú principal guardando progreso
+func return_to_main_menu():
+	print("Regresando al menú principal...")
+	
+	# Auto-guardar antes de salir
+	if has_unsaved_progress or auto_save_enabled:
+		auto_save()
+	
+	# Cambiar al menú principal
+	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+
 func load_chapter_dialogue(chapter_number: int):
 	var dialogue_file_path = "res://data/chapter" + str(chapter_number) + "_dialogue.json"
 	
@@ -268,6 +369,49 @@ func load_chapter_dialogue(chapter_number: int):
 func quit_game():
 	save_game()
 	get_tree().quit()
+
+# Función para completar el prólogo y pasar al menú interactivo
+func complete_prologue():
+	print("=== PRÓLOGO COMPLETADO ===")
+	
+	# Marcar el prólogo como completado
+	set_story_flag("prologue_completed", true)
+	
+	# Establecer el día inicial del juego principal
+	if DayManager:
+		DayManager.current_day = 1
+	
+	# Guardar el progreso
+	auto_save()
+	
+	# Cambiar al menú interactivo
+	print("Transicionando al menú interactivo...")
+	get_tree().change_scene_to_file("res://scenes/InteractiveMenu.tscn")
+
+func start_new_game():
+	print("=== INICIANDO NUEVO JUEGO ===")
+	
+	# Limpiar progreso anterior
+	story_progress.clear()
+	team_stats = {
+		"wins": 0,
+		"losses": 0,
+		"draws": 0,
+		"goals_for": 0,
+		"goals_against": 0
+	}
+	
+	# Reiniciar valores iniciales
+	money = 2000  # Dinero inicial normal (sin debug)
+	tickets_bufas = 0
+	inventory.clear()
+	
+	# Establecer estado inicial
+	current_state = GameState.VISUAL_NOVEL
+	
+	# Iniciar el prólogo
+	print("Cargando prólogo...")
+	get_tree().change_scene_to_file("res://scenes/PrologueScene.tscn")
 
 # Funciones de tickets Bufas
 func get_tickets_bufas() -> int:
@@ -300,6 +444,193 @@ func add_money(amount: int):
 	money_updated.emit(money)
 	print("GameManager: Dinero actualizado - ", money)
 
+# ========== SISTEMA COMPLETO DE FAMA ==========
+
+# Funciones básicas de fama
+func get_fame() -> int:
+	return fame
+
+func add_fame(amount: int, reason: String = "Sin especificar"):
+	var old_fame = fame
+	fame += amount
+	fame = max(0, fame)  # No permitir fama negativa
+	
+	# Añadir al historial
+	add_to_fame_history(amount, reason)
+	
+	# Emitir señal
+	fame_updated.emit(fame, reason)
+	
+	print("📈 GameManager: Fama ", "aumentó" if amount > 0 else "disminuyó", " en ", abs(amount), " (", reason, "). Total: ", fame)
+
+func lose_fame(amount: int, reason: String = "Sin especificar"):
+	"""Función específica para perder fama (más clara semánticamente)"""
+	add_fame(-amount, reason)
+
+func spend_fame(amount: int) -> bool:
+	if fame >= amount:
+		fame -= amount
+		fame_updated.emit(fame, "Gasto de fama")
+		print("GameManager: Fama gastada - ", amount, ". Fama restante: ", fame)
+		return true
+	else:
+		print("GameManager: No hay suficiente fama para gastar ", amount)
+		return false
+
+# Sistema de historial de fama
+func add_to_fame_history(change: int, reason: String):
+	"""Añade una entrada al historial de cambios de fama"""
+	var current_day = DayManager.get_current_day() if DayManager else 1
+	
+	var entry = {
+		"day": current_day,
+		"change": change,
+		"reason": reason,
+		"new_total": fame,
+		"timestamp": Time.get_unix_time_from_system()
+	}
+	
+	fame_history.push_front(entry)
+	
+	# Limitar el historial a las últimas X entradas
+	if fame_history.size() > max_fame_history_entries:
+		fame_history = fame_history.slice(0, max_fame_history_entries)
+
+func get_fame_history() -> Array[Dictionary]:
+	"""Devuelve el historial de cambios de fama"""
+	return fame_history
+
+func get_recent_fame_changes(count: int = 5) -> Array[Dictionary]:
+	"""Devuelve los últimos N cambios de fama"""
+	return fame_history.slice(0, min(count, fame_history.size()))
+
+# Sistema de ingresos basados en fama
+func calculate_match_earnings() -> int:
+	"""Calcula los ingresos base de un partido según la fama"""
+	var base_earnings = 50  # Ingresos mínimos por partido
+	var fame_bonus = int(fame * 0.5)  # 0.5 monedas por cada punto de fama
+	
+	var total_earnings = base_earnings + fame_bonus
+	print("💰 Ingresos del partido: ", base_earnings, " (base) + ", fame_bonus, " (fama) = ", total_earnings)
+	
+	return total_earnings
+
+func calculate_season_bonus() -> int:
+	"""Calcula la prima de final de temporada basada en la fama total"""
+	var bonus_multiplier = 2.0  # Multiplicador para la prima de temporada
+	var season_bonus = int(fame * bonus_multiplier)
+	
+	print("🏆 Prima de temporada: ", fame, " fama × ", bonus_multiplier, " = ", season_bonus, " monedas")
+	
+	return season_bonus
+
+# Funciones de fama por resultados de partidos
+func process_match_fame_changes(goals_for: int, goals_against: int, result: String):
+	"""Procesa los cambios de fama basados en el resultado del partido"""
+	var fame_change = 0
+	var reason = ""
+	
+	match result:
+		"win":
+			# Victorias dan fama
+			var goal_difference = goals_for - goals_against
+			fame_change = 10 + (goal_difference * 2)  # Base 10 + 2 por cada gol de diferencia
+			reason = "Victoria " + str(goals_for) + "-" + str(goals_against)
+			
+			# Bonus por goleadas
+			if goal_difference >= 3:
+				fame_change += 5
+				reason += " (¡Goleada!)"
+			
+		"loss":
+			# Derrotas quitan fama
+			var goal_difference = goals_against - goals_for
+			fame_change = -5 - (goal_difference * 1)  # Base -5 - 1 por cada gol de diferencia
+			reason = "Derrota " + str(goals_for) + "-" + str(goals_against)
+			
+			# Penalización extra por goleadas en contra
+			if goal_difference >= 3:
+				fame_change -= 5
+				reason += " (Goleada recibida)"
+			
+		"draw":
+			# Empates dan poca fama
+			fame_change = 2
+			reason = "Empate " + str(goals_for) + "-" + str(goals_against)
+	
+	if fame_change != 0:
+		add_fame(fame_change, reason)
+	
+	# Calcular y añadir ingresos del partido
+	var match_earnings = calculate_match_earnings()
+	add_money(match_earnings)
+
+func process_season_end_bonus():
+	"""Procesa la prima de final de temporada"""
+	var season_bonus = calculate_season_bonus()
+	if season_bonus > 0:
+		add_money(season_bonus)
+		add_fame(10, "Bonus de final de temporada")
+		print("🎉 ¡Prima de temporada otorgada! +", season_bonus, " monedas y +10 fama")
+
+# Eventos de fama para encargos y decisiones
+func process_fame_event(event_type: String, choice: String = "") -> Dictionary:
+	"""Procesa eventos que afectan a la fama (para encargos, decisiones, etc.)"""
+	var result = {"fame_change": 0, "money_change": 0, "description": ""}
+	
+	match event_type:
+		"sponsorship_controversial":
+			if choice == "accept":
+				result.fame_change = 15
+				result.money_change = 5000
+				result.description = "Patrocinio polémico aceptado - Mayor exposición"
+			else:
+				result.fame_change = -5
+				result.money_change = 0
+				result.description = "Patrocinio rechazado - Oportunidad perdida"
+			
+		"media_interview":
+			if choice == "positive":
+				result.fame_change = 8
+				result.description = "Entrevista positiva en medios"
+			else:
+				result.fame_change = -3
+				result.description = "Declaraciones polémicas"
+			
+		"community_event":
+			result.fame_change = 12
+			result.money_change = -1000
+			result.description = "Participación en evento comunitario"
+			
+		"scandal":
+			result.fame_change = -20
+			result.description = "Escándalo del equipo"
+	
+	if result.fame_change != 0:
+		add_fame(result.fame_change, result.description)
+	if result.money_change != 0:
+		add_money(result.money_change)
+	
+	return result
+
+# Funciones de información sobre fama
+func get_fame_level_description() -> String:
+	"""Devuelve una descripción del nivel actual de fama"""
+	if fame >= 1000:
+		return "⭐⭐⭐ CLUB LEGENDARIO"
+	elif fame >= 500:
+		return "⭐⭐ CLUB RECONOCIDO"
+	elif fame >= 200:
+		return "⭐ CLUB EMERGENTE"
+	elif fame >= 50:
+		return "📈 CLUB EN CRECIMIENTO"
+	else:
+		return "🌱 CLUB NOVATO"
+
+func get_estimated_daily_earnings() -> int:
+	"""Estima los ingresos diarios basados en la fama actual"""
+	return int(fame * 0.1)  # 0.1 monedas por día por cada punto de fama
+
 func spend_money(amount: int) -> bool:
 	if money >= amount:
 		money -= amount
@@ -324,3 +655,25 @@ func add_item_to_inventory(item_id: String, quantity: int):
 	
 	inventory_updated.emit()
 	print("GameManager: Inventario actualizado - ", inventory)
+
+# Sistema de cheats
+func _unhandled_input(event):
+	if event is InputEventKey and event.pressed:
+		# Cheat: Tecla R - Saltar al día siguiente con entrenamiento completado
+		if event.keycode == KEY_R:
+			activate_day_skip_cheat()
+
+func activate_day_skip_cheat():
+	print("🎮 CHEAT ACTIVADO: Completando entrenamiento y avanzando día")
+	
+	# Completar entrenamiento si existe TrainingManager
+	if TrainingManager:
+		TrainingManager.complete_training()
+		print("✅ Entrenamiento completado")
+	
+	# Avanzar al día siguiente
+	if DayManager:
+		DayManager.advance_day_with_origin("training")
+		print("📅 Día avanzado a: ", DayManager.get_current_day())
+	else:
+		print("❌ Error: DayManager no disponible")

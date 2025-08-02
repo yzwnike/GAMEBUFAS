@@ -3,43 +3,51 @@
   "win_branch": [
     {
       "character": "narrator",
-      "text": "El silbato final suena. Contra todo pronóstico, has ganado el partido 3 vs 3. Tus rivales están boquiabiertos.",
-      "background": "campo"
-    },
-    {
-      "character": "pablo",
-      "text": "No... no puede ser. ¿Cómo es posible que nos hayáis ganado? ¡Nuestra formación era... perfecta!"
-    },
-    {
-      "character": "perma",
-      "text": "¡Mi six-pack de acero ha sido derrotado! ¡Esto es inaceptable! Exijo la revancha, o... unirme a vosotros. El catering del equipo ganador siempre es mejor."
-    },
-    {
-      "character": "javo",
-      "text": "Hmph. Vuestra tenacidad es... interesante. Sería logísticamente más eficiente aplastar al resto de equipos desde dentro de vuestras filas. Os ofrezco mi inconmensurable talento."
-    },
-    {
-      "character": "narrator",
-      "text": "Los tres rivales, cada uno con sus extrañas motivaciones, te miran fijamente. Parece que te están ofreciendo unirse a tu equipo."
+      "text": "¡PITIDO FINAL! FC Bufas ha conseguido la victoria contra el Deportivo Magadios. Los jugadores rivales no pueden creer lo que ha pasado.",
+      "background": "partido"
     },
     {
       "character": "yazawa",
-      "text": "Esto es... inesperado. ¿Estáis seguros? Ayer mismo queríais mandarme al hospital."
+      "text": "¡Joder, lo hemos conseguido! Chavales, ¡habéis estado increíbles!"
     },
     {
-      "character": "perma",
-      "text": "Detalles, detalles. Además, desde tu equipo podré vigilar de cerca tus rutinas de entrenamiento... y tus snacks. Sobre todo los snacks."
+      "character": "jugador1",
+      "text": "¡No me lo puedo creer! ¡Le hemos ganado al crack!"
     },
     {
-      "character": "narrator",
-      "text": "Y así, de la forma más extraña posible, los tres prodigios del equipo rival ahora son parte de tu equipo. Esto va a ser un caos... o una genialidad."
+      "character": "estrella_magadios",
+      "text": "Esto... esto no puede ser. ¿Cómo habéis podido...? ¡He corrido por tres!"
+    },
+    {
+      "character": "yazawa",
+      "text": "Oye tío, has jugado como un fenómeno. Pero el fútbol es de equipo, ¿sabes?"
+    },
+    {
+      "character": "jugador_malo_magadios",
+      "text": "Eh... disculpad, ¿alguien puede explicarme qué ha pasado? Me he despistado en el minuto cinco."
+    },
+    {
+      "character": "jugador2",
+      "text": "¡Jajaja! ¡Este tío ni se ha enterado de que han perdido!"
+    },
+    {
+      "character": "estrella_magadios",
+      "text": "Enhorabuena... habéis jugado como un verdadero equipo. Algo que yo... nunca he tenido."
+    },
+    {
+      "character": "yazawa",
+      "text": "¿Sabes qué? Si alguna vez te hartas de cargar con... bueno, ya sabes... tienes sitio con nosotros."
+    },
+    {
+      "character": "estrella_magadios",
+      "text": "Gracias... lo pensaré. Pero ahora tengo que ir a explicarle a éste por qué no puede llevarse las porterías a casa."
     }
   ],
   "win_7v7_branch": [
     {
       "character": "narrator",
       "text": "¡Final del partido! FC Bufas ha ganado su primer partido clandestino en una épica batalla 7vs7.",
-      "background": "campo"
+      "background": "partido"
     },
     {
       "character": "fan",
@@ -79,7 +87,7 @@
     {
       "character": "narrator",
       "text": "Derrota. FC Bufas ha perdido su primer partido clandestino, pero el espíritu de equipo sigue intacto.",
-      "background": "campo"
+      "background": "partido"
     },
     {
       "character": "fan",
@@ -118,40 +126,229 @@
   "loss_branch": [
     {
       "character": "narrator",
-      "text": "El partido termina. Has perdido. Los rivales celebran con un baile de la victoria un tanto ridículo y ofensivo.",
-      "background": "campo"
-    },
-    {
-      "character": "pablo",
-      "text": "¡JA! ¡Victoria aplastante! ¡Somos los mejores, los más guapos y los que mejor olemos! ¡El pack completo!"
-    },
-    {
-      "character": "perma",
-      "text": "¡Toma ya! Ahora, a lo importante. La tradición no escrita del fútbol de barrio y de los romances de una noche dice que... ¡el que pierde paga las bebidas!"
+      "text": "Pitido final. FC Bufas ha perdido contra el Deportivo Magadios. La estrella rival celebra con alivio mientras sus compañeros... bueno, algunos ni se han enterado.",
+      "background": "partido"
     },
     {
       "character": "yazawa",
-      "text": "(...Me quiero morir...)"
+      "text": "Joder... bueno, chavales, lo hemos intentado. Ese tío es realmente bueno."
     },
     {
-      "character": "javo",
-      "text": "Vuestra derrota ha sido... patética. Pero he de admitir que mostrasteis destellos de potencial. Es un desperdicio que sigáis con ese entrenador."
+      "character": "jugador1",
+      "text": "Ha sido como jugar contra un equipo entero él solo..."
     },
     {
-      "character": "pablo",
-      "text": "¡Tiene razón! Mirad, os seremos sinceros. Nosotros no somos un equipo de verdad. Somos mercenarios. Nos pagaron para poneros a prueba."
+      "character": "estrella_magadios",
+      "text": "¡Por fin! ¡POR FIN una victoria! Habéis jugado muy bien, en serio. Casi me dais un infarto."
     },
     {
-      "character": "perma",
-      "text": "¡Y nuestro contrato acaba... AHORA! Nos ha gustado vuestro... ¿cómo se dice? ¿Corazón? ¿Garra? Bah, nos habéis caído bien. Y vuestro equipo parece un circo divertido."
+      "character": "jugador_malo_magadios",
+      "text": "Eh... ¿ya hemos empezado? Porque yo he estado persiguiendo una mariposa muy bonita..."
     },
     {
-      "character": "javo",
-      "text": "Nuestro antiguo cliente era un aburrido. Unirse a vosotros parece una inversión de futuro más... caótica. Aceptamos un puesto en vuestro equipo. No es una pregunta."
+      "character": "yazawa",
+      "text": "Jajaja, tío, ¿cómo puedes jugar con estos elementos?"
+    },
+    {
+      "character": "estrella_magadios",
+      "text": "Es mi cruz... Pero oye, habéis demostrado mucho nivel. Si seguís entrenándoos así, vais a llegar lejos."
+    },
+    {
+      "character": "jugador2",
+      "text": "Ha sido un placer jugar contra alguien de tu nivel, tío."
+    },
+    {
+      "character": "estrella_magadios",
+      "text": "Lo mismo digo. Y si algún día necesitáis un jugador que sepa realmente de fútbol... ya sabéis dónde encontrarme."
+    },
+    {
+      "character": "jugador_malo_magadios",
+      "text": "¿Eh? ¿Qué pasa? ¿Alguien ha visto mis zapatillas? Me parece que me las he cambiado por accidente..."
+    }
+  ],
+  "draw_branch": [
+    {
+      "character": "narrator",
+      "text": "El árbitro pita el final. Empate. Ambos equipos han luchado hasta el último minuto en un partido muy igualado.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "Nada mal, chavales. Empatar contra ese crack no está nada mal."
+    },
+    {
+      "character": "jugador1",
+      "text": "Sí, pero casi les metemos uno al final..."
+    },
+    {
+      "character": "estrella_magadios",
+      "text": "Buf... empate. Después de tanto tiempo perdiendo, empatar se siente casi como ganar."
+    },
+    {
+      "character": "yazawa",
+      "text": "Tío, has estado increíble. En serio, ¿cómo aguantas jugando con..."
+    },
+    {
+      "character": "jugador_malo_magadios",
+      "text": "Oye, ¿alguien puede decirme qué tal lo he hecho? He estado intentando hacer malabares con el balón, pero se me caía todo el rato."
+    },
+    {
+      "character": "jugador2",
+      "text": "Jajaja, este tío es genial. No tiene ni idea, pero le pone ganas."
+    },
+    {
+      "character": "estrella_magadios",
+      "text": "Oye, ¿sabéis qué? Me habéis dado esperanza. Hace tiempo que no disfruto tanto un partido."
+    },
+    {
+      "character": "yazawa",
+      "text": "Ha sido un partidazo. Igualado, limpio, sin tonterías..."
+    },
+    {
+      "character": "estrella_magadios",
+      "text": "Exacto. Esto es fútbol de verdad. Si alguna vez queréis hacer un equipo serio..."
+    },
+    {
+      "character": "jugador_malo_magadios",
+      "text": "Eh, ¿y ahora qué? ¿Tenemos que seguir corriendo o ya podemos parar?"
+    },
+    {
+      "character": "yazawa",
+      "text": "Jajaja, que alguien le explique que ya hemos terminado."
+    }
+  ],
+  "prologue_3v3_win_branch": [
+    {
+      "character": "narrator",
+      "text": "¡Final del partido! Tu equipo ha ganado el primer desafío 3v3. Yazawa y Marcos celebran la victoria.",
+      "background": "campo"
+    },
+    {
+      "character": "yazawa",
+      "text": "¡LO HICIMOS! ¡Primer partido y primera victoria! Has sido increíble ahí afuera."
+    },
+    {
+      "character": "marcos",
+      "text": "¡Qué jugadón! Sabía que contigo en el equipo íbamos a arrasar."
+    },
+    {
+      "character": "yazawa",
+      "text": "Pero esto es solo el comienzo. Ahora que hemos demostrado lo que valemos, es hora de conocer a más gente."
     },
     {
       "character": "narrator",
-      "text": "Sin que pudieras reaccionar, los tres mercenarios renegados se autoproclaman nuevos miembros de tu equipo. Tu vida acaba de volverse mucho más complicada."
+      "text": "De repente, tres personas se acercan desde las gradas..."
+    },
+    {
+      "character": "perma",
+      "text": "¡Oye! ¡Ese partido ha estado genial! Soy Perma, y no pude evitar fijarme en vuestro juego."
+    },
+    {
+      "character": "pablo",
+      "text": "Yo soy Pablo. Tenéis mucho potencial, especialmente tú. ¿Habéis pensado en expandir el equipo?"
+    },
+    {
+      "character": "javo",
+      "text": "Javo, un placer. Creo que podríamos hacer algo grande juntos. ¿Qué opináis de formar un equipo más grande?"
+    },
+    {
+      "character": "yazawa",
+      "text": "Interesante... ¿Y vosotros qué tal jugáis?"
+    },
+    {
+      "character": "perma",
+      "text": "Bueno, digamos que tengo mis trucos. ¡Me especializo en jugadas acrobáticas!"
+    },
+    {
+      "character": "pablo",
+      "text": "Yo aporto estrategia y visión de juego. Creo que podríamos complementarnos bien."
+    },
+    {
+      "character": "javo",
+      "text": "Y yo... bueno, soy el que mantiene la calma cuando las cosas se ponen difíciles."
+    },
+    {
+      "character": "yazawa",
+      "text": "¡Me gusta! ¿Qué dices? ¿Expandimos el equipo?",
+      "choices": [
+        {
+          "text": "¡Por supuesto! Cuantos más, mejor.",
+          "id": "expand_team"
+        },
+        {
+          "text": "Prefiero que mantengamos el equipo pequeño por ahora.",
+          "id": "keep_small"
+        }
+      ]
+    }
+  ],
+  "prologue_3v3_loss_branch": [
+    {
+      "character": "narrator",
+      "text": "Final del partido. A pesar de la derrota, el espíritu de equipo sigue alto.",
+      "background": "campo"
+    },
+    {
+      "character": "yazawa",
+      "text": "Bueno, no ha sido el resultado que esperábamos, pero ¡hemos luchado hasta el final!"
+    },
+    {
+      "character": "marcos",
+      "text": "Sí, y has demostrado tener mucha clase. Esta derrota solo nos hará más fuertes."
+    },
+    {
+      "character": "yazawa",
+      "text": "Exacto. Los grandes equipos aprenden de las derrotas. Y nosotros vamos a ser grandes."
+    },
+    {
+      "character": "narrator",
+      "text": "Mientras recogen sus cosas, tres espectadores se acercan..."
+    },
+    {
+      "character": "perma",
+      "text": "¡Eh! No os desaniméis. Soy Perma, y he visto el partido. Habéis jugado con corazón."
+    },
+    {
+      "character": "pablo",
+      "text": "Pablo aquí. Es cierto, habéis tenido mala suerte, pero vuestro potencial es evidente."
+    },
+    {
+      "character": "javo",
+      "text": "Javo. Una derrota no define a un equipo. De hecho, creo que necesitáis más jugadores para alcanzar vuestro verdadero potencial."
+    },
+    {
+      "character": "yazawa",
+      "text": "¿Más jugadores? Interesante... ¿Y vosotros jugáis?"
+    },
+    {
+      "character": "perma",
+      "text": "¡Claro que sí! Soy especialista en jugadas espectaculares. ¡Chilenas, tijeras, lo que haga falta!"
+    },
+    {
+      "character": "pablo",
+      "text": "Yo me encargo de la táctica y la organización. Creo que eso es lo que os ha faltado hoy."
+    },
+    {
+      "character": "javo",
+      "text": "Y yo aporto estabilidad emocional. Cuando las cosas se ponen feas, mantengo la calma."
+    },
+    {
+      "character": "marcos",
+      "text": "Suena bien... ¿Qué opinas?"
+    },
+    {
+      "character": "yazawa",
+      "text": "Sí, la decisión es tuya. ¿Ampliamos el equipo?",
+      "choices": [
+        {
+          "text": "Sí, necesitamos refuerzos después de esta derrota.",
+          "id": "expand_team"
+        },
+        {
+          "text": "Creo que podemos mejorar solos, gracias.",
+          "id": "keep_small"
+        }
+      ]
     }
   ]
 }

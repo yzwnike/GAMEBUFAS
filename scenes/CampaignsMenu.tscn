@@ -1,0 +1,67 @@
+[gd_scene load_steps=2 format=3 uid="uid://bx4mh7n8r2fqj"]
+
+[ext_resource type="Script" path="res://scripts/CampaignsMenu.gd" id="1_mh4n8"]
+
+[node name="CampaignsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_mh4n8")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.05, 0.05, 0.1, 1)
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="TitleContainer" type="VBoxContainer" parent="UILayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -400.0
+offset_top = 30.0
+offset_right = 400.0
+offset_bottom = 150.0
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="UILayer/TitleContainer"]
+layout_mode = 2
+text = "🎯 GESTIÓN DE CAMPAÑAS"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="UILayer/TitleContainer"]
+layout_mode = 2
+text = "Proyectos a medio plazo para aumentar fama, dinero e imagen del club"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="MainContainer" type="VBoxContainer" parent="UILayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -500.0
+offset_top = 160.0
+offset_right = 500.0
+offset_bottom = 700.0
+
+[node name="TabContainer" type="TabContainer" parent="UILayer/MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BackButton" type="Button" parent="UILayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -70.0
+offset_right = 200.0
+offset_bottom = -30.0
+text = "← Volver a la Oficina"

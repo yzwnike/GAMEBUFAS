@@ -25,6 +25,10 @@ func _ready():
 	# Configurar el control para pantalla completa
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	
+	# BLOQUEAR INPUTS DURANTE LA TRANSICIÓN
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	mouse_filter = Control.MOUSE_FILTER_STOP  # Interceptar todos los clics
+	
 	# Crear la transición
 	setup_transition()
 
@@ -34,15 +38,18 @@ func show_day_transition(from_day: int, to_day: int):
 	
 	print("🌅 DayTransition: Iniciando transición del día ", from_day, " al día ", to_day)
 	
-	# Hacer visible y iniciar animación
+	# Hacer visible y activar bloqueo de inputs
 	visible = true
+	mouse_filter = Control.MOUSE_FILTER_STOP  # Bloquear clics
+	print("🚫 DayTransition: Inputs bloqueados durante la transición")
+	
 	start_transition_animation()
 
 func setup_transition():
-	# Fondo con gradiente
+	# Fondo completamente opaco
 	background = ColorRect.new()
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	background.color = Color(0.1, 0.1, 0.2, 1.0)  # Azul oscuro inicial
+	background.color = Color(0.1, 0.1, 0.2, 1.0)  # Azul oscuro inicial OPACO
 	add_child(background)
 	
 	# Container principal
@@ -99,15 +106,17 @@ func create_sun_sprite() -> Control:
 	return sun_container
 
 func start_transition_animation():
-	# Configurar texto inicial
-	day_label.text = "DÍA " + str(old_day)
+	# Configurar texto inicial - MOSTRAR DIRECTAMENTE EL NUEVO DÍA
+	var day_color = day_colors[(new_day - 1) % day_colors.size()]
+	day_label.text = "DÍA " + str(new_day)  # DIRECTAMENTE EL NUEVO DÍA
+	day_label.add_theme_color_override("font_color", day_color)
 	day_label.modulate = Color.TRANSPARENT
 	
 	var screen_size = get_viewport().get_visible_rect().size
 	var tween = create_tween()
 	tween.set_parallel(true)  # Permitir múltiples animaciones en paralelo
 	
-	# FASE 1: Fade in del fondo y aparición del día actual (0.3s)
+	# FASE 1: Fade in del fondo y aparición del NUEVO DÍA (0.3s)
 	tween.tween_property(background, "color", Color(0.2, 0.3, 0.5, 1.0), 0.3)
 	tween.tween_property(day_label, "modulate", Color.WHITE, 0.3)
 	
@@ -117,27 +126,19 @@ func start_transition_animation():
 	# Rotación del sol mientras se mueve
 	tween.tween_property(sun_sprite, "rotation", PI * 2, 1.2).set_delay(0.2)
 	
-	# FASE 3: Cambio de color del fondo según el día (0.6s) - empieza a los 0.6s
-	var day_color = day_colors[(new_day - 1) % day_colors.size()]
+	# FASE 3: Cambio de color del fondo según el NUEVO día (0.6s) - empieza a los 0.6s
 	var gradient_color = day_color
-	gradient_color.a = 0.4  # Menos intenso
+	gradient_color.a = 1.0  # MANTENER COMPLETAMENTE OPACO
 	tween.tween_property(background, "color", gradient_color, 0.6).set_delay(0.6)
 	
-	# FASE 4: Cambio del texto del día (0.3s) - empieza a los 0.8s
-	tween.tween_property(day_label, "modulate", Color.TRANSPARENT, 0.2).set_delay(0.8)
+	# Cambiar el texto del día a azul para mejor contraste con el fondo colorido
+	tween.tween_property(day_label, "modulate", Color(0.2, 0.3, 0.8, 1.0), 0.6).set_delay(0.6)
 	
-	# Esperar un poco y cambiar el texto
-	await get_tree().create_timer(1.0).timeout
-	day_label.text = "DÍA " + str(new_day)
-	day_label.add_theme_color_override("font_color", day_color)
-	
-	# Fade in del nuevo texto
-	tween.tween_property(day_label, "modulate", Color.WHITE, 0.3)
-	
-	# FASE 5: Crear partículas/estrellas (0.5s) - empieza a los 1.2s
+	# FASE 4: Crear partículas/estrellas (0.5s) - empieza a los 1.2s
+	await get_tree().create_timer(1.2).timeout
 	create_sparkle_particles()
 	
-	# FASE 6: Fade out más rápido (0.4s) - empieza a los 1.8s
+	# FASE 5: Fade out más rápido (0.4s) - empieza a los 1.8s
 	await get_tree().create_timer(0.8).timeout
 	tween.tween_property(self, "modulate", Color.TRANSPARENT, 0.4)
 	
@@ -192,6 +193,10 @@ func finish_transition():
 	for child in particles_container.get_children():
 		child.queue_free()
 	
+	# DESBLOQUEAR INPUTS
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	print("✅ DayTransition: Inputs desbloqueados")
+	
 	# Ocultar y resetear
 	visible = false
 	modulate = Color.WHITE
@@ -199,6 +204,25 @@ func finish_transition():
 	# Señal de finalización si hay algún listener
 	if has_signal("transition_finished"):
 		emit_signal("transition_finished")
+
+# Función para interceptar TODOS los inputs durante la transición
+func _input(event):
+	# Si la transición está activa (visible), bloquear TODOS los inputs
+	if visible:
+		get_viewport().set_input_as_handled()
+		if event is InputEventMouseButton:
+			print("🚫 DayTransition: Clic bloqueado durante la transición")
+		elif event is InputEventKey:
+			print("🚫 DayTransition: Tecla bloqueada durante la transición")
+		return  # No procesar más el input
+
+# Función para interceptar inputs en la GUI
+func _gui_input(event):
+	# Si la transición está activa, bloquear todos los inputs GUI
+	if visible:
+		accept_event()  # Marcar el evento como manejado
+		if event is InputEventMouseButton:
+			print("🚫 DayTransition: GUI clic bloqueado")
 
 # Señal para notificar cuando la transición termina
 signal transition_finished

@@ -4,11 +4,13 @@ extends Control
 var squad_button
 var training_button
 var inventory_button
+var psychologist_button
+var yazawa_office_button
 var back_button
 var title_label
 var day_label
 var background
-var menu_buttons
+var buttons_container
 
 # Variables para animaciones
 var entry_tween: Tween
@@ -58,6 +60,8 @@ func setup_styles():
 	if squad_button: setup_button_style(squad_button, Color.ORANGE, 24)
 	if training_button: setup_button_style(training_button, Color.LIME_GREEN, 24)
 	if inventory_button: setup_button_style(inventory_button, Color.CYAN, 24)
+	if psychologist_button: setup_button_style(psychologist_button, Color.PURPLE, 20)
+	if yazawa_office_button: setup_button_style(yazawa_office_button, Color.ORANGE, 20)
 	if back_button: setup_button_style(back_button, Color.GRAY, 18)
 
 func setup_button_style(button: Button, color: Color, font_size: int):
@@ -68,6 +72,8 @@ func connect_buttons():
 	if squad_button: squad_button.pressed.connect(_on_squad_button_pressed)
 	if training_button: training_button.pressed.connect(_on_training_button_pressed)
 	if inventory_button: inventory_button.pressed.connect(_on_inventory_button_pressed)
+	if psychologist_button: psychologist_button.pressed.connect(_on_psychologist_button_pressed)
+	if yazawa_office_button: yazawa_office_button.pressed.connect(_on_yazawa_office_button_pressed)
 	if back_button: back_button.pressed.connect(_on_back_button_pressed)
 
 func _on_squad_button_pressed():
@@ -97,12 +103,58 @@ func _on_training_button_pressed():
 	# update_training_button()
 	# update_day_display()
 	
-	# NUEVO: Cargar escena de diálogo de entrenamiento dinámico
-	get_tree().change_scene_to_file("res://scenes/TrainingDialogueScene.tscn")
+	# NUEVO: Cargar transición 3D del campo de entrenamiento
+	print("TrainingMenu: Iniciando transición 3D hacia el campo de entrenamiento...")
+	
+	# Verificar si el archivo de transición existe
+	if ResourceLoader.exists("res://scenes/TrainingFieldTransition.tscn"):
+		print("TrainingMenu: Archivo TrainingFieldTransition.tscn encontrado")
+		get_tree().change_scene_to_file("res://scenes/TrainingFieldTransition.tscn")
+	else:
+		print("ERROR: Archivo TrainingFieldTransition.tscn no encontrado")
+		# Fallback directo al diálogo
+		if ResourceLoader.exists("res://scenes/TrainingDialogueScene.tscn"):
+			print("TrainingMenu: Usando fallback a TrainingDialogueScene.tscn")
+			get_tree().change_scene_to_file("res://scenes/TrainingDialogueScene.tscn")
+		else:
+			print("ERROR: Archivo TrainingDialogueScene.tscn tampoco encontrado")
 
 func _on_inventory_button_pressed():
 	print("TrainingMenu: Botón 'Inventario' presionado")
 	get_tree().change_scene_to_file("res://scenes/InventoryMenu.tscn")
+
+func _on_psychologist_button_pressed():
+	print("TrainingMenu: Botón 'Psicólogo Deportivo' presionado")
+	print("TrainingMenu: Intentando cambiar a PsychologistMenu.tscn")
+	
+	# Verificar si el archivo existe
+	if ResourceLoader.exists("res://scenes/PsychologistMenu.tscn"):
+		print("TrainingMenu: Archivo PsychologistMenu.tscn encontrado")
+		get_tree().change_scene_to_file("res://scenes/PsychologistMenu.tscn")
+	else:
+		print("ERROR: Archivo PsychologistMenu.tscn no encontrado")
+
+func _on_yazawa_office_button_pressed():
+	print("TrainingMenu: Botón 'Oficina de Yazawa' presionado")
+	print("TrainingMenu: Iniciando transición épica a la oficina...")
+	
+	# Marcar que venimos de la transición del botón OFICINA para activar animación
+	if GameManager and GameManager.has_method("set_story_flag"):
+		GameManager.set_story_flag("from_office_transition", true)
+		print("🏂 Flag 'from_office_transition' activado para animación")
+	
+	# Verificar si el archivo de transición existe
+	if ResourceLoader.exists("res://scenes/YazawaOfficeTransition.tscn"):
+		print("TrainingMenu: Archivo YazawaOfficeTransition.tscn encontrado")
+		get_tree().change_scene_to_file("res://scenes/YazawaOfficeTransition.tscn")
+	else:
+		print("ERROR: Archivo YazawaOfficeTransition.tscn no encontrado")
+		# Fallback directo a la oficina
+		if ResourceLoader.exists("res://scenes/YazawaOfficeMenu.tscn"):
+			print("TrainingMenu: Usando fallback a YazawaOfficeMenu.tscn")
+			get_tree().change_scene_to_file("res://scenes/YazawaOfficeMenu.tscn")
+		else:
+			print("ERROR: Archivo YazawaOfficeMenu.tscn tampoco encontrado")
 
 func _on_back_button_pressed():
 	print("TrainingMenu: Volviendo al menú principal...")
@@ -177,9 +229,10 @@ func setup_animations():
 	entry_tween = get_tree().create_tween()
 	
 	# Configurar botones para hover
-	for button in [squad_button, training_button, inventory_button, back_button]:
-		original_scales[button] = button.scale
-		setup_button_hover_animation(button)
+	for button in [squad_button, training_button, inventory_button, psychologist_button, yazawa_office_button, back_button]:
+		if button:
+			original_scales[button] = button.scale
+			setup_button_hover_animation(button)
 
 # Configuración de animación para hover en botones
 func setup_button_hover_animation(button):
@@ -208,7 +261,7 @@ func start_entrance_animation():
 	entry_tween = get_tree().create_tween()
 
 	# Animar la entrada de los botones
-	for button in [squad_button, training_button, inventory_button, back_button]:
+	for button in [squad_button, training_button, inventory_button, psychologist_button, yazawa_office_button, back_button]:
 		if button:
 			button.modulate = Color(1, 1, 1, 0)
 			entry_tween.parallel().tween_property(button, "modulate:a", 1, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -220,18 +273,22 @@ func start_entrance_animation():
 
 # Inicializar referencias a nodos de forma segura
 func init_node_references():
-	squad_button = get_node_or_null("MarginContainer/VBoxContainer/MenuButtons/SquadButton")
-	training_button = get_node_or_null("MarginContainer/VBoxContainer/MenuButtons/TrainingButton")
-	inventory_button = get_node_or_null("MarginContainer/VBoxContainer/MenuButtons/InventoryButton")
+	squad_button = get_node_or_null("MarginContainer/VBoxContainer/ButtonsContainer/MainButtonRow/SquadButton")
+	training_button = get_node_or_null("MarginContainer/VBoxContainer/ButtonsContainer/MainButtonRow/TrainingButton")
+	inventory_button = get_node_or_null("MarginContainer/VBoxContainer/ButtonsContainer/SecondaryButtonRow/InventoryButton")
+	psychologist_button = get_node_or_null("MarginContainer/VBoxContainer/ButtonsContainer/SecondaryButtonRow/PsychologistButton")
+	yazawa_office_button = get_node_or_null("MarginContainer/VBoxContainer/ButtonsContainer/SecondaryButtonRow/YazawaOfficeButton")
 	back_button = get_node_or_null("MarginContainer/VBoxContainer/BackButton")
 	title_label = get_node_or_null("MarginContainer/VBoxContainer/TitleLabel")
 	day_label = get_node_or_null("MarginContainer/VBoxContainer/DayLabel")
 	background = get_node_or_null("Background")
-	menu_buttons = get_node_or_null("MarginContainer/VBoxContainer/MenuButtons")
+	buttons_container = get_node_or_null("MarginContainer/VBoxContainer/ButtonsContainer")
 	
 	# Verificar que los nodos críticos existan
-	if not squad_button or not training_button or not inventory_button or not back_button:
+	if not squad_button or not training_button or not inventory_button or not psychologist_button or not yazawa_office_button or not back_button:
 		print("ERROR: No se pudieron encontrar todos los botones necesarios")
+		print("Squad: ", squad_button != null, ", Training: ", training_button != null, ", Inventory: ", inventory_button != null)
+		print("Psychologist: ", psychologist_button != null, ", Yazawa: ", yazawa_office_button != null, ", Back: ", back_button != null)
 		return false
 	
 	print("TrainingMenu: Todos los nodos inicializados correctamente")

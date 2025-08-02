@@ -159,7 +159,8 @@ func create_player_card(player):
 	
 	# Overall
 	var overall_label = Label.new()
-	overall_label.text = "OVR: " + str(player.overall)
+	var dynamic_ovr = TransferMarketManager.calculate_player_dynamic_overall(player)
+	overall_label.text = "OVR: " + str(dynamic_ovr)
 	overall_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	overall_label.add_theme_font_size_override("font_size", 14)
 	overall_label.add_theme_color_override("font_color", Color.YELLOW)
@@ -195,7 +196,8 @@ func start_negotiation(player):
 	
 	# Info del jugador
 	var info = Label.new()
-	info.text = "%s\nOverall: %s\nPrecio: €%s" % [player.name, player.overall, player.market_value]
+	var dynamic_ovr = TransferMarketManager.calculate_player_dynamic_overall(player)
+	info.text = "%s\nOverall: %s\nPrecio: €%s" % [player.name, dynamic_ovr, player.market_value]
 	info.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vbox.add_child(info)
 	

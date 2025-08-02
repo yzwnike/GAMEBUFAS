@@ -108,10 +108,50 @@ func select_random_players(players: Array, count: int) -> Array:
 
 func calculate_market_values():
 	for player in available_players:
-		# Usar el sistema dinámico del PlayersManager para calcular valores consistentes
-		player.market_value = calculate_player_market_value(player.overall)
+		# Calcular OVR dinámica basada en substats antes de calcular el precio
+		var dynamic_overall = calculate_player_dynamic_overall(player)
 		
-		print("TransferMarketManager: ", player.name, " (OVR ", player.overall, ") - Valor: €", player.market_value)
+		# Usar el sistema dinámico del PlayersManager para calcular valores consistentes
+		player.market_value = calculate_player_market_value(dynamic_overall)
+		
+		print("TransferMarketManager: ", player.name, " (OVR estática: ", player.overall, ", OVR dinámica: ", dynamic_overall, ") - Valor: €", player.market_value)
+
+func calculate_player_dynamic_overall(player: Dictionary) -> int:
+	"""Calcula la OVR dinámica basada en substats y posición - Idéntico al PlayersManager"""
+	var total = 0.0
+	match player.position:
+		"Delantero":
+			total += player.get("shooting", 70) * 0.2
+			total += player.get("heading", 70) * 0.2
+			total += player.get("dribbling", 70) * 0.2
+			total += player.get("speed", 70) * 0.2
+			total += player.get("positioning", 70) * 0.2
+		"Mediocentro":
+			total += player.get("short_pass", 70) * 0.2
+			total += player.get("long_pass", 70) * 0.2
+			total += player.get("dribbling", 70) * 0.2
+			total += player.get("concentration", 70) * 0.2
+			total += player.get("speed", 70) * 0.2
+		"Defensa":
+			total += player.get("marking", 70) * 0.2
+			total += player.get("tackling", 70) * 0.2
+			total += player.get("positioning", 70) * 0.2
+			total += player.get("speed", 70) * 0.2
+			total += player.get("heading", 70) * 0.2
+		"Portero":
+			total += player.get("reflexes", 70) * 0.2
+			total += player.get("positioning", 70) * 0.2
+			total += player.get("concentration", 70) * 0.2
+			total += player.get("short_pass", 70) * 0.2
+			total += player.get("speed", 70) * 0.2
+		_:
+			# Fallback para posiciones desconocidas - promedio de todas las stats
+			total += player.get("shooting", 70) + player.get("heading", 70) + player.get("short_pass", 70) + player.get("long_pass", 70) + player.get("dribbling", 70)
+			total += player.get("speed", 70) + player.get("marking", 70) + player.get("tackling", 70) + player.get("reflexes", 70) + player.get("positioning", 70)
+			total += player.get("stamina", 70) + player.get("concentration", 70)
+			total /= 12.0
+	
+	return int(total)
 
 func calculate_player_market_value(overall: int) -> int:
 	"""Calcula el valor de mercado usando la misma lógica que PlayersManager"""
@@ -430,11 +470,18 @@ func accept_deal(player_id: String) -> Dictionary:
 		"name": player_data.name,
 		"position": player_data.position,
 		"overall": player_data.overall,
-		"attack": player_data.attack,
-		"defense": player_data.defense,
-		"speed": player_data.speed,
-		"stamina": player_data.stamina,
-		"skill": player_data.skill,
+		"shooting": player_data.get("shooting", 70),
+		"heading": player_data.get("heading", 70),
+		"short_pass": player_data.get("short_pass", 70),
+		"long_pass": player_data.get("long_pass", 70),
+		"dribbling": player_data.get("dribbling", 70),
+		"speed": player_data.get("speed", 70),
+		"marking": player_data.get("marking", 70),
+		"tackling": player_data.get("tackling", 70),
+		"reflexes": player_data.get("reflexes", 70),
+		"positioning": player_data.get("positioning", 70),
+		"stamina": player_data.get("stamina", 70),
+		"concentration": player_data.get("concentration", 70),
 		"experience": 0,
 		"image": player_data.image,
 		"description": player_data.description
@@ -581,11 +628,18 @@ func accept_counter_offer(negotiation_id: String) -> Dictionary:
 		"name": player_data.name,
 		"position": player_data.position,
 		"overall": player_data.overall,
-		"attack": player_data.attack,
-		"defense": player_data.defense,
-		"speed": player_data.speed,
-		"stamina": player_data.stamina,
-		"skill": player_data.skill,
+		"shooting": player_data.get("shooting", 70),
+		"heading": player_data.get("heading", 70),
+		"short_pass": player_data.get("short_pass", 70),
+		"long_pass": player_data.get("long_pass", 70),
+		"dribbling": player_data.get("dribbling", 70),
+		"speed": player_data.get("speed", 70),
+		"marking": player_data.get("marking", 70),
+		"tackling": player_data.get("tackling", 70),
+		"reflexes": player_data.get("reflexes", 70),
+		"positioning": player_data.get("positioning", 70),
+		"stamina": player_data.get("stamina", 70),
+		"concentration": player_data.get("concentration", 70),
 		"experience": 0,
 		"image": player_data.image,
 		"description": player_data.description

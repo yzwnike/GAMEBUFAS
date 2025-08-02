@@ -1,0 +1,221 @@
+[gd_scene load_steps=3 format=3 uid="uid://w8bnl1c6xrjv"]
+
+[ext_resource type="Script" path="res://scripts/LeaguesViewer.gd" id="1_1qovb"]
+[ext_resource type="Theme" uid="uid://cggqxv6s5xh6q" path="res://resources/themes/main_theme.tres" id="2_theme"]
+
+[node name="LeaguesViewer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("2_theme")
+script = ExtResource("1_1qovb")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.05, 0.05, 0.15, 0.95)
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -40.0
+
+[node name="Legend" type="Label" parent="MainContainer"]
+layout_mode = 2
+text = "🔶 Campeón | 🟢 Ascenso | 🔴 Descenso"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Header" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.1
+
+[node name="Title" type="Label" parent="MainContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "🏆 OTRAS LIGAS - TEMPORADA 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="MainContainer/Header"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "❌ CERRAR"
+
+[node name="DivisionTabs" type="TabContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tab_alignment = 1
+
+[node name="Primera División" type="ScrollContainer" parent="MainContainer/DivisionTabs"]
+layout_mode = 2
+
+[node name="FirstDivisionContent" type="VBoxContainer" parent="MainContainer/DivisionTabs/Primera División"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StandingsPanel" type="Panel" parent="MainContainer/DivisionTabs/Primera División/FirstDivisionContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StandingsContainer" type="VBoxContainer" parent="MainContainer/DivisionTabs/Primera División/FirstDivisionContent/StandingsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="StandingsTitle" type="Label" parent="MainContainer/DivisionTabs/Primera División/FirstDivisionContent/StandingsPanel/StandingsContainer"]
+layout_mode = 2
+text = "📊 CLASIFICACIÓN PRIMERA DIVISIÓN"
+horizontal_alignment = 1
+
+[node name="StandingsTable" type="VBoxContainer" parent="MainContainer/DivisionTabs/Primera División/FirstDivisionContent/StandingsPanel/StandingsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RecentResults" type="Panel" parent="MainContainer/DivisionTabs/Primera División/FirstDivisionContent"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="ResultsContainer" type="VBoxContainer" parent="MainContainer/DivisionTabs/Primera División/FirstDivisionContent/RecentResults"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="ResultsTitle" type="Label" parent="MainContainer/DivisionTabs/Primera División/FirstDivisionContent/RecentResults/ResultsContainer"]
+layout_mode = 2
+text = "⚽ RESULTADOS RECIENTES"
+horizontal_alignment = 1
+
+[node name="ResultsList" type="VBoxContainer" parent="MainContainer/DivisionTabs/Primera División/FirstDivisionContent/RecentResults/ResultsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Segunda División" type="ScrollContainer" parent="MainContainer/DivisionTabs"]
+layout_mode = 2
+
+[node name="SecondDivisionContent" type="VBoxContainer" parent="MainContainer/DivisionTabs/Segunda División"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StandingsPanel2" type="Panel" parent="MainContainer/DivisionTabs/Segunda División/SecondDivisionContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StandingsContainer2" type="VBoxContainer" parent="MainContainer/DivisionTabs/Segunda División/SecondDivisionContent/StandingsPanel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="StandingsTitle2" type="Label" parent="MainContainer/DivisionTabs/Segunda División/SecondDivisionContent/StandingsPanel2/StandingsContainer2"]
+layout_mode = 2
+text = "📊 CLASIFICACIÓN SEGUNDA DIVISIÓN"
+horizontal_alignment = 1
+
+[node name="StandingsTable2" type="VBoxContainer" parent="MainContainer/DivisionTabs/Segunda División/SecondDivisionContent/StandingsPanel2/StandingsContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RecentResults2" type="Panel" parent="MainContainer/DivisionTabs/Segunda División/SecondDivisionContent"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="ResultsContainer2" type="VBoxContainer" parent="MainContainer/DivisionTabs/Segunda División/SecondDivisionContent/RecentResults2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="ResultsTitle2" type="Label" parent="MainContainer/DivisionTabs/Segunda División/SecondDivisionContent/RecentResults2/ResultsContainer2"]
+layout_mode = 2
+text = "⚽ RESULTADOS RECIENTES"
+horizontal_alignment = 1
+
+[node name="ResultsList2" type="VBoxContainer" parent="MainContainer/DivisionTabs/Segunda División/SecondDivisionContent/RecentResults2/ResultsContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Tercera División" type="ScrollContainer" parent="MainContainer/DivisionTabs"]
+layout_mode = 2
+
+[node name="ThirdDivisionContent" type="VBoxContainer" parent="MainContainer/DivisionTabs/Tercera División"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StandingsPanel3" type="Panel" parent="MainContainer/DivisionTabs/Tercera División/ThirdDivisionContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StandingsContainer3" type="VBoxContainer" parent="MainContainer/DivisionTabs/Tercera División/ThirdDivisionContent/StandingsPanel3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="StandingsTitle3" type="Label" parent="MainContainer/DivisionTabs/Tercera División/ThirdDivisionContent/StandingsPanel3/StandingsContainer3"]
+layout_mode = 2
+text = "📊 CLASIFICACIÓN TERCERA DIVISIÓN"
+horizontal_alignment = 1
+
+[node name="StandingsTable3" type="VBoxContainer" parent="MainContainer/DivisionTabs/Tercera División/ThirdDivisionContent/StandingsPanel3/StandingsContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RecentResults3" type="Panel" parent="MainContainer/DivisionTabs/Tercera División/ThirdDivisionContent"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="ResultsContainer3" type="VBoxContainer" parent="MainContainer/DivisionTabs/Tercera División/ThirdDivisionContent/RecentResults3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+
+[node name="ResultsTitle3" type="Label" parent="MainContainer/DivisionTabs/Tercera División/ThirdDivisionContent/RecentResults3/ResultsContainer3"]
+layout_mode = 2
+text = "⚽ RESULTADOS RECIENTES"
+horizontal_alignment = 1
+
+[node name="ResultsList3" type="VBoxContainer" parent="MainContainer/DivisionTabs/Tercera División/ThirdDivisionContent/RecentResults3/ResultsContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="MainContainer/Header/CloseButton" to="." method="_on_close_button_pressed"]

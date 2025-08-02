@@ -145,3 +145,81 @@ func get_league_table():
 
 func is_league_finished():
 	return get_next_match() == null
+
+func simulate_league_matches():
+	"""Simula los otros 3 partidos de la jornada actual"""
+	print("Simulando otros partidos de la jornada ", current_match_day - 1)
+	
+	# Buscar todos los partidos de la jornada anterior que no sean del FC Bufas
+	var target_match_day = current_match_day - 1
+	var other_matches = []
+	
+	for match in schedule:
+		if match.match_day == target_match_day:
+			# Verificar si es un partido que no involucra al FC Bufas
+			if match.home_team != "fc_bufas" and match.away_team != "fc_bufas":
+				# Verificar si ya fue simulado
+				var already_simulated = false
+				for result in match_results:
+					if result.match_day == match.match_day and result.home_team == match.home_team and result.away_team == match.away_team:
+						already_simulated = true
+						break
+				
+				if not already_simulated:
+					other_matches.append(match)
+	
+	# Simular cada partido
+	for match in other_matches:
+		var home_goals = randi() % 4  # 0-3 goles
+		var away_goals = randi() % 4  # 0-3 goles
+		
+		var result = {
+			"match_day": match.match_day,
+			"home_team": match.home_team,
+			"away_team": match.away_team,
+			"home_goals": home_goals,
+			"away_goals": away_goals
+		}
+		
+		# Determinar puntos
+		if home_goals > away_goals:
+			result.points_home = 3
+			result.points_away = 0
+			result.result = "home_win"
+		elif home_goals < away_goals:
+			result.points_home = 0
+			result.points_away = 3
+			result.result = "away_win"
+		else:
+			result.points_home = 1
+			result.points_away = 1
+			result.result = "draw"
+		
+		match_results.append(result)
+		
+		var home_team = get_team_by_id(match.home_team)
+		var away_team = get_team_by_id(match.away_team)
+		print("Simulado: ", home_team.name if home_team else match.home_team, " ", home_goals, "-", away_goals, " ", away_team.name if away_team else match.away_team)
+	
+	print("Jornada ", target_match_day, " completada.")
+
+func get_standings():
+	"""Obtiene la clasificación actual de la liga ordenada por puntos"""
+	var table = get_league_table()
+	var standings = []
+	
+	# Convertir el diccionario en array para poder ordenar
+	for team_id in table.keys():
+		var team_data = table[team_id]
+		team_data.id = team_id
+		team_data.goal_difference = team_data.goals_for - team_data.goals_against
+		standings.append(team_data)
+	
+	# Ordenar por puntos (descendente), luego por diferencia de goles (descendente)
+	standings.sort_custom(func(a, b): 
+		if a.points != b.points:
+			return a.points > b.points
+		return a.goal_difference > b.goal_difference
+	)
+	
+	return standings
