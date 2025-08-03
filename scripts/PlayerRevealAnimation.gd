@@ -15,6 +15,7 @@ var player_ovr
 var player_position
 var continue_button
 var audio_player
+var name_sound_player
 
 # Variables for epic FIFA-style animation
 var viewport_3d
@@ -75,6 +76,11 @@ func _ready():
 	continue_button = $UI/ContinueButton
 	audio_player = AudioStreamPlayer.new()
 	add_child(audio_player)
+	
+	# Crear reproductor de sonido para nombres
+	name_sound_player = AudioStreamPlayer.new()
+	name_sound_player.bus = "SFX"
+	add_child(name_sound_player)
 
 	# Conectar el botón a la señal para continuar
 	continue_button.connect("pressed", _on_continue_button_pressed)
@@ -760,29 +766,93 @@ func set_player_data(name, ovr, position, image, music_path = ""):
 	# Asegurar que el audio_player esté inicializado
 	if not audio_player:
 		audio_player = AudioStreamPlayer.new()
+		audio_player.bus = "Music"
 		add_child(audio_player)
 	
-	# Cargar y reproducir música si está disponible
-	if music_path != "" and ResourceLoader.exists(music_path):
-		print("🎵 Cargando música: ", music_path)
-		var music = load(music_path)
+	# Si no hay música específica, asignar una aleatoria basada en el nombre
+	var selected_music_path = music_path
+	if selected_music_path == "":
+		selected_music_path = get_random_music_for_player(name)
+	
+	# Cargar y reproducir música
+	if selected_music_path != "" and ResourceLoader.exists(selected_music_path):
+		print("🎵 Cargando música para %s: %s" % [name, selected_music_path])
+		var music = load(selected_music_path)
 		if music:
 			audio_player.stream = music
+			if music is AudioStreamOggVorbis:
+				music.loop = true
+				print("🔄 Loop activado para la música")
+			
+			# Aplicar volumen de música desde AudioManager
+			if AudioManager:
+				var music_volume = AudioManager.get_music_volume()
+				audio_player.volume_db = linear_to_db(music_volume)
+				print("🎚️ Volumen aplicado: %s (%.2f dB)" % [music_volume, audio_player.volume_db])
+			
 			audio_player.play()
+			print("▶️ Música reproduciendo: %s" % audio_player.playing)
 		else:
-			print("⚠️ No se pudo cargar la música: ", music_path)
+			print("⚠️ No se pudo cargar la música: ", selected_music_path)
 	else:
-		print("🔇 Usando música por defecto para este jugador: Battle! Raigo.mp3")
-		var default_music_path = "res://assets/audio/Battle! Raigo.mp3"
-		if ResourceLoader.exists(default_music_path):
-			var default_music = load(default_music_path)
-			if default_music:
-				audio_player.stream = default_music
-				audio_player.play()
+		print("🔇 No se encontró música para: ", name)
+		print("   Ruta buscada: ", selected_music_path)
+
+func get_random_music_for_player(player_name: String) -> String:
+	"""Obtener música aleatoria basada en el nombre del jugador para que sea consistente"""
+	# Lista de músicas disponibles
+	var available_music = [
+		"res://assets/audio/music/Battle! (Champion).ogg",
+		"res://assets/audio/music/Battle! (Trainer) 2.ogg",
+		"res://assets/audio/music/Battle! (Wild Pokemon).ogg",
+		"res://assets/audio/music/Bike.ogg",
+		"res://assets/audio/music/Cave.ogg",
+		"res://assets/audio/music/City.ogg",
+		"res://assets/audio/music/Evolution.ogg",
+		"res://assets/audio/music/Gym.ogg",
+		"res://assets/audio/music/Hurry Along.ogg",
+		"res://assets/audio/music/Ice Path.ogg",
+		"res://assets/audio/music/Lab.ogg",
+		"res://assets/audio/music/League.ogg",
+		"res://assets/audio/music/National Park.ogg",
+		"res://assets/audio/music/PokeCenter.ogg",
+		"res://assets/audio/music/PokeMart.ogg",
+		"res://assets/audio/music/Radio - Lullaby.ogg",
+		"res://assets/audio/music/Radio - March.ogg",
+		"res://assets/audio/music/Radio - Oak.ogg",
+		"res://assets/audio/music/Route.ogg",
+		"res://assets/audio/music/Safari.ogg",
+		"res://assets/audio/music/Surf.ogg",
+		"res://assets/audio/music/Town.ogg"
+	]
+	
+	# Usar hash del nombre para tener consistencia
+	var hash_value = player_name.hash()
+	var index = abs(hash_value) % available_music.size()
+	
+	print("🎵 Música asignada a %s: %s" % [player_name, available_music[index]])
+	return available_music[index]
+
+func play_player_name_sound():
+	"""Reproducir el sonido del nombre del jugador si está disponible"""
+	var player_name = player_data.name
+	var sound_path = "res://assets/audio/sfx/%s!.mp3" % player_name
+	
+	if ResourceLoader.exists(sound_path):
+		var name_sound = load(sound_path)
+		name_sound_player.stream = name_sound
+		name_sound_player.play()
+		print("🔊 Reproduciendo sonido del nombre: " + player_name)
+	else:
+		print("⚠️ No se encontró sonido para: " + player_name)
+
 
 # Empezar la animación
 func start_reveal_animation():
 	print("🎆 Iniciando revelación del jugador...")
+	
+	# 🎤 REPRODUCIR SONIDO DEL NOMBRE DEL JUGADOR
+	play_player_name_sound()
 	
 	# Preparar datos del jugador
 	if player_data.image_path != "" and ResourceLoader.exists(player_data.image_path):

@@ -137,10 +137,26 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -120.0
+offset_left = -220.0
 offset_top = -60.0
-offset_right = -20.0
+offset_right = -120.0
 offset_bottom = -20.0
-text = "Correo"
+text = "📧 Correo"
+
+[node name="SettingsButton" type="Button" parent="UILayer"]
+visible = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -60.0
+offset_right = -10.0
+offset_bottom = -20.0
+text = "⚙️ Ajustes"
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="."]
+bus = "Music"
 
 

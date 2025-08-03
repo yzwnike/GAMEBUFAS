@@ -1,0 +1,361 @@
+[gd_scene load_steps=6 format=3 uid="uid://d33bkx0s8nac5"]
+
+[ext_resource type="Script" path="res://scripts/StaminaMiniGame2D.gd" id="1_5x7yp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xmkf"]
+size = Vector2(20, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2n7hd"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3k9jl"]
+size = Vector2(25, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4p2mk"]
+size = Vector2(20, 4000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5n8q"]
+size = Vector2(15, 15)
+
+[node name="StaminaMiniGame2D" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_5x7yp")
+
+[node name="GameField" type="Node2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="FieldBackground" type="ColorRect" parent="GameField"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1000.0
+offset_top = -2000.0
+offset_right = 1000.0
+offset_bottom = 2000.0
+color = Color(0.2, 0.6, 0.2, 1)
+
+[node name="FieldLines" type="Node2D" parent="GameField"]
+
+[node name="CenterLine" type="ColorRect" parent="GameField/FieldLines"]
+offset_left = -300.0
+offset_top = 0.0
+offset_right = 300.0
+offset_bottom = 5.0
+color = Color(1, 1, 1, 1)
+
+[node name="CenterCircle" type="Node2D" parent="GameField/FieldLines"]
+
+[node name="Circle1" type="ColorRect" parent="GameField/FieldLines/CenterCircle"]
+offset_left = -100.0
+offset_top = -2.0
+offset_right = 100.0
+offset_bottom = 2.0
+color = Color(1, 1, 1, 1)
+
+[node name="Circle2" type="ColorRect" parent="GameField/FieldLines/CenterCircle"]
+offset_left = -2.0
+offset_top = -100.0
+offset_right = 2.0
+offset_bottom = 100.0
+color = Color(1, 1, 1, 1)
+
+[node name="SideBoundaries" type="StaticBody2D" parent="GameField"]
+
+
+[node name="Trees" type="Node2D" parent="GameField"]
+
+[node name="TreeLeft1" type="ColorRect" parent="GameField/Trees"]
+offset_left = -400.0
+offset_top = -100.0
+offset_right = -370.0
+offset_bottom = -80.0
+color = Color(0.4, 0.2, 0.1, 1)
+
+[node name="TreeLeftLeaves1" type="ColorRect" parent="GameField/Trees"]
+offset_left = -410.0
+offset_top = -120.0
+offset_right = -360.0
+offset_bottom = -90.0
+color = Color(0.1, 0.4, 0.1, 1)
+
+[node name="TreeRight1" type="ColorRect" parent="GameField/Trees"]
+offset_left = 370.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = -280.0
+color = Color(0.4, 0.2, 0.1, 1)
+
+[node name="TreeRightLeaves1" type="ColorRect" parent="GameField/Trees"]
+offset_left = 360.0
+offset_top = -320.0
+offset_right = 410.0
+offset_bottom = -290.0
+color = Color(0.1, 0.4, 0.1, 1)
+
+[node name="TreeLeft2" type="ColorRect" parent="GameField/Trees"]
+offset_left = -400.0
+offset_top = 200.0
+offset_right = -370.0
+offset_bottom = 220.0
+color = Color(0.4, 0.2, 0.1, 1)
+
+[node name="TreeLeftLeaves2" type="ColorRect" parent="GameField/Trees"]
+offset_left = -410.0
+offset_top = 180.0
+offset_right = -360.0
+offset_bottom = 210.0
+color = Color(0.1, 0.4, 0.1, 1)
+
+[node name="TreeRight2" type="ColorRect" parent="GameField/Trees"]
+offset_left = 370.0
+offset_top = 400.0
+offset_right = 400.0
+offset_bottom = 420.0
+color = Color(0.4, 0.2, 0.1, 1)
+
+[node name="TreeRightLeaves2" type="ColorRect" parent="GameField/Trees"]
+offset_left = 360.0
+offset_top = 380.0
+offset_right = 410.0
+offset_bottom = 410.0
+color = Color(0.1, 0.4, 0.1, 1)
+
+[node name="FieldLinesMore" type="Node2D" parent="GameField"]
+
+[node name="Line1" type="ColorRect" parent="GameField/FieldLinesMore"]
+offset_left = -300.0
+offset_top = -400.0
+offset_right = 300.0
+offset_bottom = -395.0
+color = Color(1, 1, 1, 1)
+
+[node name="Line2" type="ColorRect" parent="GameField/FieldLinesMore"]
+offset_left = -300.0
+offset_top = 400.0
+offset_right = 300.0
+offset_bottom = 405.0
+color = Color(1, 1, 1, 1)
+
+[node name="Line3" type="ColorRect" parent="GameField/FieldLinesMore"]
+offset_left = -300.0
+offset_top = -800.0
+offset_right = 300.0
+offset_bottom = -795.0
+color = Color(1, 1, 1, 1)
+
+[node name="Line4" type="ColorRect" parent="GameField/FieldLinesMore"]
+offset_left = -300.0
+offset_top = 800.0
+offset_right = 300.0
+offset_bottom = 805.0
+color = Color(1, 1, 1, 1)
+
+[node name="GoalLine" type="ColorRect" parent="GameField/FieldLinesMore"]
+offset_left = -200.0
+offset_top = -520.0
+offset_right = 200.0
+offset_bottom = -515.0
+color = Color(1, 1, 0, 1)
+
+[node name="Player1" type="CharacterBody2D" parent="GameField"]
+position = Vector2(0, 0)
+
+[node name="ColorRect" type="ColorRect" parent="GameField/Player1"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0, 0, 0.8, 1)
+
+
+[node name="Player2" type="CharacterBody2D" parent="GameField"]
+position = Vector2(40, 0)
+
+[node name="ColorRect" type="ColorRect" parent="GameField/Player2"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0, 0, 0.8, 1)
+
+
+[node name="Ball" type="CharacterBody2D" parent="GameField"]
+position = Vector2(0, 0)
+
+[node name="BallLabel" type="Label" parent="GameField/Ball"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+text = "⚽"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+
+[node name="Panzones" type="Node2D" parent="GameField"]
+
+[node name="GoalArea" type="Node2D" parent="GameField"]
+position = Vector2(0, -500)
+
+[node name="Goalkeeper" type="CharacterBody2D" parent="GameField/GoalArea"]
+position = Vector2(0, 0)
+
+[node name="ColorRect" type="ColorRect" parent="GameField/GoalArea/Goalkeeper"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(1, 0.5, 0, 1)
+
+
+[node name="AimArrow" type="ColorRect" parent="GameField"]
+offset_left = -2.0
+offset_top = -20.0
+offset_right = 2.0
+offset_bottom = 0.0
+color = Color(1, 1, 0, 0.8)
+
+[node name="UI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="StaminaBar" type="ProgressBar" parent="UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 50.0
+max_value = 100.0
+value = 100.0
+
+[node name="ProgressBar" type="ProgressBar" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 40.0
+max_value = 1.0
+value = 0.0
+
+[node name="LevelLabel" type="Label" parent="UI"]
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 40.0
+text = "Nivel: 1"
+
+[node name="TimerLabel" type="Label" parent="UI"]
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 150.0
+offset_bottom = 70.0
+text = "Tiempo: 03:00"
+
+[node name="StaminaLabel" type="Label" parent="UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 55.0
+offset_right = -20.0
+offset_bottom = 75.0
+text = "STAMINA"
+
+[node name="InstructionPanel" type="Panel" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+
+[node name="InstructionText" type="Label" parent="UI/InstructionPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -80.0
+text = "¡Lleva el balón a la portería!
+
+WASD/Flechas - Mover jugador
+Click - Pasar balón hacia cursor
+Manage la stamina pasando el balón
+Sin stamina serás más lento que los panzones"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="UI/InstructionPanel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -60.0
+offset_right = 75.0
+offset_bottom = -20.0
+text = "COMENZAR"
+
+[connection signal="pressed" from="UI/InstructionPanel/StartButton" to="." method="_on_start_pressed"]
+
+[node name="ResultPanel" type="Panel" parent="UI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
+
+[node name="ResultText" type="Label" parent="UI/ResultPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -80.0
+text = "RESULTADO"
+
+[node name="ContinueButton" type="Button" parent="UI/ResultPanel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -60.0
+offset_right = 75.0
+offset_bottom = -20.0
+text = "CONTINUAR"
+
+[connection signal="pressed" from="UI/ResultPanel/ContinueButton" to="." method="_on_continue_pressed"]

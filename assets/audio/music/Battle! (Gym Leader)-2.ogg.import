@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://rm6pojbcrc85"
+path="res://.godot/imported/Battle! (Gym Leader)-2.ogg-c6b61ed0c63412c75a924ef904939bd3.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Battle! (Gym Leader)-2.ogg"
+dest_files=["res://.godot/imported/Battle! (Gym Leader)-2.ogg-c6b61ed0c63412c75a924ef904939bd3.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

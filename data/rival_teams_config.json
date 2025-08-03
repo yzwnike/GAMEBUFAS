@@ -121,7 +121,7 @@
 	  }
 	},
 	"stamina": {
-	  "scene": "res://scenes/StaminaMiniGame3D.tscn",
+	  "scene": "res://scenes/StaminaMiniGame2D.tscn",
 	  "description": "Entrenar resistencia física",
 	  "difficulty_modifiers": {
 		"easy": 0.8,

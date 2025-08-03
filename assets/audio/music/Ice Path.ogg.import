@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dhjhqup6b00ke"
+path="res://.godot/imported/Ice Path.ogg-520cef68e7530c92a09b8c4350318a09.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Ice Path.ogg"
+dest_files=["res://.godot/imported/Ice Path.ogg-520cef68e7530c92a09b8c4350318a09.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

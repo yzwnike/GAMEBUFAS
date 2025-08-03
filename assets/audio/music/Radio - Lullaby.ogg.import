@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://djaufoqiyddqe"
+path="res://.godot/imported/Radio - Lullaby.ogg-48407cea65f75711e4b285d5bad34fa4.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Radio - Lullaby.ogg"
+dest_files=["res://.godot/imported/Radio - Lullaby.ogg-48407cea65f75711e4b285d5bad34fa4.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

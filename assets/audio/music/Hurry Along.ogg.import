@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://4cikpyeophjn"
+path="res://.godot/imported/Hurry Along.ogg-3bd2ff24b7ba0b1ecbef3fdc968552f3.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Hurry Along.ogg"
+dest_files=["res://.godot/imported/Hurry Along.ogg-3bd2ff24b7ba0b1ecbef3fdc968552f3.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

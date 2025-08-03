@@ -32,7 +32,9 @@ ambient_light_source = 2
 ambient_light_color = Color(0.7, 0.8, 1, 1)
 ambient_light_energy = 0.3
 
-[node name="StaminaMiniGame3D" type="Node3D"]
+[node name="StaminaMiniGame2D" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_st3m3")
 
 [node name="Stadium" parent="." instance=ExtResource("2_fbx")]
@@ -104,7 +106,7 @@ light_energy = 1.5
 shadow_enabled = true
 
 [node name="UI" type="Control" parent="."]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

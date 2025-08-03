@@ -7,6 +7,8 @@ extends Control
 @onready var day_container = $UILayer/DayContainer
 @onready var background = $Background
 @onready var mail_button = $UILayer/MailButton
+@onready var settings_button = $UILayer/SettingsButton
+@onready var background_music_player = $BackgroundMusicPlayer
 
 # Referencias a nodos del panel de estadísticas
 var stats_panel: Panel
@@ -71,8 +73,14 @@ func _ready():
 	# Configurar botón de correos
 	setup_mail_button()
 	
+	# Configurar botón de ajustes
+	setup_settings_button()
+	
 	# Crear panel de estadísticas del club
 	create_stats_panel()
+	
+	# Configurar música de fondo
+	setup_background_music()
 	
 	# Actualizar visualización del día
 	update_day_display()
@@ -122,6 +130,11 @@ func _ready():
 	print("InteractiveMenu: Menú interactivo listo")
 
 func _input(event):
+	# Detectar pausa con Escape
+	if event.is_action_pressed("ui_pause"):
+		if PauseManager:
+			PauseManager.toggle_pause()
+	
 	# CHEAT: Pulsar M para mostrar correos
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_M:
@@ -141,6 +154,7 @@ func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_2:
 			GameManager.activate_skip_to_patrulla_canina_cheat()
+	
 
 func test_day_transition():
 	print("🌅 CHEAT: Probando transición de día...")
@@ -163,6 +177,10 @@ func _on_area_exited():
 func _on_area_clicked(area_name):
 	if is_transitioning:
 		return
+	
+	# Reproducir sonido de navegación
+	if GameAudioUtils:
+		GameAudioUtils.play_menu_navigate()
 	
 	print("🔍 Debug: Área clickeada: ", area_name)
 	
@@ -231,6 +249,14 @@ func setup_mail_button():
 	
 	print("📧 Botón de correos configurado y visible")
 
+# Configurar botón de ajustes - siempre visible
+func setup_settings_button():
+	# El botón siempre es visible
+	settings_button.visible = true
+	settings_button.pressed.connect(show_settings_wheel)
+	
+	print("⚙️ Botón de ajustes configurado y visible")
+
 # Lógica para determinar si hay correos no leídos
 func has_unread_mail() -> bool:
 	if MailManager:
@@ -244,6 +270,11 @@ func has_active_negotiations() -> bool:
 # Acción al presionar el botón de correos
 func open_mail_menu():
 	print("📧 Abrir menú de correos")
+	
+	# Reproducir sonido de botón
+	if GameAudioUtils:
+		GameAudioUtils.play_button_click()
+	
 	if MailManager:
 		# Marcar todos los correos como leídos
 		var unread_mails = MailManager.get_unread_mails()
@@ -661,4 +692,78 @@ func go_to_training_dialogue_end():
 	
 	# Ir a la escena de diálogo
 	get_tree().change_scene_to_file("res://scenes/DialogueScene.tscn")
+
+# Función para mostrar la ruedita de ajustes
+func show_settings_wheel():
+	print("🎵 Mostrando menú de ajustes de audio...")
+	
+	# Reproducir sonido de menu
+	if GameAudioUtils:
+		GameAudioUtils.play_button_click()
+	
+	# Crear instancia del menú de ajustes
+	var audio_settings_scene = preload("res://scenes/AudioSettingsMenu.tscn")
+	var audio_settings_menu = audio_settings_scene.instantiate()
+	
+	# Conectar señal de cierre
+	audio_settings_menu.close_requested.connect(_on_audio_settings_closed.bind(audio_settings_menu))
+	
+	# Añadir a la escena
+	add_child(audio_settings_menu)
+	audio_settings_menu.show_menu()
+
+func _on_audio_settings_closed(menu_instance):
+	print("🎵 Cerrando menú de ajustes de audio...")
+	if menu_instance:
+		menu_instance.queue_free()
+
+# ========== SISTEMA DE MÚSICA DE FONDO ==========
+
+func setup_background_music():
+	"""Configura la música de fondo del menú principal"""
+	print("🎵 Configurando música de fondo del menú principal...")
+	
+	if not background_music_player:
+		print("❌ Error: No se encontró el reproductor de música de fondo")
+		return
+	
+	# Cargar la música de título
+	var music_path = "res://assets/audio/music/Title.ogg"
+	if ResourceLoader.exists(music_path):
+		var music_resource = load(music_path)
+		background_music_player.stream = music_resource
+		background_music_player.autoplay = false
+		background_music_player.bus = "Music"
+		
+		# Configurar el loop
+		if music_resource is AudioStreamOggVorbis:
+			music_resource.loop = true
+		
+		# Aplicar el volumen de música desde el AudioManager
+		if AudioManager:
+			var music_volume = AudioManager.get_music_volume()
+			background_music_player.volume_db = linear_to_db(music_volume)
+			print("🎵 Volumen de música aplicado: ", music_volume, " (", background_music_player.volume_db, " dB)")
+		
+		# Conectar a las señales del AudioManager para cambios de volumen
+		if AudioManager.has_signal("music_volume_changed"):
+			AudioManager.music_volume_changed.connect(_on_music_volume_changed)
+		
+		# Iniciar la música
+		background_music_player.play()
+		print("🎵 Música de fondo iniciada: Title.ogg")
+	else:
+		print("❌ Error: No se pudo cargar la música de título en: ", music_path)
+
+func _on_music_volume_changed(new_volume: float):
+	"""Callback cuando cambia el volumen de música desde los ajustes"""
+	if background_music_player:
+		background_music_player.volume_db = linear_to_db(new_volume)
+		print("🎵 Volumen de música actualizado: ", new_volume, " (", background_music_player.volume_db, " dB)")
+
+func stop_background_music():
+	"""Detiene la música de fondo (útil al cambiar de escena)"""
+	if background_music_player and background_music_player.playing:
+		background_music_player.stop()
+		print("🎵 Música de fondo detenida")
 
