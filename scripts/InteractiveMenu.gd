@@ -7,7 +7,6 @@ extends Control
 @onready var day_container = $UILayer/DayContainer
 @onready var background = $Background
 @onready var mail_button = $UILayer/MailButton
-@onready var campaigns_button = $UILayer/CampaignsButton
 
 # Referencias a nodos del panel de estadísticas
 var stats_panel: Panel
@@ -48,6 +47,9 @@ func _ready():
 	if not estadio_area or not campo_area or not barrio_area:
 		print("ERROR: No se pudieron encontrar todas las áreas clickables")
 		return
+	
+	# Configurar rival por defecto si no hay ninguno establecido
+	setup_default_rival()
 	
 	print("InteractiveMenu: Conectando señales...")
 	
@@ -129,6 +131,16 @@ func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_D:
 			test_day_transition()
+	
+	# CHEAT: Pulsar G para ir directamente al final del último diálogo de entrenamiento
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_G:
+			go_to_training_dialogue_end()
+	
+	# CHEAT: Pulsar 2 para saltar a jornada 2 (Patrulla Canina) con jornada 1 completada
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_2:
+			GameManager.activate_skip_to_patrulla_canina_cheat()
 
 func test_day_transition():
 	print("🌅 CHEAT: Probando transición de día...")
@@ -152,23 +164,39 @@ func _on_area_clicked(area_name):
 	if is_transitioning:
 		return
 	
-	print("InteractiveMenu: Área clickeada: ", area_name)
+	print("🔍 Debug: Área clickeada: ", area_name)
+	
+	# Debug: Mostrar información del RivalTeamsManager
+	if RivalTeamsManager:
+		var current_rival = RivalTeamsManager.get_current_rival_id()
+		print("🔍 Debug: Rival actual: ", current_rival)
+		var match_path = RivalTeamsManager.get_match_dialogue_path()
+		var training_path = RivalTeamsManager.get_training_dialogue_path()
+		print("🔍 Debug: Match dialogue path: ", match_path)
+		print("🔍 Debug: Training dialogue path: ", training_path)
+	else:
+		print("❌ Debug: RivalTeamsManager no disponible")
 	
 	# Determinar la escena de destino
 	var target_scene = ""
 	match area_name:
 		"estadio":
-			print("Accediendo al Torneo Tiki-Taka...")
+			print("🏟️ Debug: Accediendo al Torneo/Estadio...")
 			target_scene = "res://scenes/TournamentMenu.tscn"
+			
 		"campo":
-			print("Accediendo al Campo de Entrenamiento...")
+			print("⚽ Debug: Accediendo al Entrenamiento...")
 			target_scene = "res://scenes/TrainingMenu.tscn"
+			
 		"barrio":
-			print("Accediendo al Barrio...")
+			print("🏡 Debug: Accediendo al Barrio...")
 			target_scene = "res://scenes/NeighborhoodMenu.tscn"
 	
-	# Iniciar transición con zoom
-	start_zoom_transition(area_name, target_scene)
+	# Solo iniciar transición si tenemos una escena de destino
+	if target_scene != "":
+		start_zoom_transition(area_name, target_scene)
+	else:
+		print("ERROR: No se pudo determinar la escena de destino para ", area_name)
 
 # Animación de entrada inicial del menú
 func start_entrance_animation():
@@ -596,451 +624,41 @@ func start_shine_effect():
 	shine_tween.tween_property(shine_effect, "position:x", -shine_effect.size.x, 0.1)
 	shine_tween.tween_interval(2.0)  # Pausa entre animaciones
 
-# ========== SISTEMA DE CAMPAÑAS ==========
 
-
-func update_campaigns_button_state():
-	"""Actualiza el estado visual del botón de campañas"""
-	if not campaigns_button or not CampaignsManager:
-		return
-	
-	var active_campaigns = CampaignsManager.get_active_campaigns()
-	
-	if active_campaigns.size() > 0:
-		# Botón verde cuando hay campañas activas
-		campaigns_button.modulate = Color.GREEN
-		print("🎯 Botón de campañas - VERDE - campañas activas: ", active_campaigns.size())
-	else:
-		# Botón normal cuando no hay campañas activas
-		campaigns_button.modulate = Color.WHITE
-		print("🎯 Botón de campañas - BLANCO - sin campañas activas")
-
-func open_campaigns_popup():
-	"""Abre el popup de campañas"""
-	print("🎯 Abriendo popup de campañas...")
-	
-	if not CampaignsManager:
-		print("❌ CampaignsManager no disponible")
-		return
-	
-	# Crear el popup
-	var popup = create_campaigns_popup()
-	add_child(popup)
-	
-	# Mostrar con animación
-	popup.popup_centered()
-
-func create_campaigns_popup() -> AcceptDialog:
-	"""Crea el popup de gestión de campañas"""
-	var popup = AcceptDialog.new()
-	popup.title = "🎯 GESTIÓN DE CAMPAÑAS"
-	popup.size = Vector2(800, 600)
-	popup.unresizable = false
-	
-	# Crear contenido principal
-	var main_container = VBoxContainer.new()
-	main_container.add_theme_constant_override("separation", 15)
-	popup.add_child(main_container)
-	
-	# Título y descripción
-	var title = Label.new()
-	title.text = "Campañas del FC Bufas"
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 20)
-	title.add_theme_color_override("font_color", Color.YELLOW)
-	main_container.add_child(title)
-	
-	var description = Label.new()
-	description.text = "Las campañas son proyectos a medio plazo que aumentan fama, dinero o la imagen del club."
-	description.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	description.add_theme_font_size_override("font_size", 12)
-	description.add_theme_color_override("font_color", Color.LIGHT_GRAY)
-	description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	main_container.add_child(description)
-	
-	# Crear pestañas
-	var tab_container = TabContainer.new()
-	tab_container.custom_minimum_size = Vector2(0, 500)
-	main_container.add_child(tab_container)
-	
-	# Pestaña: Campañas Activas
-	var active_tab = create_active_campaigns_tab()
-	active_tab.name = "🟢 Activas"
-	tab_container.add_child(active_tab)
-	
-	# Pestaña: Campañas Disponibles
-	var available_tab = create_available_campaigns_tab()
-	available_tab.name = "📋 Disponibles"
-	tab_container.add_child(available_tab)
-	
-	# Pestaña: Historial
-	var history_tab = create_campaigns_history_tab()
-	history_tab.name = "📚 Historial"
-	tab_container.add_child(history_tab)
-	
-	return popup
-
-func create_active_campaigns_tab() -> ScrollContainer:
-	"""Crea la pestaña de campañas activas"""
-	var scroll = ScrollContainer.new()
-	var container = VBoxContainer.new()
-	container.add_theme_constant_override("separation", 10)
-	scroll.add_child(container)
-	
-	var active_campaigns = CampaignsManager.get_active_campaigns()
-	
-	if active_campaigns.is_empty():
-		var no_campaigns = Label.new()
-		no_campaigns.text = "No hay campañas activas actualmente."
-		no_campaigns.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		no_campaigns.add_theme_color_override("font_color", Color.GRAY)
-		container.add_child(no_campaigns)
-	else:
-		for campaign in active_campaigns:
-			var campaign_card = create_active_campaign_card(campaign)
-			container.add_child(campaign_card)
-	
-	return scroll
-
-func create_active_campaign_card(campaign: Dictionary) -> Panel:
-	"""Crea una tarjeta para una campaña activa"""
-	var card = Panel.new()
-	card.custom_minimum_size = Vector2(0, 120)
-	
-	# Estilo de la tarjeta
-	var style = StyleBoxFlat.new()
-	style.bg_color = Color(0.2, 0.3, 0.4, 0.8)
-	style.border_width_left = 2
-	style.border_width_right = 2
-	style.border_width_top = 2
-	style.border_width_bottom = 2
-	style.border_color = Color.CYAN
-	style.corner_radius_top_left = 8
-	style.corner_radius_top_right = 8
-	style.corner_radius_bottom_left = 8
-	style.corner_radius_bottom_right = 8
-	card.add_theme_stylebox_override("panel", style)
-	
-	# Contenido de la tarjeta
-	var margin = MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 15)
-	margin.add_theme_constant_override("margin_right", 15)
-	margin.add_theme_constant_override("margin_top", 10)
-	margin.add_theme_constant_override("margin_bottom", 10)
-	card.add_child(margin)
-	
-	var hbox = HBoxContainer.new()
-	margin.add_child(hbox)
-	
-	# Columna izquierda: Info principal
-	var left_column = VBoxContainer.new()
-	left_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	hbox.add_child(left_column)
-	
-	# Título de la campaña
-	var campaign_title = Label.new()
-	campaign_title.text = campaign.icon + " " + campaign.name
-	campaign_title.add_theme_font_size_override("font_size", 16)
-	campaign_title.add_theme_color_override("font_color", Color.WHITE)
-	left_column.add_child(campaign_title)
-	
-	# Descripción
-	var campaign_desc = Label.new()
-	campaign_desc.text = campaign.description
-	campaign_desc.add_theme_font_size_override("font_size", 11)
-	campaign_desc.add_theme_color_override("font_color", Color.LIGHT_GRAY)
-	campaign_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	left_column.add_child(campaign_desc)
-	
-	# Progreso
-	var progress_text = CampaignsManager.get_campaign_progress_text(campaign)
-	var progress_label = Label.new()
-	progress_label.text = "Progreso: " + progress_text
-	progress_label.add_theme_font_size_override("font_size", 12)
-	progress_label.add_theme_color_override("font_color", Color.YELLOW)
-	left_column.add_child(progress_label)
-	
-	# Columna derecha: Acciones
-	var right_column = VBoxContainer.new()
-	right_column.custom_minimum_size = Vector2(120, 0)
-	hbox.add_child(right_column)
-	
-	# Barra de progreso
-	var progress_bar = ProgressBar.new()
-	progress_bar.min_value = 0
-	progress_bar.max_value = campaign.duration
-	progress_bar.value = campaign.progress
-	progress_bar.show_percentage = false
-	right_column.add_child(progress_bar)
-	
-	# Botón cancelar
-	var cancel_button = Button.new()
-	cancel_button.text = "❌ Cancelar"
-	cancel_button.add_theme_color_override("font_color", Color.RED)
-	cancel_button.pressed.connect(func(): cancel_campaign_confirm(campaign))
-	right_column.add_child(cancel_button)
-	
-	return card
-
-func create_available_campaigns_tab() -> ScrollContainer:
-	"""Crea la pestaña de campañas disponibles"""
-	var scroll = ScrollContainer.new()
-	var container = VBoxContainer.new()
-	container.add_theme_constant_override("separation", 10)
-	scroll.add_child(container)
-	
-	var available_campaigns = CampaignsManager.get_available_campaigns()
-	
-	if available_campaigns.is_empty():
-		var no_campaigns = Label.new()
-		no_campaigns.text = "No hay campañas disponibles en este momento."
-		no_campaigns.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		no_campaigns.add_theme_color_override("font_color", Color.GRAY)
-		container.add_child(no_campaigns)
-	else:
-		for campaign in available_campaigns:
-			var campaign_card = create_available_campaign_card(campaign)
-			container.add_child(campaign_card)
-	
-	return scroll
-
-func create_available_campaign_card(campaign: Dictionary) -> Panel:
-	"""Crea una tarjeta para una campaña disponible"""
-	var card = Panel.new()
-	card.custom_minimum_size = Vector2(0, 140)
-	
-	# Estilo de la tarjeta
-	var style = StyleBoxFlat.new()
-	style.bg_color = Color(0.1, 0.2, 0.1, 0.8)
-	style.border_width_left = 2
-	style.border_width_right = 2
-	style.border_width_top = 2
-	style.border_width_bottom = 2
-	style.border_color = Color.GREEN
-	style.corner_radius_top_left = 8
-	style.corner_radius_top_right = 8
-	style.corner_radius_bottom_left = 8
-	style.corner_radius_bottom_right = 8
-	card.add_theme_stylebox_override("panel", style)
-	
-	# Contenido de la tarjeta
-	var margin = MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 15)
-	margin.add_theme_constant_override("margin_right", 15)
-	margin.add_theme_constant_override("margin_top", 10)
-	margin.add_theme_constant_override("margin_bottom", 10)
-	card.add_child(margin)
-	
-	var hbox = HBoxContainer.new()
-	margin.add_child(hbox)
-	
-	# Columna izquierda: Info principal
-	var left_column = VBoxContainer.new()
-	left_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	hbox.add_child(left_column)
-	
-	# Título de la campaña
-	var campaign_title = Label.new()
-	campaign_title.text = campaign.icon + " " + campaign.name
-	campaign_title.add_theme_font_size_override("font_size", 16)
-	campaign_title.add_theme_color_override("font_color", Color.WHITE)
-	left_column.add_child(campaign_title)
-	
-	# Descripción
-	var campaign_desc = Label.new()
-	campaign_desc.text = campaign.description
-	campaign_desc.add_theme_font_size_override("font_size", 11)
-	campaign_desc.add_theme_color_override("font_color", Color.LIGHT_GRAY)
-	campaign_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	left_column.add_child(campaign_desc)
-	
-	# Detalles
-	var details = get_campaign_details_text(campaign)
-	var details_label = Label.new()
-	details_label.text = details
-	details_label.add_theme_font_size_override("font_size", 10)
-	details_label.add_theme_color_override("font_color", Color.CYAN)
-	left_column.add_child(details_label)
-	
-	# Columna derecha: Acciones
-	var right_column = VBoxContainer.new()
-	right_column.custom_minimum_size = Vector2(140, 0)
-	hbox.add_child(right_column)
-	
-	# Coste
-	if campaign.cost > 0:
-		var cost_label = Label.new()
-		cost_label.text = "💰 Costo: " + str(campaign.cost)
-		cost_label.add_theme_font_size_override("font_size", 12)
-		cost_label.add_theme_color_override("font_color", Color.ORANGE)
-		right_column.add_child(cost_label)
-	else:
-		var free_label = Label.new()
-		free_label.text = "✨ GRATIS"
-		free_label.add_theme_font_size_override("font_size", 12)
-		free_label.add_theme_color_override("font_color", Color.GREEN)
-		right_column.add_child(free_label)
-	
-	# Botón iniciar
-	var start_button = Button.new()
-	start_button.text = "🚀 Iniciar"
-	start_button.add_theme_color_override("font_color", Color.WHITE)
-	start_button.pressed.connect(func(): start_campaign_confirm(campaign))
-	right_column.add_child(start_button)
-	
-	return card
-
-func create_campaigns_history_tab() -> ScrollContainer:
-	"""Crea la pestaña de historial de campañas"""
-	var scroll = ScrollContainer.new()
-	var container = VBoxContainer.new()
-	container.add_theme_constant_override("separation", 8)
-	scroll.add_child(container)
-	
-	var completed_campaigns = CampaignsManager.get_completed_campaigns()
-	
-	if completed_campaigns.is_empty():
-		var no_history = Label.new()
-		no_history.text = "No se han completado campañas aún."
-		no_history.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		no_history.add_theme_color_override("font_color", Color.GRAY)
-		container.add_child(no_history)
-	else:
-		for campaign in completed_campaigns:
-			var history_item = create_campaign_history_item(campaign)
-			container.add_child(history_item)
-	
-	return scroll
-
-func create_campaign_history_item(campaign: Dictionary) -> Panel:
-	"""Crea un elemento del historial de campañas"""
-	var item = Panel.new()
-	item.custom_minimum_size = Vector2(0, 80)
-	
-	# Estilo del item
-	var style = StyleBoxFlat.new()
-	style.bg_color = Color(0.15, 0.15, 0.15, 0.6)
-	style.border_width_left = 1
-	style.border_width_right = 1
-	style.border_width_top = 1
-	style.border_width_bottom = 1
-	style.border_color = Color.GRAY
-	style.corner_radius_top_left = 5
-	style.corner_radius_top_right = 5
-	style.corner_radius_bottom_left = 5
-	style.corner_radius_bottom_right = 5
-	item.add_theme_stylebox_override("panel", style)
-	
-	# Contenido del item
-	var margin = MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 10)
-	margin.add_theme_constant_override("margin_right", 10)
-	margin.add_theme_constant_override("margin_top", 8)
-	margin.add_theme_constant_override("margin_bottom", 8)
-	item.add_child(margin)
-	
-	var vbox = VBoxContainer.new()
-	margin.add_child(vbox)
-	
-	# Título
-	var title = Label.new()
-	title.text = campaign.icon + " " + campaign.name + " - COMPLETADA"
-	title.add_theme_font_size_override("font_size", 14)
-	title.add_theme_color_override("font_color", Color.LIGHT_GREEN)
-	vbox.add_child(title)
-	
-	# Detalles
-	var start_day = campaign.get("start_day", 1)
-	var details = Label.new()
-	details.text = "Iniciada día " + str(start_day) + " • Duración: " + str(campaign.duration) + " " + campaign.duration_type
-	details.add_theme_font_size_override("font_size", 10)
-	details.add_theme_color_override("font_color", Color.GRAY)
-	vbox.add_child(details)
-	
-	return item
-
-func get_campaign_details_text(campaign: Dictionary) -> String:
-	"""Genera el texto de detalles de una campaña"""
-	var details = []
-	
-	# Duración
-	var duration_text = str(campaign.duration)
-	if campaign.duration_type == "matches":
-		duration_text += " partidos"
-	else:
-		duration_text += " días"
-	details.append("⏱️ " + duration_text)
-	
-	# Efectos
-	var effects = campaign.get("effects", {})
-	if effects.has("fame_gain"):
-		details.append("🎆 +" + str(effects.fame_gain) + " fama")
-	if effects.has("money_per_match"):
-		details.append("💰 +" + str(effects.money_per_match) + " por partido")
-	
-	# Nivel de riesgo
-	var risk_level = campaign.get("risk_level", "low")
-	var risk_text = ""
-	var risk_color = ""
-	match risk_level:
-		"low":
-			risk_text = "🟢 Riesgo Bajo"
-		"medium":
-			risk_text = "🟡 Riesgo Medio"
-		"high":
-			risk_text = "🔴 Riesgo Alto"
-	details.append(risk_text)
-	
-	return " • ".join(details)
-
-func start_campaign_confirm(campaign: Dictionary):
-	"""Confirma y inicia una campaña"""
-	var confirm_text = "¿Iniciar la campaña '" + campaign.name + "'?"
-	if campaign.cost > 0:
-		confirm_text += "\n\nCosto: " + str(campaign.cost) + " monedas"
-	
-	var confirmation = ConfirmationDialog.new()
-	confirmation.dialog_text = confirm_text
-	confirmation.title = "Confirmar Campaña"
-	add_child(confirmation)
-	
-	confirmation.confirmed.connect(func():
-		if CampaignsManager.start_campaign(campaign.id):
-			print("✅ Campaña iniciada: ", campaign.name)
-			update_campaigns_button_state()
-			# Cerrar el popup actual y reabrir para actualizar
-			get_viewport().get_children()[-1].queue_free()
-			open_campaigns_popup()
+# Configurar rival por defecto
+func setup_default_rival():
+	"""Configura el rival basado en el próximo partido de la liga"""
+	if RivalTeamsManager:
+		# Primero intentar actualizar el rival basado en el próximo partido
+		RivalTeamsManager.update_rival_from_next_match()
+		
+		# Verificar si se estableció correctamente
+		var current_rival_id = RivalTeamsManager.get_current_rival_id()
+		if current_rival_id == "":
+			print("⚠️ InteractiveMenu: No se pudo establecer rival desde LeagueManager, usando rival por defecto")
+			# Solo como respaldo, configurar el primer equipo disponible
+			var all_teams = RivalTeamsManager.get_all_teams()
+			if not all_teams.is_empty():
+				var first_team_id = all_teams.keys()[0]
+				RivalTeamsManager.set_current_rival(first_team_id)
+				print("📋 InteractiveMenu: Rival por defecto establecido: ", first_team_id)
+			else:
+				print("❌ InteractiveMenu: No hay equipos rivales configurados")
 		else:
-			print("❌ No se pudo iniciar la campaña: ", campaign.name)
-		confirmation.queue_free()
-	)
-	
-	confirmation.popup_centered()
+			print("✅ InteractiveMenu: Rival establecido desde liga: ", current_rival_id)
+	else:
+		print("❌ InteractiveMenu: RivalTeamsManager no disponible")
 
-func cancel_campaign_confirm(campaign: Dictionary):
-	"""Confirma y cancela una campaña"""
-	var confirm_text = "¿Cancelar la campaña '" + campaign.name + "'?"
-	if campaign.cost > 0:
-		var penalty = int(campaign.cost * 0.5)
-		confirm_text += "\n\nPenalización: " + str(penalty) + " monedas"
+# Función para transición al final del último diálogo de entrenamiento
+func go_to_training_dialogue_end():
+	print("🚀 CHEAT: Transicionando al final del último diálogo de entrenamiento...")
 	
-	var confirmation = ConfirmationDialog.new()
-	confirmation.dialog_text = confirm_text
-	confirmation.title = "Confirmar Cancelación"
-	add_child(confirmation)
+	# Configurar metadata para que el DialogueSystem sepa que debe cargar un diálogo específico
+	# y saltar directamente a la línea deseada (índice 9, que corresponde a la línea de Yazawa)
+	get_tree().set_meta("jump_to_specific_line", true)
+	get_tree().set_meta("dialogue_file_path", "res://data/training_dialogues/post_training_dialogue.json")
+	get_tree().set_meta("target_line_index", 9)  # Índice de la línea: "Venga, ya está bien de quejas..."
 	
-	confirmation.confirmed.connect(func():
-		if CampaignsManager.cancel_campaign(campaign.instance_id):
-			print("❌ Campaña cancelada: ", campaign.name)
-			update_campaigns_button_state()
-			# Cerrar el popup actual y reabrir para actualizar
-			get_viewport().get_children()[-1].queue_free()
-			open_campaigns_popup()
-		else:
-			print("❌ No se pudo cancelar la campaña: ", campaign.name)
-		confirmation.queue_free()
-	)
-	
-	confirmation.popup_centered()
+	# Ir a la escena de diálogo
+	get_tree().change_scene_to_file("res://scenes/DialogueScene.tscn")
 

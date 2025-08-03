@@ -466,15 +466,15 @@ func end_match():
     
     feedback_label.text = result_text
     
-    # Registrar resultado
-    GameManager.add_match_result(score_blue, score_red)
-    GameManager.set_story_flag("post_match_branch", match_result if match_result != "draw" else "loss")
-    
-    # Transición después de 3 segundos
-    var transition_timer = get_tree().create_timer(3.0)
-    await transition_timer.timeout
-    
-    GameManager.change_scene("res://scenes/BranchingDialogue.tscn")
+	# Registrar resultado usando GameManager que maneja automáticamente el post-partido
+	GameManager.add_match_result(score_blue, score_red)
+	
+	# Transición después de 3 segundos
+	var transition_timer = get_tree().create_timer(3.0)
+	await transition_timer.timeout
+	
+	# GameManager.add_match_result ya maneja la transición al post-partido correcto
+	# No necesitamos cambiar de escena manualmente aquí
 
 # Actualizar tiempo
 func _process(delta):

@@ -41,7 +41,14 @@ func _ready():
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		save_mails_data()
+		# Vaciar todos los correos al cerrar el juego
+		clear_all_mails()
+		print("MailManager: Correos vaciados al cerrar el juego")
+
+func _exit_tree():
+	# También vaciar correos cuando el nodo se destruye
+	clear_all_mails()
+	print("MailManager: Correos vaciados al salir del árbol de nodos")
 
 # Verificar la moral de los jugadores periódicamente
 func check_player_morale_periodically():
@@ -140,6 +147,33 @@ func has_unread_mails() -> bool:
 # Obtener número de correos no leídos
 func get_unread_count() -> int:
 	return get_unread_mails().size()
+
+# Vaciar todos los correos
+func clear_all_mails():
+	mails.clear()
+	next_mail_id = 1
+	save_mails_data()
+	print("MailManager: Todos los correos han sido eliminados")
+
+# Eliminar correos de negociación específicos
+func delete_negotiation_mails(player_id: String = ""):
+	var mails_to_remove = []
+	
+	# Recopilar correos de negociación a eliminar
+	for i in range(mails.size()):
+		var mail = mails[i]
+		if mail.type == "negotiation_update":
+			# Si se especifica player_id, solo borrar ese, sino borrar todos
+			if player_id == "" or mail.player_id == player_id:
+				mails_to_remove.append(i)
+	
+	# Eliminar en orden inverso para no afectar los índices
+	for i in range(mails_to_remove.size() - 1, -1, -1):
+		mails.remove_at(mails_to_remove[i])
+	
+	if mails_to_remove.size() > 0:
+		save_mails_data()
+		print("MailManager: Eliminados ", mails_to_remove.size(), " correos de negociación")
 
 # Guardar correos en archivo
 func save_mails_data():

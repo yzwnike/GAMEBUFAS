@@ -1,0 +1,116 @@
+[
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Bueno chavales, hoy toca prepararse para el Picacachorras FC..."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "Joder, ¿en serio se llaman así? ¿No podían elegir un nombre menos... peculiar?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Su nombre es... digamos que no ayuda a su imagen. Pero no os dejéis engañar: su fútbol es puro arte."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿En serio? ¿Con ese nombre juegan bien?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Es precisamente por eso. Han desarrollado un complejo de 'demostrar que no somos lo que nuestro nombre sugiere'. Juegan limpio, técnico y con mucha clase."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "¿Y cómo acabaron con ese nombre tan... extraño?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Leyenda urbana dice que fue una apuesta perdida de su fundador. Desde entonces, intentan que la gente los conozca por su juego, no por su nombre."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador4",
+    "text": "¿Y les está funcionando la estrategia?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Totalmente. Son el equipo más fair play de la liga. No hacen ni una falta dura. Su capitán una vez se disculpó por hacer un tackle limpio pero fuerte."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¿Entonces son fáciles de batir si no juegan duro?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Error! Su técnica es impecable. No necesitan jugar duro porque su precisión es quirúrgica. Por eso vamos a entrenar defensa posicional.",
+    "choices": [
+      {
+        "id": "opcion_respetuosa",
+        "text": "Respetemos su juego limpio y juguemos igual."
+      },
+      {
+        "id": "opcion_tactica",
+        "text": "Aprovechemos que no juegan físico para presionarlos."
+      },
+      {
+        "id": "opcion_tecnica",
+        "text": "Si son técnicos, seamos más técnicos que ellos."
+      }
+    ]
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Perfecto! El respeto mutuo hará que sea un partido de fútbol puro."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Es verdad que una vez pararon el juego para ayudar a un rival lesionado?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Y el rival estaba fingiendo! Pero aun así lo ayudaron a levantarse y le dieron agua. Su deportividad es legendaria."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "¿Y no se aprovecha nadie de esa bondad?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Al principio sí, pero su técnica es tan buena que acaban ganando igual. Es como intentar hacer trampa contra un maestro de ajedrez: inútil."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador4",
+    "text": "¿Y cómo se gana contra la perfección técnica?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Con su misma medicina: técnica, pero añadiendo velocidad e intensidad. Si igualamos su limpieza pero superamos su ritmo..."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "Entendido. ¡Seamos los caballeros más rápidos del fútbol!"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Exacto! Respetamos su elegancia, pero imponemos nuestro ritmo. ¡A entrenar con clase y velocidad!"
+  }
+]

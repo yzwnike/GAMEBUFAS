@@ -1,0 +1,121 @@
+[
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Bueno chavales, aquí tenemos al... ejem... Picacachorras FC. Y antes de que preguntéis: no, no sabemos por qué se llaman así."
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "Joder, ¿en serio? ¿Ese es su nombre real? ¿No es una broma?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Por desgracia, no. Pero su fútbol es más limpio que su denominación. Juegan con técnica y fair play."
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "¿Y cuál es su estilo de juego?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Juego limpio y técnico. Hemos entrenado defensa toda la semana porque saben construir jugadas muy elaboradas."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "Mira, están calentando... parecen bastante serios para llamarse... ya sabéis."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Exacto. No os dejéis engañar por el nombre. Son un equipo respetable con buenos fundamentos técnicos."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "¿Habéis visto su escudo? Al menos es... discreto."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Se han dado cuenta de que el nombre ya es suficientemente llamativo. El escudo es simple: un balón y nada más."
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "Su capitán parece avergonzado cada vez que grita el nombre del equipo..."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Jajaja, pobrecillo. Pero jugando como juegan, se han ganado el respeto de todos. El nombre... bueno, eso ya es otra historia."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¿Cómo afrontáis este partido? ¿Seriedad o diversión?",
+    "choices": [
+      {
+        "id": "opcion_serio",
+        "text": "Con todo el respeto, independientemente del nombre."
+      },
+      {
+        "id": "opcion_estrategico",
+        "text": "Hay que estar atentos a su técnica."
+      },
+      {
+        "id": "opcion_humor",
+        "text": "Intentaré no reírme cuando grite el nombre del equipo."
+      }
+    ]
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡Perfecto! El fútbol se juega con respeto, siempre."
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "Su medio centro está dirigiendo muy bien los entrenamientos... parece un buen estratega."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Sí, ese tío es su cerebro. Mantened la presión sobre él y el resto del equipo se desorganizará un poco."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "¿Y si nos adelantamos en el marcador?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Van a intentar remontar con paciencia y buen fútbol. Nada de desesperarse, solo técnica pura."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "Mira, un hincha tiene una pancarta que dice 'Al menos jugamos mejor que nuestro nombre'..."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Jajaja, hasta sus propios fans se ríen del nombre. Pero tienen razón: juegan muchísimo mejor de lo que suena."
+  },
+  {
+    "background": "partido",
+    "character": "arbitro",
+    "text": "¡EQUIPOS A SUS POSICIONES! ¡EL PARTIDO VA A COMENZAR!"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡Vamos chavales! ¡A demostrar que en el fútbol lo que importa es lo que pasa en el campo, no los nombres!"
+  }
+]

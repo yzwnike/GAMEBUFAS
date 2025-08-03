@@ -1,0 +1,116 @@
+[
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Bueno chavales, hoy nos enfrentamos a los Chocolateros FC..."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¿Los que lloran cuando pierden... y cuando ganan... y cuando empatan?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Esos mismos. Son más emocionales que una telenovela mexicana. Su estado de ánimo cambia más rápido que el tiempo en abril."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Y eso cómo les afecta jugando?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Ahí está lo curioso: cuando están felices son técnicos y creativos. Cuando están tristes, se vuelven letales y despiadados."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "¿En serio? ¿La tristeza los hace mejores?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Es como si canalizaran toda su pena en el balón. He visto a su delantero marcar tres goles llorando a moco tendido."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador4",
+    "text": "¿Y cuándo están enfadados?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Ahí se vuelven un desastre total. Se pisan entre ellos, discuten y acaban jugando cada uno por su cuenta."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¿Entonces tenemos que intentar cabrearlos?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Cuidado! Su enfado puede convertirse en motivación si no lo gestionamos bien. Por eso vamos a entrenar regates: hay que mantenerlos confusos emocionalmente.",
+    "choices": [
+      {
+        "id": "opcion_psicologica",
+        "text": "Vamos a jugar con sus emociones entonces."
+      },
+      {
+        "id": "opcion_respetuosa",
+        "text": "Mejor juguemos limpio y con técnica."
+      },
+      {
+        "id": "opcion_tactica",
+        "text": "Hay que ser impredecibles para desestabilizarlos."
+      }
+    ]
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Exacto! La impredecibilidad será nuestra arma secreta."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Es verdad que una vez suspendieron un partido porque todo su equipo se puso a llorar?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "No lo suspendieron, pero el árbitro les dio cinco minutos de descanso emocional. Su capitán necesitaba pañuelos para secar las lágrimas de toda la plantilla."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "¿Y qué los había puesto tan tristes?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Un gol en contra en el minuto dos! Pero después se pusieron tan melancólicos que marcaron cuatro goles seguidos. Ganaron 4-1 entre sollozos."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador4",
+    "text": "¿Y cómo se defiende uno contra un equipo que llora?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "No te dejes llevar por la compasión. Pueden estar llorando, pero siguen siendo peligrosos. Es como enfrentarse a un oso panda: tierno, pero sigue siendo un oso."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "Entendido, jefe. ¡Jugamos con el corazón frío pero los pies calientes!"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Perfecto! Recordad: respeto a sus emociones, pero superioridad en estabilidad mental. ¡A entrenar esos regates!"
+  }
+]

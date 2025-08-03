@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource path="res://stadium_animation.gd" type="Script" id=1]
+
+[node name="StadiumScene" type="Control"]
+script = ExtResource( 1 )
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="GoToStadiumButton" type="Button" parent="UILayer"]
+text = "IR AL CAMPO"
+anchor_right = 0.2
+anchor_bottom = 0.1
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 210.0
+margin_bottom = 60.0
+

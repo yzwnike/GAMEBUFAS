@@ -66,46 +66,59 @@ func create_mail_card(mail):
     # Contenedor principal de la tarjeta
     var card = Control.new()
     
-    # Calcular altura dinámica basada en el contenido del correo
-    var base_height = 200  # Altura base para headers y botones
-    var content_lines = mail.content.length() / 80  # Aproximadamente 80 caracteres por línea
-    var content_height = max(100, content_lines * 18)  # 18px por línea, mínimo 100px
+    # Calcular altura dinámica basada en el contenido del correo más precisa
+    var base_height = 250  # Altura base para headers y botones (más espacio)
+    var content_lines = mail.content.length() / 70  # Aproximadamente 70 caracteres por línea
+    var content_height = max(120, content_lines * 20)  # 20px por línea, mínimo 120px
     var total_height = base_height + content_height
     
-    card.custom_minimum_size = Vector2(700, total_height)
+    # Asegurar altura mínima adecuada y máxima razonable
+    total_height = max(300, min(total_height, 600))  # Entre 300px y 600px
+    
+    card.custom_minimum_size = Vector2(800, total_height)  # Más ancho
     card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     card.size_flags_vertical = Control.SIZE_SHRINK_CENTER
     
-    # Panel con fondo oscuro y bordes redondeados
+    # Panel con fondo oscuro y bordes redondeados mejorado
     var panel = Panel.new()
     panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-    panel.add_theme_constant_override("margin_left", 10)
-    panel.add_theme_constant_override("margin_right", 10)
-    panel.add_theme_constant_override("margin_top", 10)
-    panel.add_theme_constant_override("margin_bottom", 10)
+    panel.add_theme_constant_override("margin_left", 15)
+    panel.add_theme_constant_override("margin_right", 15)
+    panel.add_theme_constant_override("margin_top", 15)
+    panel.add_theme_constant_override("margin_bottom", 15)
 
-    # StyleBox
+    # StyleBox mejorado
     var style_box = StyleBoxFlat.new()
-    style_box.bg_color = Color(0.08, 0.08, 0.08, 1.0)
-    style_box.corner_radius_top_left = 10
-    style_box.corner_radius_top_right = 10
-    style_box.corner_radius_bottom_left = 10
-    style_box.corner_radius_bottom_right = 10
+    style_box.bg_color = Color(0.12, 0.12, 0.12, 1.0)  # Fondo ligeramente más claro
+    style_box.corner_radius_top_left = 12
+    style_box.corner_radius_top_right = 12
+    style_box.corner_radius_bottom_left = 12
+    style_box.corner_radius_bottom_right = 12
+    # Añadir borde sutil
+    style_box.border_width_left = 2
+    style_box.border_width_right = 2
+    style_box.border_width_top = 2
+    style_box.border_width_bottom = 2
+    style_box.border_color = Color(0.3, 0.3, 0.3, 0.8)  # Borde gris sutil
+    # Sombra suave
+    style_box.shadow_color = Color(0, 0, 0, 0.4)
+    style_box.shadow_size = 4
+    style_box.shadow_offset = Vector2(2, 2)
     panel.add_theme_stylebox_override("panel", style_box)
     card.add_child(panel)
 
-    # Contenedor de contenido
+    # Contenedor de contenido con más padding
     var content_container = MarginContainer.new()
     content_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-    content_container.add_theme_constant_override("margin_left", 20)
-    content_container.add_theme_constant_override("margin_right", 20)
-    content_container.add_theme_constant_override("margin_top", 20)
-    content_container.add_theme_constant_override("margin_bottom", 20)
+    content_container.add_theme_constant_override("margin_left", 30)
+    content_container.add_theme_constant_override("margin_right", 30)
+    content_container.add_theme_constant_override("margin_top", 25)
+    content_container.add_theme_constant_override("margin_bottom", 25)
     panel.add_child(content_container)
     
-    # VBox principal para el contenido
+    # VBox principal para el contenido con mejor espaciado
     var vbox = VBoxContainer.new()
-    vbox.add_theme_constant_override("separation", 10)
+    vbox.add_theme_constant_override("separation", 15)
     content_container.add_child(vbox)
 
     # Indicador de tipo de correo y título
@@ -125,25 +138,28 @@ func create_mail_card(mail):
     type_icon.add_theme_font_size_override("font_size", 20)
     header_container.add_child(type_icon)
     
-    # Título
+    # Título mejorado
     var title_label = Label.new()
     title_label.text = mail.subject
     title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    title_label.add_theme_font_size_override("font_size", 18)
+    title_label.add_theme_font_size_override("font_size", 20)  # Más grande
     title_label.add_theme_color_override("font_color", Color.WHITE)
+    title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART  # Permitir wrap
+    title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     header_container.add_child(title_label)
     
     vbox.add_child(header_container)
     
-    # Remitente con mejor formato
+    # Remitente con mejor formato y estilo
     var sender_label = Label.new()
     var sender_text = "De: " + mail.player_name
     if mail.type == "negotiation_update":
         sender_text = "De: Departamento de Traspasos (sobre " + mail.player_name + ")"
     sender_label.text = sender_text
     sender_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-    sender_label.add_theme_font_size_override("font_size", 12)
-    sender_label.add_theme_color_override("font_color", Color.GRAY)
+    sender_label.add_theme_font_size_override("font_size", 14)  # Más grande
+    sender_label.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8))  # Gris más claro
+    sender_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     vbox.add_child(sender_label)
     
     # Separador visual
@@ -151,29 +167,49 @@ func create_mail_card(mail):
     separator.add_theme_constant_override("separation", 5)
     vbox.add_child(separator)
     
-    # Contenedor de contenido con scroll si es necesario
+    # Contenedor de contenido con scroll mejorado
     var content_scroll = ScrollContainer.new()
-    content_scroll.custom_minimum_size = Vector2(0, max(100, content_height - 50))
+    content_scroll.custom_minimum_size = Vector2(0, max(120, content_height - 50))
     content_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     content_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+    # Mejorar la barra de scroll
+    content_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+    content_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
     vbox.add_child(content_scroll)
     
-    # Contenido
+    # Panel de fondo para el contenido
+    var content_panel = Panel.new()
+    var content_style = StyleBoxFlat.new()
+    content_style.bg_color = Color(0.08, 0.08, 0.08, 0.8)  # Fondo sutil
+    content_style.corner_radius_top_left = 8
+    content_style.corner_radius_top_right = 8
+    content_style.corner_radius_bottom_left = 8
+    content_style.corner_radius_bottom_right = 8
+    content_panel.add_theme_stylebox_override("panel", content_style)
+    content_scroll.add_child(content_panel)
+    
+    # Agregar padding interno al texto mejorado
+    var content_margin = MarginContainer.new()
+    content_margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    content_margin.add_theme_constant_override("margin_left", 20)
+    content_margin.add_theme_constant_override("margin_right", 20)
+    content_margin.add_theme_constant_override("margin_top", 15)
+    content_margin.add_theme_constant_override("margin_bottom", 15)
+    content_panel.add_child(content_margin)
+    
+    # Contenido con mejor tipografía
     var content_label = Label.new()
     content_label.text = mail.content
     content_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-    content_label.add_theme_font_size_override("font_size", 13)
+    content_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
+    content_label.add_theme_font_size_override("font_size", 15)  # Más grande para mejor legibilidad
+    content_label.add_theme_color_override("font_color", Color(0.95, 0.95, 0.95))  # Casi blanco
     content_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     content_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     content_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
-    # Agregar padding interno al texto
-    var content_margin = MarginContainer.new()
-    content_margin.add_theme_constant_override("margin_left", 10)
-    content_margin.add_theme_constant_override("margin_right", 10)
-    content_margin.add_theme_constant_override("margin_top", 10)
-    content_margin.add_theme_constant_override("margin_bottom", 10)
+    # Mejorar espaciado entre líneas
+    content_label.add_theme_constant_override("line_spacing", 2)
     content_margin.add_child(content_label)
-    content_scroll.add_child(content_margin)
 
     # Botones según tipo de correo
     # Separador antes de los botones
@@ -244,6 +280,8 @@ func create_mail_card(mail):
 
 func _on_open_negotiations_pressed():
     print("MailMenu: Abriendo Negociaciones Activas")
+    # Borrar todos los correos de negociación antes de ir a negociaciones
+    MailManager.delete_negotiation_mails()
     get_tree().change_scene_to_file("res://scenes/ActiveNegotiationsMarket.tscn")
 
 func _on_confirm_and_delete_pressed(mail_id: String):

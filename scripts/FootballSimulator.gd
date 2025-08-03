@@ -668,41 +668,24 @@ func end_match():
 	feedback_label.text = result_text
 	
 	# Registrar el resultado en el GameManager
-	GameManager.add_match_result(score_blue, score_red)
-	
-	# La moral se actualizará en BranchingDialogue.gd junto con la stamina
+	# GameManager.add_match_result() se encargará automáticamente de:
+	# 1. Actualizar estadísticas
+	# 2. Procesar cambios de fama
+	# 3. Cargar diálogo post-partido del rival
+	# 4. Transicionar a BranchingDialogue
 	if debug_enabled:
 		print("=== RESULTADO FINAL ===")
 		print("Marcador final: Yazawa ", score_blue, " - ", score_red, " Rival")
-		print("La moral se actualizará en el diálogo post-partido")
+		print("Delegando manejo post-partido a GameManager")
 		print("=========================")
 	
-	# Preparar la transición al diálogo post-partido después de 3 segundos
+	# Esperar 3 segundos para mostrar el resultado, luego dejar que GameManager maneje todo
 	var transition_timer = get_tree().create_timer(3.0)
 	await transition_timer.timeout
 	
-	# Decidir qué ruta de diálogo usar según el tipo de partido
-	var match_type = GameManager.get_story_flag("match_type", "3v3")
-	var dialogue_branch = ""
-	
-	if match_type == "7v7":
-		# Para partidos 7v7, usar las ramas específicas
-		if match_result == "win":
-			dialogue_branch = "win_7v7"
-		else:
-			# Para derrotas y empates en 7v7, usar la rama de derrota 7v7
-			dialogue_branch = "loss_7v7"
-	elif match_type == "dynamic":
-		# Para partidos dinámicos, usar las ramas estándar
-		dialogue_branch = match_result if match_result != "draw" else "loss"
-	else:
-		# Para partidos 3v3, usar las ramas originales
-		dialogue_branch = match_result if match_result != "draw" else "loss"
-	
-	GameManager.set_story_flag("post_match_branch", dialogue_branch)
-	
-	# Cargar la escena de diálogo branching
-	GameManager.change_scene("res://scenes/BranchingDialogue.tscn")
+	# Dejar que GameManager maneje completamente el post-partido
+	print("FootballSimulator: Delegando manejo post-partido a GameManager")
+	GameManager.add_match_result(score_blue, score_red)
 
 # --- Base de datos de eventos ---
 
@@ -1080,6 +1063,8 @@ func skip_entire_dialogue():
 	print("FootballSimulator: skip_entire_dialogue llamado, pero no es aplicable en el simulador")
 	# Podríamos hacer que termine el partido inmediatamente como "cheat"
 	# end_match()
+
+# Funciones de post-partido eliminadas - ahora BranchingDialogue maneja todo automáticamente
 
 # Función para cargar alineación desde archivo
 func load_lineup_from_file():

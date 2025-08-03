@@ -1,0 +1,131 @@
+{
+  "win_branch": [
+    {
+      "character": "narrator",
+      "text": "¡PITIDO FINAL! FC Bufas ha vencido al Picacachorras FC en un partido muy limpio y técnico. Los rivales aplauden deportivamente a pesar de la derrota.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "¡Excelente! Chavales, habéis jugado con mucha clase. ¡Menudo partidazo!"
+    },
+    {
+      "character": "jugador1",
+      "text": "¡Ha sido el partido más limpio que he jugado nunca!"
+    },
+    {
+      "character": "capitan_picacachorras",
+      "text": "Enhorabuena... habéis jugado con mucha elegancia. Una victoria muy merecida."
+    },
+    {
+      "character": "yazawa",
+      "text": "Oye, vuestro nombre es... peculiar, pero vuestro fútbol es puro arte."
+    },
+    {
+      "character": "defensa_picacachorras",
+      "text": "Jajaja, sí, nuestro nombre no ayuda mucho a nuestra imagen, pero jugamos con el corazón."
+    },
+    {
+      "character": "jugador2",
+      "text": "Ha sido increíble jugar contra un equipo tan técnico y fair play."
+    },
+    {
+      "character": "capitan_picacachorras",
+      "text": "Es nuestra filosofía: que nuestro fútbol hable por nosotros, no nuestro nombre."
+    },
+    {
+      "character": "yazawa",
+      "text": "Y vaya si habla. Habéis demostrado que la elegancia no tiene que ver con el nombre."
+    },
+    {
+      "character": "capitan_picacachorras",
+      "text": "Gracias. Ojalá algún día la gente nos conozca por nuestro juego y no por... ya sabéis."
+    }
+  ],
+  "loss_branch": [
+    {
+      "character": "narrator",
+      "text": "Pitido final. El Picacachorras FC ha derrotado a FC Bufas con su fútbol limpio y técnico. Los rivales celebran con elegancia y deportividad.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "Joder... nos han ganado con pura clase. Increíble equipo."
+    },
+    {
+      "character": "jugador1",
+      "text": "Ha sido como jugar contra un equipo de caballeros del fútbol."
+    },
+    {
+      "character": "capitan_picacachorras",
+      "text": "Victoria limpia. Habéis luchado con mucho honor, respeto total."
+    },
+    {
+      "character": "defensa_picacachorras",
+      "text": "Ha sido un placer jugar contra un equipo que respeta el juego limpio como nosotros."
+    },
+    {
+      "character": "yazawa",
+      "text": "Vuestro fútbol es una lección de elegancia y técnica."
+    },
+    {
+      "character": "capitan_picacachorras",
+      "text": "Intentamos demostrar que se puede jugar duro pero limpio, técnico pero efectivo."
+    },
+    {
+      "character": "jugador2",
+      "text": "Es impresionante cómo habéis combinado técnica pura con deportividad total."
+    },
+    {
+      "character": "capitan_picacachorras",
+      "text": "Es lo que intentamos: que la gente hable de nuestro fútbol, no de nuestro nombre."
+    },
+    {
+      "character": "yazawa",
+      "text": "Misión cumplida. Solo recordaré vuestro increíble juego."
+    }
+  ],
+  "draw_branch": [
+    {
+      "character": "narrator",
+      "text": "El árbitro pita el final. Empate entre FC Bufas y el Picacachorras FC. Ambos equipos se estrechan las manos en un ejemplo de deportividad.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "Empate justo después de un partido ejemplar. Puro fútbol."
+    },
+    {
+      "character": "jugador1",
+      "text": "No ha habido ni una sola falta dura. ¡Qué partido tan limpio!"
+    },
+    {
+      "character": "capitan_picacachorras",
+      "text": "Empate perfecto. Habéis demostrado que también sabéis jugar con elegancia."
+    },
+    {
+      "character": "yazawa",
+      "text": "Vuestro estilo de juego es inspirador. Técnica pura y fair play total."
+    },
+    {
+      "character": "defensa_picacachorras",
+      "text": "Es lo que intentamos: demostrar que el fútbol puede ser arte y competición a la vez."
+    },
+    {
+      "character": "jugador2",
+      "text": "Ha sido como una clase magistral de fútbol técnico."
+    },
+    {
+      "character": "capitan_picacachorras",
+      "text": "Igualmente. Habéis jugado con mucha inteligencia táctica."
+    },
+    {
+      "character": "yazawa",
+      "text": "Un empate que sabe a victoria para el fútbol bonito."
+    },
+    {
+      "character": "capitan_picacachorras",
+      "text": "Exacto. Hoy hemos ganado todos: los que amamos el fútbol limpio."
+    }
+  ]
+}

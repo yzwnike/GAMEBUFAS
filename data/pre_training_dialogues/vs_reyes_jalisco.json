@@ -1,0 +1,191 @@
+[
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Bueno chavales, hoy nos enfrentamos a los Reyes de Jalisco..."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¿Los que se creen los reyes del fútbol mexicano?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Sí, pero les voy a ser honesto... en general, son bastante malos. Su técnica es pésima, su condición física deplorable..."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Entonces será fácil?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Espera, espera... Tienen un problema. UN problema muy grande llamado Wang Li."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "¿Wang Li?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Su delantero chino. Este cabron es buenísimo. Mientras sus compañeros parecen jugar con los pies vendados, él parece tener ojos en la nuca."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¿Tan bueno es?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Mirá, ¿recordáis al crack del Deportivo Magadios? Pues Wang Li es igual de bueno... pero peor."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Peor cómo?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Al del Deportivo lo podíamos marcar de cerca, seguirle el paso. Pero Wang Li... es tan rápido y astuto que es imposible marcarlo directamente."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "¿Imposible?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "El tipo juega como si hubiera nacido con un balón en los pies. Probablemente porque en China, si no destacas en algo, te mandan directo a fabricar iPhones."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "Jajaja, qué cabrón eres, Yazawa."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Pero en serio, mientras el resto del equipo juega como si fueran turistas perdidos en Cancún, Wang Li marca gol tras gol.",
+    "choices": [
+      {
+        "id": "opcion_defensiva",
+        "text": "Entonces hay que marcarlo de cerca todo el partido."
+      },
+      {
+        "id": "opcion_ofensiva",
+        "text": "Si el resto es malo, vamos a atacar por los lados."
+      },
+      {
+        "id": "opcion_psicologica",
+        "text": "¿Y si intentamos sacarlo de su zona de confort?"
+      }
+    ]
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "No, no, no. ¿No me habéis escuchado? A Wang Li NO se le puede marcar de cerca. Es demasiado rápido."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "Entonces, ¿qué hacemos?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Simple: no lo marcamos a él, marcamos el balón. Interceptamos los pases antes de que le lleguen."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Como un portero pero en el campo?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Exacto. Wang Li es como un dragón chino: impresionante, pero si le cortas el suministro de comida, se queda sin energía."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "¿Cómo terminó un jugador tan bueno en un equipo tan malo?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Seguramente el resto del equipo le prometió llevarlo a conocer las pirámides de Teotihuacán y aquí sigue esperando."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¡Jajaja! Pobre Wang Li."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Lo curioso es que él solo anota más goles que el resto del equipo combinado. Es como ver a Jackie Chan en una película de Adam Sandler."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Y qué tal su comunicación con el equipo?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Ese es otro problema para ellos. Wang Li habla más español que chino ya, pero sus compañeros siguen sin entender sus jugadas geniales."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "Suena frustrante para él."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Probablemente está considerando regresar a China. Al menos allá, si tu equipo es malo, simplemente los hacen desaparecer... junto con sus familias."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¡Jajaja! ¡Yazawa, eres terrible!"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "En fin, la estrategia es clara: neutralizamos a Wang Li y el resto del partido será como jugar contra un equipo de veteranos de 60 años."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Y si Wang Li tiene un mal día?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Entonces será la primera vez en su carrera. Ese chino tiene más consistencia que las políticas del Partido Comunista."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "¿Crees que nos subestime?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Ese es nuestro as bajo la manga. Wang Li está tan acostumbrado a cargar con todo el equipo que no espera enfrentarse a un equipo organizado como el nuestro."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Vamos allá! Recordad: respeto para Wang Li, pero el resto... es como si jugáramos contra maniquíes de tienda departamental."
+  }
+]

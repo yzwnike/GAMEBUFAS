@@ -92,8 +92,22 @@ func _ready():
 	# Iniciar transición de entrada
 	fade_in()
 	
-	# Verificar si hay un diálogo guardado para cargar
-	if get_tree().has_meta("selected_dialogue_id"):
+	# Verificar si hay un salto a línea específica configurado
+	if get_tree().has_meta("jump_to_specific_line") and get_tree().get_meta("jump_to_specific_line"):
+		var file_path = get_tree().get_meta("dialogue_file_path")
+		var target_index = get_tree().get_meta("target_line_index")
+		print("DialogueSystem: Salto a línea específica detectado: ", file_path, " índice ", target_index)
+		
+		# Limpiar los meta datos
+		get_tree().remove_meta("jump_to_specific_line")
+		get_tree().remove_meta("dialogue_file_path")
+		get_tree().remove_meta("target_line_index")
+		
+		# Cargar el diálogo y saltar a la línea específica
+		load_dialogue_and_jump_to_line(file_path, target_index)
+		
+	# Verificar si hay un diálogo guardado para cargar (sistema de psicólogo)
+	elif get_tree().has_meta("selected_dialogue_id"):
 		var dialogue_id = get_tree().get_meta("selected_dialogue_id")
 		var player_name = get_tree().get_meta("selected_player_name")
 		print("DialogueSystem: Diálogo guardado encontrado: ", dialogue_id, " para jugador: ", player_name)
@@ -855,3 +869,49 @@ func fade_out_and_change_scene(scene_path: String, duration: float = 0.5):
 	if tween:
 		await tween.finished
 	get_tree().change_scene_to_file(scene_path)
+
+# === FUNCIÓN PARA SALTAR A LÍNEA ESPECÍFICA ===
+
+func load_dialogue_and_jump_to_line(file_path: String, target_line_index: int):
+	"""Carga un diálogo desde un archivo JSON y salta directamente a una línea específica"""
+	print("DialogueSystem: Cargando diálogo desde ", file_path, " y saltando al índice ", target_line_index)
+	
+	# Cargar el archivo JSON
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	
+	if not file:
+		print("ERROR: No se pudo abrir el archivo ", file_path)
+		return
+	
+	var text = file.get_as_text()
+	file.close()
+	
+	# Parsear JSON
+	var json = JSON.new()
+	var parse_result = json.parse(text)
+	
+	if parse_result != OK:
+		print("ERROR: Error al parsear JSON: ", json.get_error_message())
+		return
+	
+	var dialogue_data = json.data
+	
+	# Verificar que el índice objetivo está dentro del rango
+	if target_line_index < 0 or target_line_index >= dialogue_data.size():
+		print("ERROR: Índice de línea fuera de rango: ", target_line_index, " (máximo: ", dialogue_data.size() - 1, ")")
+		return
+	
+	# Cargar el diálogo completo
+	current_dialogue = dialogue_data
+	current_index = target_line_index  # Saltar directamente al índice objetivo
+	
+	# Crear un sistema de diálogo simple y visible
+	create_simple_dialogue_ui()
+	
+	print("DialogueSystem: Saltando directamente al índice ", target_line_index, " de ", current_dialogue.size(), " líneas")
+	
+	# Mostrar la línea objetivo directamente
+	if current_dialogue.size() > 0:
+		show_dialogue_line()
+	else:
+		print("ERROR: dialogue_data está vacío")

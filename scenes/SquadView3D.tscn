@@ -1,0 +1,232 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq4qjngwdktm8"]
+
+[ext_resource type="Script" path="res://scripts/SquadView3D.gd" id="1_3j6vq"]
+
+[node name="SquadView3D" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_3j6vq")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 0
+
+[node name="Camera3D" type="Camera3D" parent="ViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 10, 15)
+fov = 75.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="ViewportContainer/SubViewport"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 5, 0)
+light_energy = 1.0
+shadow_enabled = true
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Header" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 50.0
+offset_top = 30.0
+offset_right = 1870.0
+offset_bottom = 120.0
+
+[node name="TitleLabel" type="Label" parent="UI/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "PLANTILLA FC BUFAS - VISTA 3D"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="UI/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Los grids 2D están integrados en el espacio 3D - Gira la cámara para verlos en su posición"
+horizontal_alignment = 1
+
+[node name="GridsContainer" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 150.0
+offset_bottom = -100.0
+
+[node name="LeftGrid" type="Panel" parent="UI/GridsContainer"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 100.0
+offset_top = -200.0
+offset_right = 500.0
+offset_bottom = 200.0
+modulate = Color(1, 1, 1, 0.9)
+
+[node name="GridTitle" type="Label" parent="UI/GridsContainer/LeftGrid"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 390.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "DELANTEROS"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/GridsContainer/LeftGrid"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 60.0
+offset_right = -10.0
+offset_bottom = -10.0
+
+[node name="PlayersGrid" type="GridContainer" parent="UI/GridsContainer/LeftGrid/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+
+[node name="CenterGrid" type="Panel" parent="UI/GridsContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+modulate = Color(1, 1, 1, 0.9)
+
+[node name="GridTitle" type="Label" parent="UI/GridsContainer/CenterGrid"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 390.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "MEDIOCAMPISTAS"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/GridsContainer/CenterGrid"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 60.0
+offset_right = -10.0
+offset_bottom = -10.0
+
+[node name="PlayersGrid" type="GridContainer" parent="UI/GridsContainer/CenterGrid/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+
+[node name="RightGrid" type="Panel" parent="UI/GridsContainer"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -200.0
+offset_right = -100.0
+offset_bottom = 200.0
+modulate = Color(1, 1, 1, 0.9)
+
+[node name="GridTitle" type="Label" parent="UI/GridsContainer/RightGrid"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 390.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "DEFENSORES"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/GridsContainer/RightGrid"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 60.0
+offset_right = -10.0
+offset_bottom = -10.0
+
+[node name="PlayersGrid" type="GridContainer" parent="UI/GridsContainer/RightGrid/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+
+[node name="Footer" type="MarginContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="UI/Footer"]
+layout_mode = 2
+alignment = 1
+
+[node name="BackButton" type="Button" parent="UI/Footer/ButtonsContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 50)
+text = "Volver"
+
+[node name="ToggleCameraButton" type="Button" parent="UI/Footer/ButtonsContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 50)
+text = "Alternar Cámara"
+
+[node name="ResetViewButton" type="Button" parent="UI/Footer/ButtonsContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 50)
+text = "Vista Inicial"

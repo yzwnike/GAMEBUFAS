@@ -25,14 +25,25 @@ func setup_dialogue_directly():
 	current_opponent = TrainingManager.get_current_opponent()
 	print("TrainingDialogueScene: Oponente actual: ", current_opponent)
 	
-	# Mapear nombres de equipos a archivos de diálogo
-	var dialogue_files = {
-		"Deportivo Magadios": "res://data/training_dialogues/vs_deportivo_magadios.json"
-	}
+	var dialogue_file = ""
 	
-	var dialogue_file = dialogue_files.get(current_opponent, "")
-	if dialogue_file == "":
-		print("ERROR: No se encontró diálogo para el oponente: ", current_opponent)
+	# Asegurar que el RivalTeamsManager tenga configurado el rival correcto
+	if RivalTeamsManager:
+		# Verificar si ya está establecido el rival correcto
+		var current_rival_data = RivalTeamsManager.get_current_rival()
+		if current_rival_data.is_empty() or current_rival_data.get("name", "") != current_opponent:
+			print("TrainingDialogueScene: Configurando rival por nombre: ", current_opponent)
+			RivalTeamsManager.set_current_rival_by_name(current_opponent)
+		
+		# Obtener la ruta del diálogo de pre-entrenamiento
+		dialogue_file = RivalTeamsManager.get_pre_training_dialogue_path()
+		print("TrainingDialogueScene: Ruta obtenida desde RivalTeamsManager: ", dialogue_file)
+		
+		if dialogue_file == "":
+			print("ERROR: No se encontró diálogo de pre-entrenamiento para el oponente: ", current_opponent)
+			return
+	else:
+		print("ERROR: RivalTeamsManager no disponible")
 		return
 
 	# Cargar y parsear el archivo JSON
@@ -104,9 +115,23 @@ func setup_dialogue_directly():
 		print("ERROR: dialogue_system no está disponible")
 
 func _on_dialogue_finished():
-	print("TrainingDialogueScene: Diálogo terminado, iniciando minijuego de marcaje...")
+	print("TrainingDialogueScene: Diálogo terminado, iniciando minijuego específico del rival...")
 	
-	# Ir al minijuego de marcaje en lugar de completar directamente
+	# Obtener información del minijuego desde RivalTeamsManager
+	if RivalTeamsManager:
+		var minigame_info = RivalTeamsManager.get_training_minigame_info()
+		if minigame_info.has("scene"):
+			var minigame_scene = minigame_info.scene
+			print("TrainingDialogueScene: Cargando minijuego: ", minigame_scene)
+			get_tree().change_scene_to_file(minigame_scene)
+			return
+		else:
+			print("ERROR: No se encontró información de minijuego para el rival actual")
+	else:
+		print("ERROR: RivalTeamsManager no disponible")
+	
+	# Fallback al minijuego de marcaje si hay error
+	print("TrainingDialogueScene: Usando minijuego de marcaje como fallback")
 	get_tree().change_scene_to_file("res://scenes/MarkingMiniGame.tscn")
 
 # Función para manejar las teclas ESC y F (saltar diálogo)

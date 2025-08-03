@@ -1,0 +1,121 @@
+[
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Chavales, preparaos para algo... diferente. Aquí llega el Fantasy FC y... madre de dios, ¿qué llevan puesto?"
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "¿Son... capas? ¿Van a jugar al fútbol con capas y sombreros de mago?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Es un equipo impredecible con jugadas de fantasía. Algunas brillantes, otras completamente desastrosas."
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "¿Y cómo nos preparamos contra la... fantasía?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Hemos estudiado tácticas avanzadas toda la semana. La clave es mantener la concentración ante sus jugadas locas."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "Joder, su portero tiene una varita... ¿es legal eso?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Es solo teatro. Pero ojo, ese 'mago' para balones como si tuviera poderes reales. No os dejéis engañar por el show."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "Mira, están haciendo algún tipo de ritual... ¿están invocando algo?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Jajaja, están 'invocando' la suerte. Pero el fútbol se juega con los pies, no con hechizos."
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "Su capitán está hablando con una bola de cristal... esto es surrealista."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Lo que pasa es que son muy creativos. A veces esa creatividad les sale bien, otras veces... bueno, parecen payasos."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "La pregunta es: ¿estáis preparados para enfrentar lo inesperado?",
+    "choices": [
+      {
+        "id": "opcion_confiado",
+        "text": "Magia o no magia, sabemos jugar al fútbol."
+      },
+      {
+        "id": "opcion_estrategico",
+        "text": "Hay que estar muy atentos a sus jugadas raras."
+      },
+      {
+        "id": "opcion_humor",
+        "text": "¿Creéis que si les pedimos un autógrafo se distraen?"
+      }
+    ]
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡Perfecto! Pero recordad: no os dejéis hipnotizar por el espectáculo."
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "Su defensa central está... ¿leyendo un libro de hechizos?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Seguramente está buscando la fórmula para parar vuestros ataques. Spoiler: no la va a encontrar ahí."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "¿Y si realmente tienen poderes mágicos?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "El único poder mágico en el fútbol es el trabajo duro y la técnica. Y de eso, nosotros tenemos de sobra."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "Mira, han sacado humo de colores... ¿cómo han hecho eso?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Trucos de prestidigitación. Pero cuando suene el silbato, se acaba la magia y empieza el fútbol de verdad."
+  },
+  {
+    "background": "partido",
+    "character": "arbitro",
+    "text": "¡EQUIPOS A SUS POSICIONES! ¡EL PARTIDO VA A COMENZAR!"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡Vamos chavales! ¡A demostrar que la realidad siempre vence a la fantasía en el fútbol!"
+  }
+]

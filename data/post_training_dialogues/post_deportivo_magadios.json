@@ -1,0 +1,32 @@
+[
+  {
+	"background": "post_entrenamiento",
+	"character": "jugador1",
+	"text": "Uf, esto de las marcas al hombre es un trabajo duro..."
+  },
+  {
+	"background": "post_entrenamiento",
+	"character": "jugador2",
+	"text": "Sí, me siento como si un pulpo me hubiera dado un abrazo."
+  },
+  {
+	"background": "post_entrenamiento",
+	"character": "Yazawa",
+	"text": "¡Bien hecho, equipo! La clave ahora es recordar esto cuando enfrentemos a su estrella."
+  },
+  {
+	"background": "post_entrenamiento",
+	"character": "jugador3",
+	"text": "Espero poder moverme mañana..."
+  },
+  {
+	"background": "post_entrenamiento",
+	"character": "jugador4",
+	"text": "Deberíamos habernos grabado. Pareceríamos una coreografía poco coordinada, pero ha valido la pena."
+  },
+  {
+	"background": "post_entrenamiento",
+	"character": "Yazawa",
+	"text": "Lo importante es que si aguantamos hoy, podremos hacerlo durante el partido. Ahora descansad, mañana toca planificar nuestra estrategia."
+  }
+]

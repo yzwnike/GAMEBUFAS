@@ -1,0 +1,121 @@
+[
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Bueno chavales, aquí tenemos a los Chocolateros FC... ¿habéis visto sus camisetas? Parecen tabletas de chocolate."
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "Joder, hasta el escudo es una tableta... ¿en serio van con esa temática?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Son dulces por fuera, competitivos por dentro. Su juego es técnico pero inconsistente. Tienen altibajos emocionales."
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "¿Altibajos emocionales? ¿Qué significa eso?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Un día juegan como magos, al siguiente como principiantes. Hemos entrenado regates para aprovechar sus momentos bajos."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "Mira, su capitán está repartiendo chocolatinas al equipo..."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Típico. Se creen que el azúcar les va a dar energía extra. Lo que les va a dar es un bajón a los 30 minutos."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "¿Habéis visto su ritual de calentamiento? Están... ¿bailando?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Jajaja, sí. Lo llaman 'la danza del chocolate'. Es su forma de motivarse. Dejadlos, que se diviertan."
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "Su portero está comiendo algo... ¿es un donnut de chocolate?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Madre mía... estos tíos viven en su mundo. Pero ojo, cuando están motivados, son imparables. El truco es pillarlos en sus bajones."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¿Cómo veis el partido? ¿Confiados o precavidos?",
+    "choices": [
+      {
+        "id": "opcion_confiado",
+        "text": "Con tanto chocolate encima, van a estar lentos."
+      },
+      {
+        "id": "opcion_estrategico",
+        "text": "Hay que aprovechar sus momentos de inconsistencia."
+      },
+      {
+        "id": "opcion_humor",
+        "text": "Espero que no se derritan con el calor del partido."
+      }
+    ]
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡Esa es la actitud! Pero manteneos alerta a sus cambios de ritmo."
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "Oye, su extremo derecho está haciendo malabares con el balón... no está mal."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Ahí veis lo que os digo. Técnicamente son buenos, pero cuando se ponen nerviosos, se vuelven un desastre."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "¿Y si les metemos un gol pronto?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Perfecto. Se van a agobiar y van a empezar a hacer tonterías. Pero si ellos marcan primero, se crecen como la espuma."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "¿Habéis visto que han traído una animadora vestida de tableta de chocolate?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Jajaja, estos tíos no tienen límites. Pero en serio, concentraos en el fútbol, no en el circo."
+  },
+  {
+    "background": "partido",
+    "character": "arbitro",
+    "text": "¡EQUIPOS A SUS POSICIONES! ¡EL PARTIDO VA A COMENZAR!"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡Vamos chavales! ¡A demostrar que el fútbol se juega con los pies, no con dulces!"
+  }
+]

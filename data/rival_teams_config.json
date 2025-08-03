@@ -1,0 +1,178 @@
+{
+  "teams": {
+	"deportivo_magadios": {
+	  "name": "Deportivo Magadios",
+	  "division": "tercera",
+	  "difficulty": "easy",
+	  "pre_training_dialogue": "res://data/pre_training_dialogues/vs_deportivo_magadios.json",
+	  "post_training_dialogue": "res://data/post_training_dialogues/post_deportivo_magadios.json",
+	  "match_dialogue": "res://data/match_dialogues/vs_deportivo_magadios.json",
+	  "post_match_dialogue": "res://data/post_match_dialogues/DeportivoMagadiosPostMatch.json",
+	  "training_minigame": "marking",
+	  "training_description": "Practicar marcas al hombre contra el crack del Deportivo",
+	  "team_description": "Un equipo con una estrella brillante rodeada de... bueno, de conos de tráfico con patas.",
+	  "tactics": "Marca doble a su estrella, ignora al resto"
+	},
+	"patrulla_canina": {
+	  "name": "Patrulla Canina",
+	  "division": "tercera",
+	  "difficulty": "easy",
+	  "pre_training_dialogue": "res://data/pre_training_dialogues/vs_patrulla_canina.json",
+	  "post_training_dialogue": "res://data/post_training_dialogues/post_patrulla_canina.json",
+	  "match_dialogue": "res://data/match_dialogues/vs_patrulla_canina.json",
+	  "post_match_dialogue": "res://data/post_match_dialogues/PatrullaCaninaPostMatch.json",
+	  "training_minigame": "chaos_passing",
+	  "training_description": "Entrenar pases rápidos para confundir a estos 'cachorros'",
+	  "team_description": "Juegan con mucho entusiasmo pero poca técnica. Ladridos incluidos.",
+	  "tactics": "Juego rápido por las bandas"
+	},
+	"reyes_jalisco": {
+	  "name": "Reyes de Jalisco",
+	  "division": "tercera",
+	  "difficulty": "medium",
+	  "pre_training_dialogue": "res://data/pre_training_dialogues/vs_reyes_jalisco.json",
+	  "post_training_dialogue": "res://data/post_training_dialogues/post_reyes_jalisco.json",
+	  "match_dialogue": "res://data/match_dialogues/vs_reyes_jalisco.json",
+	  "post_match_dialogue": "res://data/post_match_dialogues/ReyesJaliscoPostMatch.json",
+"training_minigame": "wang_li_neutralization",
+	  "training_description": "Entrenar para neutralizar a Wang Li, su única amenaza real",
+	  "team_description": "Se creen la realeza del fútbol. Juego muy físico y directo.",
+	  "tactics": "Balones largos y centros al área"
+	},
+	"inter_panzones": {
+	  "name": "Inter de Panzones",
+	  "division": "tercera",
+	  "difficulty": "medium",
+	  "pre_training_dialogue": "res://data/pre_training_dialogues/vs_inter_panzones.json",
+	  "post_training_dialogue": "res://data/post_training_dialogues/post_inter_panzones.json",
+	  "match_dialogue": "res://data/match_dialogues/vs_inter_panzones.json",
+	  "post_match_dialogue": "res://data/post_match_dialogues/InterPanzonesPostMatch.json",
+	  "training_minigame": "stamina",
+	  "training_description": "Entrenar resistencia para aguantar a estos mamuts",
+	  "team_description": "Lentos pero fuertes. Su estrategia es cansar al rival... si no se cansan ellos primero.",
+	  "tactics": "Presión alta para cansarlos rápido"
+	},
+	"chocolateros_fc": {
+	  "name": "Chocolateros FC",
+	  "division": "tercera",
+	  "difficulty": "easy",
+	  "pre_training_dialogue": "res://data/pre_training_dialogues/vs_chocolateros_fc.json",
+	  "post_training_dialogue": "res://data/post_training_dialogues/post_chocolateros_fc.json",
+	  "match_dialogue": "res://data/match_dialogues/vs_chocolateros_fc.json",
+	  "post_match_dialogue": "res://data/post_match_dialogues/ChocolaterosFCPostMatch.json",
+	  "training_minigame": "dribbling",
+	  "training_description": "Practicar regates contra estos dulces rivales",
+	  "team_description": "Dulces por fuera, competitivos por dentro. Juego técnico pero inconsistente.",
+	  "tactics": "Aprovechar sus altibajos emocionales"
+	},
+	"fantasy_fc": {
+	  "name": "Fantasy FC",
+	  "division": "tercera",
+	  "difficulty": "hard",
+	  "pre_training_dialogue": "res://data/pre_training_dialogues/vs_fantasy_fc.json",
+	  "post_training_dialogue": "res://data/post_training_dialogues/post_fantasy_fc.json",
+	  "match_dialogue": "res://data/match_dialogues/vs_fantasy_fc.json",
+	  "post_match_dialogue": "res://data/post_match_dialogues/FantasyFCPostMatch.json",
+	  "training_minigame": "tactics",
+	  "training_description": "Estudiar tácticas avanzadas contra estos soñadores",
+	  "team_description": "Un equipo impredecible con jugadas de fantasía... algunas brillantes, otras desastrosas.",
+	  "tactics": "Mantener la concentración ante sus jugadas locas"
+	},
+	"picacachorras_fc": {
+	  "name": "Picacachorras FC",
+	  "division": "tercera",
+	  "difficulty": "medium",
+	  "pre_training_dialogue": "res://data/pre_training_dialogues/vs_picacachorras_fc.json",
+	  "post_training_dialogue": "res://data/post_training_dialogues/post_picacachorras_fc.json",
+	  "match_dialogue": "res://data/match_dialogues/vs_picacachorras_fc.json",
+	  "post_match_dialogue": "res://data/post_match_dialogues/PicacachorrasFCPostMatch.json",
+	  "training_minigame": "defense",
+	  "training_description": "Entrenar defensa contra estos... bueno, mejor no preguntar por el nombre",
+	  "team_description": "No preguntes por su nombre. Su fútbol es más limpio que su denominación.",
+	  "tactics": "Juego limpio y técnico"
+	}
+  },
+  "training_minigames": {
+	"marking": {
+	  "scene": "res://scenes/MarkingMiniGame.tscn",
+	  "description": "Practicar marcaje al hombre",
+	  "difficulty_modifiers": {
+		"easy": 0.8,
+		"medium": 1.0,
+		"hard": 1.3
+	  }
+	},
+	"passing": {
+	  "scene": "res://scenes/PassingMiniGame.tscn",
+	  "description": "Entrenar precisión de pases",
+	  "difficulty_modifiers": {
+		"easy": 0.8,
+		"medium": 1.0,
+		"hard": 1.3
+	  }
+	},
+	"headers": {
+	  "scene": "res://scenes/HeadersMiniGame.tscn", 
+	  "description": "Practicar juego aéreo",
+	  "difficulty_modifiers": {
+		"easy": 0.8,
+		"medium": 1.0,
+		"hard": 1.3
+	  }
+	},
+	"stamina": {
+	  "scene": "res://scenes/StaminaMiniGame3D.tscn",
+	  "description": "Entrenar resistencia física",
+	  "difficulty_modifiers": {
+		"easy": 0.8,
+		"medium": 1.0,
+		"hard": 1.3
+	  }
+	},
+	"dribbling": {
+	  "scene": "res://scenes/DribblingMiniGame.tscn",
+	  "description": "Practicar regates y control del balón",
+	  "difficulty_modifiers": {
+		"easy": 0.8,
+		"medium": 1.0,
+		"hard": 1.3
+	  }
+	},
+	"tactics": {
+	  "scene": "res://scenes/TacticsMiniGame.tscn",
+	  "description": "Estudiar formaciones y tácticas",
+	  "difficulty_modifiers": {
+		"easy": 0.8,
+		"medium": 1.0,
+		"hard": 1.3
+	  }
+	},
+	"defense": {
+	  "scene": "res://scenes/DefenseMiniGame.tscn",
+	  "description": "Entrenar posicionamiento defensivo",
+	  "difficulty_modifiers": {
+		"easy": 0.8,
+		"medium": 1.0,
+		"hard": 1.3
+	  }
+	},
+	"chaos_passing": {
+	  "scene": "res://scenes/ChaosPassingMiniGame.tscn",
+	  "description": "Pases de precisión contra el caos canino",
+	  "difficulty_modifiers": {
+		"easy": 0.8,
+		"medium": 1.0,
+		"hard": 1.3
+	  }
+	},
+	"wang_li_neutralization": {
+	  "scene": "res://scenes/WangLiNeutralizationMiniGame.tscn",
+	  "description": "Entrenar para neutralizar a Wang Li interceptando pases",
+	  "difficulty_modifiers": {
+		"easy": 0.8,
+		"medium": 1.0,
+		"hard": 1.3
+	  }
+	}
+  }
+}

@@ -1,116 +1,116 @@
 [
   {
-    "background": "partido",
-    "character": "Yazawa",
-    "text": "Bueno chavales, aquí estamos. El partido contra el Deportivo Magadios..."
+	"background": "partido",
+	"character": "Yazawa",
+	"text": "Bueno chavales, aquí estamos. El partido contra el Deportivo Magadios..."
   },
   {
-    "background": "partido",
-    "character": "jugador1",
-    "text": "Joder, qué nervios. Después de todo lo que hemos entrenado..."
+	"background": "partido",
+	"character": "jugador1",
+	"text": "Joder, qué nervios. Después de todo lo que hemos entrenado..."
   },
   {
-    "background": "partido",
-    "character": "Yazawa",
-    "text": "Recordad lo que hemos hablado: dos de vosotros siempre pegados a su estrella. Al resto... ni caso."
+	"background": "partido",
+	"character": "Yazawa",
+	"text": "Recordad lo que hemos hablado: dos de vosotros siempre pegados a su estrella. Al resto... ni caso."
   },
   {
-    "background": "partido",
-    "character": "jugador2",
-    "text": "¿Y si su estrella está teniendo un mal día?"
+	"background": "partido",
+	"character": "jugador2",
+	"text": "¿Y si su estrella está teniendo un mal día?"
   },
   {
-    "background": "partido",
-    "character": "Yazawa",
-    "text": "Imposible. Ese tío juega con la frustración de cargar con diez zombis futbolísticos. Está más motivado que un león hambriento."
+	"background": "partido",
+	"character": "Yazawa",
+	"text": "Imposible. Ese tío juega con la frustración de cargar con diez zombis futbolísticos. Está más motivado que un león hambriento."
   },
   {
-    "background": "partido",
-    "character": "jugador3",
-    "text": "Mira, ahí vienen... madre mía, ¿has visto la cara del bueno?"
+	"background": "partido",
+	"character": "jugador3",
+	"text": "Mira, ahí vienen... madre mía, ¿has visto la cara del bueno?"
   },
   {
-    "background": "partido",
-    "character": "Yazawa",
-    "text": "Parece que lleva tres días sin dormir, ¿no? El pobre debe estar hasta las narices de hacer de niñera."
+	"background": "partido",
+	"character": "Yazawa",
+	"text": "Parece que lleva tres días sin dormir, ¿no? El pobre debe estar hasta las narices de hacer de niñera."
   },
   {
-    "background": "partido",
-    "character": "jugador4",
-    "text": "Y los otros... joder, uno se está poniendo las botas en el pie equivocado."
+	"background": "partido",
+	"character": "jugador4",
+	"text": "Y los otros... joder, uno se está poniendo las botas en el pie equivocado."
   },
   {
-    "background": "partido",
-    "character": "Yazawa",
-    "text": "Ya os lo dije. Es como enfrentarse a un crack mundial rodeado de conos de tráfico con camiseta. ¿Cuál es vuestra sensación?",
-    "choices": [
-      {
-        "id": "opcion_confiado",
-        "text": "Estamos preparados. Vamos a por ellos."
-      },
-      {
-        "id": "opcion_respeto",
-        "text": "Hay que tener mucho cuidado con su estrella."
-      },
-      {
-        "id": "opcion_humor",
-        "text": "Espero que los otros diez no se pierdan en el campo."
-      }
-    ]
+	"background": "partido",
+	"character": "Yazawa",
+	"text": "Ya os lo dije. Es como enfrentarse a un crack mundial rodeado de conos de tráfico con camiseta. ¿Cuál es vuestra sensación?",
+	"choices": [
+	  {
+		"id": "opcion_confiado",
+		"text": "Estamos preparados. Vamos a por ellos."
+	  },
+	  {
+		"id": "opcion_respeto",
+		"text": "Hay que tener mucho cuidado con su estrella."
+	  },
+	  {
+		"id": "opcion_humor",
+		"text": "Espero que los otros diez no se pierdan en el campo."
+	  }
+	]
   },
   {
-    "background": "partido",
-    "character": "Yazawa",
-    "text": "Esa es la actitud. Pero sin confiarnos, ¿eh?"
+	"background": "partido",
+	"character": "Yazawa",
+	"text": "Esa es la actitud. Pero sin confiarnos, ¿eh?"
   },
   {
-    "background": "partido",
-    "character": "jugador1",
-    "text": "Oye, ¿has visto lo que está haciendo su defensa central?"
+	"background": "partido",
+	"character": "jugador1",
+	"text": "Oye, ¿has visto lo que está haciendo su defensa central?"
   },
   {
-    "background": "partido",
-    "character": "Yazawa",
-    "text": "¿Qué? ¿Ya está calentando para marcar autogoles?"
+	"background": "partido",
+	"character": "Yazawa",
+	"text": "¿Qué? ¿Ya está calentando para marcar autogoles?"
   },
   {
-    "background": "partido",
-    "character": "jugador2",
-    "text": "No, se está atando los cordones... ¡del compañero!"
+	"background": "partido",
+	"character": "jugador2",
+	"text": "No, se está atando los cordones... ¡del compañero!"
   },
   {
-    "background": "partido",
-    "character": "Yazawa",
-    "text": "¡No me jodas! ¡Jajaja! Su estrella debe estar pensando en cambiar de deporte."
+	"background": "partido",
+	"character": "Yazawa",
+	"text": "¡No me jodas! ¡Jajaja! Su estrella debe estar pensando en cambiar de deporte."
   },
   {
-    "background": "partido",
-    "character": "jugador3",
-    "text": "Mira cómo le grita... el pobre debe estar desesperado."
+	"background": "partido",
+	"character": "jugador3",
+	"text": "Mira cómo le grita... el pobre debe estar desesperado."
   },
   {
-    "background": "partido",
-    "character": "Yazawa",
-    "text": "Por eso mismo es peligroso. Un jugador desesperado es capaz de cualquier cosa. Incluidas jugadas de pura magia."
+	"background": "partido",
+	"character": "Yazawa",
+	"text": "Por eso mismo es peligroso. Un jugador desesperado es capaz de cualquier cosa. Incluidas jugadas de pura magia."
   },
   {
-    "background": "partido",
-    "character": "jugador4",
-    "text": "¿Listos para el show entonces?"
+	"background": "partido",
+	"character": "jugador4",
+	"text": "¿Listos para el show entonces?"
   },
   {
-    "background": "partido",
-    "character": "Yazawa",
-    "text": "¡A por ellos! Pero recordad: respeto al crack, paciencia con el circo, y a ganar este partido."
+	"background": "partido",
+	"character": "Yazawa",
+	"text": "¡A por ellos! Pero recordad: respeto al crack, paciencia con el circo, y a ganar este partido."
   },
   {
-    "background": "partido",
-    "character": "arbitro",
-    "text": "¡EQUIPOS A SUS POSICIONES! ¡EL PARTIDO VA A COMENZAR!"
+	"background": "partido",
+	"character": "arbitro",
+	"text": "¡EQUIPOS A SUS POSICIONES! ¡EL PARTIDO VA A COMENZAR!"
   },
   {
-    "background": "partido",
-    "character": "Yazawa",
-    "text": "¡Vamos chavales! ¡A demostrar todo lo que hemos entrenado!"
+	"background": "partido",
+	"character": "Yazawa",
+	"text": "¡Vamos chavales! ¡A demostrar todo lo que hemos entrenado!"
   }
 ]

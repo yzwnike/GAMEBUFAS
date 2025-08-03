@@ -1,88 +1,88 @@
 {
   "products": [
-    {
-      "id": "stamina_small",
-      "name": "Recarga de Stamina Pequeña",
-      "description": "Recupera 1 punto de stamina para jugar partidos.",
-      "image": "res://assets/images/items/stamina_small.png",
-      "price": 100,
-      "type": "stat_boost",
-      "stat": "stamina",
-      "value": 1
-    },
-    {
-      "id": "stamina_large",
-      "name": "Recarga de Stamina Grande",
-      "description": "Recupera 2 puntos de stamina para jugar partidos.",
-      "image": "res://assets/images/items/stamina_large.png",
-      "price": 180,
-      "type": "stat_boost",
-      "stat": "stamina",
-      "value": 2
-    },
-    {
-      "id": "disquette_oblak",
-      "name": "Disquete de Highlights de Oblak",
-      "description": "Mejora las habilidades de todos los porteros de tu plantilla.",
-      "image": "res://assets/images/items/disquette_oblak.png",
-      "price": 500,
-      "type": "position_boost",
-      "position": "Portero",
-      "stat": "defense",
-      "value": 1
-    },
-    {
-      "id": "disquette_puyol",
-      "name": "Disquete de Highlights de Puyol",
-      "description": "Mejora la defensa de todos los defensas de tu plantilla.",
-      "image": "res://assets/images/items/disquette_puyol.png",
-      "price": 500,
-      "type": "position_boost",
-      "position": "Defensa",
-      "stat": "defense",
-      "value": 1
-    },
-    {
-      "id": "disquette_iniesta",
-      "name": "Disquete de Highlights de Iniesta",
-      "description": "Mejora la habilidad de todos los centrocampistas de tu plantilla.",
-      "image": "res://assets/images/items/disquette_iniesta.png",
-      "price": 500,
-      "type": "position_boost",
-      "position": "Centrocampista",
-      "stat": "skill",
-      "value": 1
-    },
-    {
-      "id": "disquette_falcao",
-      "name": "Disquete de Highlights de Falcao",
-      "description": "Mejora el ataque de todos los delanteros de tu plantilla.",
-      "image": "res://assets/images/items/disquette_falcao.png",
-      "price": 500,
-      "type": "position_boost",
-      "position": "Delantero",
-      "stat": "attack",
-      "value": 1
-    },
-    {
-      "id": "discurso_capitan",
-      "name": "Discurso Motivador de Capitán",
-      "description": "Aumenta 1 punto de moral a un jugador seleccionado.",
-      "image": "res://assets/images/items/discurso_capitan.png",
-      "price": 150,
-      "type": "stat_boost",
-      "stat": "morale",
-      "value": 1
-    },
-    {
-      "id": "test_bad_news",
-      "name": "[TEST] Malas Noticias",
-      "description": "Reduce 5 puntos de moral a un jugador seleccionado. Solo para testing.",
-      "image": "res://assets/images/items/placeholder.png",
-      "price": 1,
-      "type": "stat_boost",
-      "stat": "morale",
-      "value": -5
-    }
+	{
+	  "id": "stamina_small",
+	  "name": "Recarga de Stamina Pequeña",
+	  "description": "Recupera 1 punto de stamina para jugar partidos.",
+	  "image": "res://assets/images/items/stamina_small.png",
+	  "price": 100,
+	  "type": "stat_boost",
+	  "stat": "stamina",
+	  "value": 1
+	},
+	{
+	  "id": "stamina_large",
+	  "name": "Recarga de Stamina Grande",
+	  "description": "Recupera 2 puntos de stamina para jugar partidos.",
+	  "image": "res://assets/images/items/stamina_large.png",
+	  "price": 180,
+	  "type": "stat_boost",
+	  "stat": "stamina",
+	  "value": 2
+	},
+	{
+	  "id": "disquette_oblak",
+	  "name": "Disquete de Highlights de Oblak",
+	  "description": "Mejora las habilidades de todos los porteros de tu plantilla.",
+	  "image": "res://assets/images/items/disquette_oblak.png",
+	  "price": 500,
+	  "type": "position_boost",
+	  "position": "Portero",
+	  "stat": "defense",
+	  "value": 1
+	},
+	{
+	  "id": "disquette_puyol",
+	  "name": "Disquete de Highlights de Puyol",
+	  "description": "Mejora la defensa de todos los defensas de tu plantilla.",
+	  "image": "res://assets/images/items/disquette_puyol.png",
+	  "price": 500,
+	  "type": "position_boost",
+	  "position": "Defensa",
+	  "stat": "defense",
+	  "value": 1
+	},
+	{
+	  "id": "disquette_iniesta",
+	  "name": "Disquete de Highlights de Iniesta",
+	  "description": "Mejora la habilidad de todos los centrocampistas de tu plantilla.",
+	  "image": "res://assets/images/items/disquette_iniesta.png",
+	  "price": 500,
+	  "type": "position_boost",
+	  "position": "Centrocampista",
+	  "stat": "skill",
+	  "value": 1
+	},
+	{
+	  "id": "disquette_falcao",
+	  "name": "Disquete de Highlights de Falcao",
+	  "description": "Mejora el ataque de todos los delanteros de tu plantilla.",
+	  "image": "res://assets/images/items/disquette_falcao.png",
+	  "price": 500,
+	  "type": "position_boost",
+	  "position": "Delantero",
+	  "stat": "attack",
+	  "value": 1
+	},
+	{
+	  "id": "discurso_capitan",
+	  "name": "Discurso Motivador de Capitán",
+	  "description": "Aumenta 1 punto de moral a un jugador seleccionado.",
+	  "image": "res://assets/images/items/discurso_capitan.png",
+	  "price": 150,
+	  "type": "stat_boost",
+	  "stat": "morale",
+	  "value": 1
+	},
+	{
+	  "id": "test_bad_news",
+	  "name": "[TEST] Malas Noticias",
+	  "description": "Reduce 5 puntos de moral a un jugador seleccionado. Solo para testing.",
+	  "image": "res://assets/images/items/placeholder.png",
+	  "price": 1,
+	  "type": "stat_boost",
+	  "stat": "morale",
+	  "value": -5
+	}
   ]
 }

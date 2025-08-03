@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c8bxbh4l6cie5"
+path="res://.godot/imported/Battle! (Trainer) 2.ogg-9da5e7ef03cfb0e12e9bdbb3d16bb04f.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Battle! (Trainer) 2.ogg"
+dest_files=["res://.godot/imported/Battle! (Trainer) 2.ogg-9da5e7ef03cfb0e12e9bdbb3d16bb04f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

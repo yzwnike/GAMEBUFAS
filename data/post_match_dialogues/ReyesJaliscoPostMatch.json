@@ -1,0 +1,131 @@
+{
+  "win_branch": [
+    {
+      "character": "narrator",
+      "text": "¡PITIDO FINAL! FC Bufas ha derrotado a los Reyes de Jalisco en un partido muy físico. Los 'reyes' no pueden creer que su juego directo haya sido superado.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "¡Joder, qué partidazo! Chavales, habéis aguantado como campeones."
+    },
+    {
+      "character": "jugador1",
+      "text": "¡Sí! Les hemos ganado en su propio juego físico."
+    },
+    {
+      "character": "capitan_jalisco",
+      "text": "No puede ser... ¿Cómo habéis resistido nuestros balones largos? ¡Somos los reyes del juego aéreo!"
+    },
+    {
+      "character": "yazawa",
+      "text": "Oye, tenéis un físico impresionante, pero el fútbol también va de inteligencia táctica."
+    },
+    {
+      "character": "defensa_jalisco",
+      "text": "¡Estos chavales han saltado más alto que nosotros! ¡Y eso que medimos dos metros!"
+    },
+    {
+      "character": "jugador2",
+      "text": "¡Ha sido como jugar contra una manada de osos, pero lo hemos conseguido!"
+    },
+    {
+      "character": "capitan_jalisco",
+      "text": "Habéis jugado con mucha dignidad... y valor. Pocos equipos se atreven a plantarnos cara así."
+    },
+    {
+      "character": "yazawa",
+      "text": "Ha sido durísimo, pero justo. Respeto total por vuestro juego."
+    },
+    {
+      "character": "capitan_jalisco",
+      "text": "Lo mismo digo. Sois más duros de lo que aparentáis. Los 'Reyes' os saludan."
+    }
+  ],
+  "loss_branch": [
+    {
+      "character": "narrator",
+      "text": "Pitido final. Los Reyes de Jalisco han vencido a FC Bufas con su característico juego físico y directo. Los 'reyes' celebran con orgullo.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "Joder... nos han machacado. Pero bueno, chavales, habéis luchado hasta el final."
+    },
+    {
+      "character": "jugador1",
+      "text": "Es como si hubieran puesto una muralla en cada jugada..."
+    },
+    {
+      "character": "capitan_jalisco",
+      "text": "¡Victoria de los Reyes! Habéis peleado bien, pero nuestro reino no se conquista fácilmente."
+    },
+    {
+      "character": "defensa_jalisco",
+      "text": "¡Ja! ¡Nuestros balones largos han funcionado a la perfección! ¡Como siempre!"
+    },
+    {
+      "character": "yazawa",
+      "text": "Tenéis un juego muy efectivo, hay que reconocerlo."
+    },
+    {
+      "character": "capitan_jalisco",
+      "text": "No es bonito, pero funciona. Aunque debo admitir que habéis sido más resistentes de lo esperado."
+    },
+    {
+      "character": "jugador2",
+      "text": "Ha sido como jugar contra un huracán de músculos y balones largos."
+    },
+    {
+      "character": "capitan_jalisco",
+      "text": "Jajaja, esa es nuestra especialidad. Pero oye, tenéis potencial. Solo necesitáis más físico."
+    },
+    {
+      "character": "yazawa",
+      "text": "Tomaremos nota. Ha sido una lección de fútbol directo."
+    }
+  ],
+  "draw_branch": [
+    {
+      "character": "narrator",
+      "text": "El árbitro señala el final. Empate entre FC Bufas y los Reyes de Jalisco. Un resultado que satisface a ambos equipos después de un duelo muy igualado.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "Empate justo, chavales. Habéis aguantado todo lo que han echado."
+    },
+    {
+      "character": "jugador1",
+      "text": "¡Qué partido! Ha sido como jugar en medio de un vendaval."
+    },
+    {
+      "character": "capitan_jalisco",
+      "text": "Empate... respetable. No muchos equipos logran igualar a los Reyes en nuestro terreno."
+    },
+    {
+      "character": "yazawa",
+      "text": "Vuestro juego aéreo es impresionante. Hemos aprendido mucho."
+    },
+    {
+      "character": "defensa_jalisco",
+      "text": "Y vosotros habéis demostrado que la técnica también puede competir con la fuerza."
+    },
+    {
+      "character": "jugador2",
+      "text": "Ha sido como una clase magistral de fútbol físico."
+    },
+    {
+      "character": "capitan_jalisco",
+      "text": "Un empate honrado. Habéis ganado el respeto de los Reyes."
+    },
+    {
+      "character": "yazawa",
+      "text": "Igualmente. Habéis demostrado que el fútbol directo también puede ser noble."
+    },
+    {
+      "character": "capitan_jalisco",
+      "text": "Siempre, hermano. El fútbol es respeto, sin importar el estilo."
+    }
+  ]
+}

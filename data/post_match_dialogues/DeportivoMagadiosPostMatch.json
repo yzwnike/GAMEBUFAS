@@ -1,0 +1,139 @@
+{
+  "win_branch": [
+	{
+	  "character": "narrator",
+	  "text": "¡PITIDO FINAL! FC Bufas ha conseguido la victoria contra el Deportivo Magadios. La estrella rival se queda en shock mientras sus compañeros... bueno, algunos ni se han enterado.",
+	  "background": "partido"
+	},
+	{
+	  "character": "yazawa",
+	  "text": "¡Joder, lo hemos conseguido! Chavales, ¡habéis estado increíbles!"
+	},
+	{
+	  "character": "jugador1",
+	  "text": "¡No me lo puedo creer! ¡Le hemos ganado al crack del Deportivo!"
+	},
+	{
+	  "character": "estrella_magadios",
+	  "text": "Esto... esto no puede ser. ¿Cómo habéis podido...? ¡He corrido por tres jugadores!"
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Oye tío, has jugado como un fenómeno. Pero el fútbol es de equipo, ¿sabes?"
+	},
+	{
+	  "character": "jugador_malo_magadios",
+	  "text": "Eh... disculpad, ¿alguien puede explicarme qué ha pasado? Me he despistado en el minuto cinco persiguiendo una pelota que resultó ser una lata."
+	},
+	{
+	  "character": "jugador2",
+	  "text": "¡Jajaja! ¡Este tío ni se ha enterado de que han perdido!"
+	},
+	{
+	  "character": "estrella_magadios",
+	  "text": "Enhorabuena... habéis jugado como un verdadero equipo. Algo que yo... nunca he tenido."
+	},
+	{
+	  "character": "yazawa",
+	  "text": "¿Sabes qué? Si alguna vez te hartas de cargar con... bueno, ya sabes... tienes sitio con nosotros."
+	},
+	{
+	  "character": "estrella_magadios",
+	  "text": "Gracias... lo pensaré. Pero ahora tengo que ir a explicarle a éste por qué no puede llevarse las porterías a casa como recuerdo."
+	}
+  ],
+  "loss_branch": [
+	{
+	  "character": "narrator",
+	  "text": "Pitido final. FC Bufas ha perdido contra el Deportivo Magadios. La estrella rival celebra con alivio mientras sus compañeros... bueno, algunos ni se han enterado de que ha terminado.",
+	  "background": "partido"
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Joder... bueno, chavales, lo hemos intentado. Ese tío es realmente bueno."
+	},
+	{
+	  "character": "jugador1",
+	  "text": "Ha sido como jugar contra un equipo entero él solo..."
+	},
+	{
+	  "character": "estrella_magadios",
+	  "text": "¡Por fin! ¡POR FIN una victoria! Habéis jugado muy bien, en serio. Casi me dais un infarto."
+	},
+	{
+	  "character": "jugador_malo_magadios",
+	  "text": "Eh... ¿ya hemos empezado? Porque yo he estado persiguiendo una mariposa muy bonita durante todo el partido..."
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Jajaja, tío, ¿cómo puedes jugar con estos elementos?"
+	},
+	{
+	  "character": "estrella_magadios",
+	  "text": "Es mi cruz... Pero oye, habéis demostrado mucho nivel. Si seguís entrenándoos así, vais a llegar lejos."
+	},
+	{
+	  "character": "jugador2",
+	  "text": "Ha sido un placer jugar contra alguien de tu nivel, tío."
+	},
+	{
+	  "character": "estrella_magadios",
+	  "text": "Lo mismo digo. Y si algún día necesitáis un jugador que sepa realmente de fútbol... ya sabéis dónde encontrarme."
+	},
+	{
+	  "character": "jugador_malo_magadios",
+	  "text": "¿Eh? ¿Qué pasa? ¿Alguien ha visto mis zapatillas? Me parece que me las he cambiado con un espantapájaros..."
+	}
+  ],
+  "draw_branch": [
+	{
+	  "character": "narrator",
+	  "text": "El árbitro pita el final. Empate. La estrella del Deportivo Magadios suspira aliviado, mientras que FC Bufas celebra como si fuera una victoria.",
+	  "background": "partido"
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Nada mal, chavales. Empatar contra ese crack no está nada mal."
+	},
+	{
+	  "character": "jugador1",
+	  "text": "Sí, pero casi les metemos uno al final... ¡Qué cerca!"
+	},
+	{
+	  "character": "estrella_magadios",
+	  "text": "Buf... empate. Después de tanto tiempo perdiendo, empatar se siente casi como ganar."
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Tío, has estado increíble. En serio, ¿cómo aguantas jugando con..."
+	},
+	{
+	  "character": "jugador_malo_magadios",
+	  "text": "Oye, ¿alguien puede decirme qué tal lo he hecho? He estado intentando hacer malabares con el balón, pero se me caía todo el rato."
+	},
+	{
+	  "character": "jugador2",
+	  "text": "Jajaja, este tío es genial. No tiene ni idea, pero le pone ganas."
+	},
+	{
+	  "character": "estrella_magadios",
+	  "text": "Oye, ¿sabéis qué? Me habéis dado esperanza. Hace tiempo que no disfruto tanto un partido."
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Ha sido un partidazo. Igualado, limpio, sin tonterías..."
+	},
+	{
+	  "character": "estrella_magadios",
+	  "text": "Exacto. Esto es fútbol de verdad. Si alguna vez queréis hacer un equipo serio..."
+	},
+	{
+	  "character": "jugador_malo_magadios",
+	  "text": "Eh, ¿y ahora qué? ¿Tenemos que seguir corriendo o ya podemos parar? Porque tengo hambre."
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Jajaja, que alguien le explique que ya hemos terminado."
+	}
+  ]
+}

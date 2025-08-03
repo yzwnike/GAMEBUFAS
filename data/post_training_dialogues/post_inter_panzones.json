@@ -1,0 +1,32 @@
+[
+  {
+    "background": "post_entrenamiento",
+    "character": "jugador1",
+    "text": "*Jadeando* No... puedo... más... ¿Ya hemos terminado?"
+  },
+  {
+    "background": "post_entrenamiento",
+    "character": "jugador2",
+    "text": "Me siento como si hubiera corrido una maratón... cuesta arriba... con lastre."
+  },
+  {
+    "background": "post_entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Perfecto! Si habéis aguantado esto, podréis con la resistencia de los Panzones."
+  },
+  {
+    "background": "post_entrenamiento",
+    "character": "jugador3",
+    "text": "¿Cómo es posible que entrenar resistencia sea tan agotador?"
+  },
+  {
+    "background": "post_entrenamiento",
+    "character": "jugador4",
+    "text": "Mis pulmones han hecho huelga, pero creo que ahora podemos aguantar más."
+  },
+  {
+    "background": "post_entrenamiento",
+    "character": "Yazawa",
+    "text": "Ahora sabéis lo que es el verdadero cansancio. Cuando ellos intenten agotarnos, seremos nosotros quienes resistamos."
+  }
+]

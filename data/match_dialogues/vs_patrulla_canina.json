@@ -1,0 +1,116 @@
+[
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Bueno chavales, aquí estamos. El partido contra la Patrulla Canina..."
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "Joder, qué nervios. Después de todo lo que hemos entrenado..."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Recordad lo que hemos hablado: pases rápidos y precisos. Mientras ellos corren como locos, vosotros mantenéis la calma."
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "¿Y si nos contagian su histeria?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Por eso hemos entrenado tanto. Cuando empiecen a ladrar y a celebrar cada pase, vosotros a lo vuestro: juego simple y efectivo."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "Mira, ahí vienen... madre mía, ¿has visto cómo celebran solo por salir del vestuario?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Ya empiezan con el show. Mirad, uno está haciendo volteretas porque se ha atado bien las botas."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "Y ese otro... ¿está ladrando ya? ¡Si ni hemos empezado!"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Es su forma de 'motivarse'. El problema es que no saben cuándo parar. ¿Cuál es vuestra sensación?",
+    "choices": [
+      {
+        "id": "opcion_confiado",
+        "text": "Estamos preparados. Nuestra paciencia vs su caos."
+      },
+      {
+        "id": "opcion_precaucion",
+        "text": "Hay que tener cuidado, su energía puede ser peligrosa."
+      },
+      {
+        "id": "opcion_humor",
+        "text": "Espero que no se pierdan en el campo celebrando."
+      }
+    ]
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Esa es la actitud. Pero sin confiarnos, ¿eh?"
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "Oye, ¿has visto lo que está haciendo su delantero?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¿Qué? ¿Ya está practicando sus celebraciones de gol?"
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "No, está intentando hacer trucos con el balón... ¡pero se le está cayendo todo el rato!"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Típico. Más espectáculo que sustancia. Pero cuidado, a veces la suerte está de su lado."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "Mira, su portero está saltando como si fuera un trampolín..."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Se están calentando para el caos total. Recordad: cuando más locos se pongan, más tranquilos tenéis que estar vosotros."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "¿Listos para el espectáculo entonces?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡A por ellos! Pero recordad: juego inteligente contra energía descontrolada. ¡Vamos a enseñarles lo que es jugar en serio!"
+  },
+  {
+    "background": "partido",
+    "character": "arbitro",
+    "text": "¡EQUIPOS A SUS POSICIONES! ¡EL PARTIDO VA A COMENZAR!"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡Vamos chavales! ¡A demostrar que la técnica supera al caos!"
+  }
+]

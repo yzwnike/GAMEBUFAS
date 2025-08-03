@@ -19,9 +19,9 @@ func setup_dialogue_directly():
 	dialogue_system = get_node_or_null("DialogueSystem")
 	print("PostTrainingDialogueScene: Buscando DialogueSystem... encontrado: ", dialogue_system != null)
 	
-	# Cargar el archivo de diálogo post-entrenamiento
-	var dialogue_file = "res://data/training_dialogues/post_training_dialogue.json"
-	print("PostTrainingDialogueScene: Cargando diálogo post-entrenamiento")
+	# Cargar el archivo de diálogo post-entrenamiento específico del rival actual
+	var dialogue_file = get_post_training_dialogue_path()
+	print("PostTrainingDialogueScene: Cargando diálogo post-entrenamiento: ", dialogue_file)
 
 	# Cargar y parsear el archivo JSON
 	var dialogue_data = []
@@ -122,6 +122,19 @@ func complete_training_success():
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		_on_dialogue_finished()
+
+# Función para obtener la ruta del diálogo post-entrenamiento del rival actual
+func get_post_training_dialogue_path() -> String:
+	if RivalTeamsManager:
+		var post_training_path = RivalTeamsManager.get_post_training_dialogue_path()
+		if post_training_path != "" and ResourceLoader.exists(post_training_path):
+			print("PostTrainingDialogueScene: Usando diálogo específico del rival: ", post_training_path)
+			return post_training_path
+	
+	# Fallback al diálogo genérico si no existe el específico
+	var fallback_path = "res://data/training_dialogues/post_training_dialogue.json"
+	print("PostTrainingDialogueScene: Usando diálogo genérico como fallback: ", fallback_path)
+	return fallback_path
 
 # DEBUG: Función para mostrar la estructura de nodos
 func _print_node_structure(node: Node, depth: int):

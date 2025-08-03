@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dijcuqksohya1"
+path="res://.godot/imported/Batalla! (Comandante Team POT).mp3-383efd53249abc02db680def6b8c5e98.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Batalla! (Comandante Team POT).mp3"
+dest_files=["res://.godot/imported/Batalla! (Comandante Team POT).mp3-383efd53249abc02db680def6b8c5e98.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

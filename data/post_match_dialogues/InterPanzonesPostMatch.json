@@ -1,0 +1,131 @@
+{
+  "win_branch": [
+    {
+      "character": "narrator",
+      "text": "¡PITIDO FINAL! FC Bufas ha vencido al Inter de Panzones en un partido de resistencia. Los rivales están completamente exhaustos pero sonríen con deportividad.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "¡Increíble! Chavales, habéis corrido más que nunca. ¡Menuda resistencia!"
+    },
+    {
+      "character": "jugador1",
+      "text": "¡Estoy agotado! Pero hemos aguantado más que ellos."
+    },
+    {
+      "character": "capitan_panzones",
+      "text": "*Jadeando* No... no puede ser... ¿Cómo habéis aguantado tanto? ¡Nosotros somos especialistas en cansar rivales!"
+    },
+    {
+      "character": "yazawa",
+      "text": "Jajaja, habéis puesto a prueba nuestra forma física al máximo."
+    },
+    {
+      "character": "panzon_lento",
+      "text": "*Entre jadeos* Eh... ¿alguien... puede decirme... si ya... hemos terminado? Porque... necesito... una siesta..."
+    },
+    {
+      "character": "jugador2",
+      "text": "¡Este tío se ha quedado sin aire desde el primer minuto!"
+    },
+    {
+      "character": "capitan_panzones",
+      "text": "*Respirando pesadamente* Habéis... habéis demostrado que... la velocidad puede ganar... a la resistencia..."
+    },
+    {
+      "character": "yazawa",
+      "text": "Ha sido como una maratón de fútbol. Respeto total por vuestra persistencia."
+    },
+    {
+      "character": "capitan_panzones",
+      "text": "Gracias... ahora... ¿alguien tiene... una silla? Necesito... recuperarme..."
+    }
+  ],
+  "loss_branch": [
+    {
+      "character": "narrator", 
+      "text": "Pitido final. El Inter de Panzones ha conseguido agotar a FC Bufas. Los 'panzones' celebran sin mucha energía, pero con satisfacción.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "*Respirando fuerte* Joder... nos han matado a base de resistencia. Bien jugado."
+    },
+    {
+      "character": "jugador1",
+      "text": "No puedo más... es como si hubieran absorbido toda nuestra energía."
+    },
+    {
+      "character": "capitan_panzones",
+      "text": "*Sonriendo cansado* ¡Victoria! Aunque... *jadeo* ...nos ha costado más de lo habitual."
+    },
+    {
+      "character": "panzon_lento",
+      "text": "¿Ya hemos ganado? Genial... ahora... ¿alguien puede llevarme al vestuario? Mis piernas han dejado de responder..."
+    },
+    {
+      "character": "yazawa",
+      "text": "Vuestra táctica de desgaste es diabólica. Nos habéis enseñado una lección."
+    },
+    {
+      "character": "capitan_panzones",
+      "text": "Es nuestro estilo... lento pero seguro. Aunque debo admitir que habéis aguantado más de lo esperado."
+    },
+    {
+      "character": "jugador2",
+      "text": "Ha sido como jugar contra un equipo de esponjas que absorben energía."
+    },
+    {
+      "character": "capitan_panzones",
+      "text": "Jajaja... buena descripción. Pero oye, tenéis buena técnica. Solo os falta... más fondos."
+    },
+    {
+      "character": "yazawa",
+      "text": "Definitivamente vamos a entrenar más resistencia después de esto."
+    }
+  ],
+  "draw_branch": [
+    {
+      "character": "narrator",
+      "text": "El árbitro pita el final. Empate entre FC Bufas y el Inter de Panzones. Ambos equipos están completamente agotados pero satisfechos con el resultado.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "*Jadeando* Empate justo... ha sido una guerra de desgaste."
+    },
+    {
+      "character": "jugador1",
+      "text": "No sé cómo hemos aguantado... siento las piernas como gelatina."
+    },
+    {
+      "character": "capitan_panzones",
+      "text": "*Respirando pesado* Empate... no está mal. Pocos equipos aguantan nuestro ritmo... por lento que sea."
+    },
+    {
+      "character": "yazawa",
+      "text": "Vuestro juego de resistencia es impresionante. Habéis puesto a prueba cada músculo."
+    },
+    {
+      "character": "panzon_lento",
+      "text": "¿Empate? Perfecto... así nadie tiene que correr más... porque yo ya no puedo..."
+    },
+    {
+      "character": "jugador2",
+      "text": "Ha sido como jugar un partido en cámara lenta, pero intensísimo."
+    },
+    {
+      "character": "capitan_panzones",
+      "text": "Habéis demostrado que la velocidad y la resistencia pueden equilibrarse."
+    },
+    {
+      "character": "yazawa",
+      "text": "Ha sido una lección de fútbol de resistencia. Mucho respeto."
+    },
+    {
+      "character": "capitan_panzones",
+      "text": "Igualmente... ahora... ¿alguien puede ayudarme a llegar al banquillo?"
+    }
+  ]
+}

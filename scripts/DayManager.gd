@@ -53,8 +53,13 @@ func advance_day_with_origin(origin: String):
 	# if TrainingManager:
 	# 	TrainingManager.reset_training()
 	
-	# Redirigir al InteractiveMenu con zoom según el origen
-	redirect_to_interactive_menu()
+	# SOLO redirigir automáticamente si NO viene de un partido
+	# Si viene de partido, el BranchingDialogue se encargará de la redirección
+	if origin != "match":
+		# Redirigir al InteractiveMenu con zoom según el origen
+		redirect_to_interactive_menu()
+	else:
+		print("🌅 DayManager: Origen 'match' detectado, no redirigiendo automáticamente")
 
 func show_day_transition(from_day: int, to_day: int):
 	print("🌅 DayManager: Iniciando transición visual del día ", from_day, " al día ", to_day)
@@ -102,6 +107,9 @@ func redirect_to_interactive_menu():
 		"tournament":
 			zoom_area = "estadio"
 			print("🏆 DayManager: Configurando zoom desde estadio")
+		"match":
+			zoom_area = "estadio"
+			print("⚽ DayManager: Configurando zoom desde estadio tras partido")
 		_:
 			zoom_area = ""
 			print("🌅 DayManager: Sin zoom especial, aparición normal")

@@ -97,6 +97,10 @@ func _ready():
 	
 	# Conectar señales (si es necesario)
 	# get_tree().tree_changed.connect(_on_tree_changed)
+	
+	# Establecer rival inicial si RivalTeamsManager está disponible
+	if RivalTeamsManager:
+		RivalTeamsManager.update_rival_from_next_match()
 
 func change_scene(scene_path):
 	previous_scene_path = current_scene_path
@@ -143,6 +147,8 @@ func save_game():
 		"team_chemistry": team_chemistry,
 		"current_scene": current_scene_path,
 		"current_day": DayManager.get_current_day() if DayManager else 1,
+		"current_match_day": LeagueManager.current_match_day if LeagueManager else 1,
+		"match_results": LeagueManager.match_results if LeagueManager else [],
 		"money": money,
 		"tickets_bufas": tickets_bufas,
 		"fame": fame,
@@ -185,6 +191,14 @@ func load_game():
 			var saved_day = save_data.get("current_day", 1)
 			if DayManager:
 				DayManager.current_day = saved_day
+			
+			# Restaurar estado de la liga en LeagueManager
+			var saved_match_day = save_data.get("current_match_day", 1)
+			var saved_match_results = save_data.get("match_results", [])
+			if LeagueManager:
+				LeagueManager.current_match_day = saved_match_day
+				LeagueManager.match_results = saved_match_results
+				print("Liga restaurada - Jornada: ", saved_match_day, ", Partidos jugados: ", saved_match_results.size())
 			
 			has_unsaved_progress = false
 			print("Juego cargado correctamente - Día ", saved_day)
@@ -240,8 +254,40 @@ func add_match_result(goals_for, goals_against):
 	# Procesar cambios de fama basados en el resultado
 	process_match_fame_changes(goals_for, goals_against, result)
 	
+	# Completar el partido en el LeagueManager
+	if LeagueManager:
+		LeagueManager.complete_match(goals_for, goals_against)
+		print("Partido completado en LeagueManager")
+	
 	# Emitir señal de partido completado para EncargosManager
 	match_completed.emit(last_match_result)
+	
+	# Cargar diálogo post-partido específico del rival actual
+	# NOTA: El avance de día se hará DESPUÉS del diálogo en BranchingDialogue.process_post_match_actions()
+	if RivalTeamsManager:
+		var post_match_dialogue_path = RivalTeamsManager.get_post_match_dialogue_path()
+		if post_match_dialogue_path != "" and ResourceLoader.exists(post_match_dialogue_path):
+			print("Cargando diálogo post-partido del rival: ", post_match_dialogue_path)
+			# Cargar y configurar el diálogo post-partido
+			load_post_match_dialogue_from_rival(post_match_dialogue_path, result)
+			# Ir al diálogo post-partido usando BranchingDialogue
+			get_tree().change_scene_to_file("res://scenes/BranchingDialogue.tscn")
+			return
+	
+	# Obtener el próximo partido y cargar escena
+	if LeagueManager:
+		var next_match = LeagueManager.get_next_match()
+		if next_match:
+			print("Próximo partido: ", next_match.home_team, " vs ", next_match.away_team, " (Jornada ", next_match.match_day, ")")
+			# Actualizar rival para el próximo partido
+			if RivalTeamsManager:
+				RivalTeamsManager.update_rival_from_next_match()
+			return
+		else:
+			print("🏆 ¡La liga ha terminado! No hay más partidos.")
+			# Mostrar pantalla de final de temporada
+			process_season_end_bonus()
+			get_tree().change_scene_to_file("res://scenes/SeasonEndScreen.tscn")
 	
 	# Guardar automáticamente después de cada partido
 	save_game()
@@ -282,12 +328,15 @@ func _on_tree_changed():
 # Funciones para diálogos dinámicos
 func load_post_match_dialogue():
 	var branch = get_story_flag("post_match_branch", "loss")
-	var dialogue_file_path = "res://data/post_match_dialogue.json"
+	
+	# Intentar usar el archivo genérico de Deportivo Magadios como fallback
+	var dialogue_file_path = "res://data/post_match_dialogues/DeportivoMagadiosPostMatch.json"
 	
 	var file = FileAccess.open(dialogue_file_path, FileAccess.READ)
 	if not file:
-		print("Error: No se pudo cargar el archivo de diálogo post-partido")
-		return []
+		print("Error: No se pudo cargar el archivo de diálogo post-partido genérico")
+		# Crear un diálogo mínimo como último recurso
+		return create_minimal_post_match_dialogue(branch)
 	
 	var json_text = file.get_as_text()
 	file.close()
@@ -295,25 +344,110 @@ func load_post_match_dialogue():
 	var json = JSON.new()
 	var parse_result = json.parse(json_text)
 	if parse_result != OK:
-		print("Error al parsear el JSON de diálogo post-partido")
-		return []
+		print("Error al parsear el JSON de diálogo post-partido genérico")
+		return create_minimal_post_match_dialogue(branch)
 	
 	var dialogue_data = json.data
 	var branch_key = branch + "_branch"
 	
 	if dialogue_data.has(branch_key):
 		current_dialogue_data = dialogue_data[branch_key]
-		print("Diálogo post-partido cargado: rama ", branch)
+		print("Diálogo post-partido genérico cargado: rama ", branch)
 		return current_dialogue_data
 	else:
-		print("Error: No se encontró la rama de diálogo ", branch_key)
-		return []
+		print("Error: No se encontró la rama de diálogo ", branch_key, " en archivo genérico")
+		return create_minimal_post_match_dialogue(branch)
 
 func get_current_dialogue_data():
 	return current_dialogue_data
 
 func clear_dialogue_data():
 	current_dialogue_data = []
+
+func create_minimal_post_match_dialogue(branch: String) -> Array:
+	"""Crea un diálogo mínimo como último recurso cuando todos los archivos fallan"""
+	print("Creando diálogo post-partido mínimo para rama: ", branch)
+	
+	var minimal_dialogue = []
+	
+	match branch:
+		"win":
+			minimal_dialogue = [
+				{
+					"character": "narrator",
+					"text": "¡Victoria! El equipo ha conseguido una gran victoria.",
+					"background": "campo"
+				},
+				{
+					"character": "yazawa",
+					"text": "¡Buen trabajo, equipo! Hemos dado todo en el campo."
+				}
+			]
+		"loss":
+			minimal_dialogue = [
+				{
+					"character": "narrator",
+					"text": "Derrota. A pesar del esfuerzo, hoy no ha podido ser.",
+					"background": "campo"
+				},
+				{
+					"character": "yazawa",
+					"text": "No pasa nada, chicos. La próxima vez lo haremos mejor."
+				}
+			]
+		"draw":
+			minimal_dialogue = [
+				{
+					"character": "narrator",
+					"text": "Empate. Un resultado justo tras un partido muy reñido.",
+					"background": "campo"
+				},
+				{
+					"character": "yazawa",
+					"text": "Ha sido un partido difícil. Empatar no está mal."
+				}
+			]
+		_:
+			# Fallback genérico
+			minimal_dialogue = [
+				{
+					"character": "narrator",
+					"text": "El partido ha terminado. Es hora de volver a casa.",
+					"background": "campo"
+				}
+			]
+	
+	current_dialogue_data = minimal_dialogue
+	return minimal_dialogue
+
+func load_post_match_dialogue_from_rival(dialogue_path: String, match_result: String):
+	"""Carga diálogo post-partido específico del rival actual"""
+	var file = FileAccess.open(dialogue_path, FileAccess.READ)
+	if not file:
+		print("Error: No se pudo cargar el archivo de diálogo post-partido del rival: ", dialogue_path)
+		return
+	
+	var json_text = file.get_as_text()
+	file.close()
+	
+	var json = JSON.new()
+	var parse_result = json.parse(json_text)
+	if parse_result != OK:
+		print("Error al parsear el JSON de diálogo post-partido del rival")
+		return
+	
+	var dialogue_data = json.data
+	var branch_key = match_result + "_branch"
+	
+	if dialogue_data.has(branch_key):
+		current_dialogue_data = dialogue_data[branch_key]
+		# Establecer flag para que el sistema sepa qué rama usar
+		set_story_flag("post_match_branch", match_result)
+		print("Diálogo post-partido del rival cargado: rama ", match_result)
+	else:
+		print("Error: No se encontró la rama de diálogo ", branch_key, " en el archivo del rival")
+		# Fallback al diálogo genérico
+		load_post_match_dialogue()
 
 # Sistema de autoguardado
 func auto_save():
@@ -657,11 +791,20 @@ func add_item_to_inventory(item_id: String, quantity: int):
 	print("GameManager: Inventario actualizado - ", inventory)
 
 # Sistema de cheats
+# Variable para controlar si se saltan las transiciones
+var skip_transitions_enabled = false
+
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
 		# Cheat: Tecla R - Saltar al día siguiente con entrenamiento completado
 		if event.keycode == KEY_R:
 			activate_day_skip_cheat()
+		# Cheat: Numpad2 - Saltar a jornada 2 (Patrulla Canina) con jornada 1 completada
+		elif event.keycode == KEY_KP_2:
+			activate_skip_to_patrulla_canina_cheat()
+		# Cheat: Tecla G - Toggle skip transiciones y animaciones
+		elif event.keycode == KEY_G:
+			activate_skip_transitions_cheat()
 
 func activate_day_skip_cheat():
 	print("🎮 CHEAT ACTIVADO: Completando entrenamiento y avanzando día")
@@ -677,3 +820,74 @@ func activate_day_skip_cheat():
 		print("📅 Día avanzado a: ", DayManager.get_current_day())
 	else:
 		print("❌ Error: DayManager no disponible")
+
+func activate_skip_to_patrulla_canina_cheat():
+	print("🎮 CHEAT NUMPAD2: Saltando a jornada 2 (Patrulla Canina) con jornada 1 completada")
+	
+	# 1. SIMULAR RESULTADO DEL PARTIDO JORNADA 1 (FC Bufas 1-0 Deportivo Magadios)
+	print("⚽ Simulando partido: FC Bufas 1-0 Deportivo Magadios")
+	if LeagueManager:
+		# Completar el partido de la jornada 1 con victoria 1-0
+		LeagueManager.complete_match(1, 0)
+		print("✅ Partido jornada 1 completado en LeagueManager")
+	
+	# 1.5. SIMULAR PARTIDOS EN TODAS LAS LIGAS (LeaguesManager)
+	if LeaguesManager:
+		print("🏆 Simulando partidos de las 3 divisiones (LeaguesManager)...")
+		# Simular resultado del partido del jugador para activar la simulación automática
+		var player_match_result = {
+			"home_goals": 1,
+			"away_goals": 0,
+			"is_home": true,
+			"opponent": "Deportivo Magadios"
+		}
+		LeaguesManager._on_player_match_completed(player_match_result)
+		print("✅ Partidos de las 3 divisiones simulados")
+	
+	# 2. ACTUALIZAR ESTADÍSTICAS DEL EQUIPO
+	team_stats.wins += 1
+	team_stats.goals_for += 1
+	team_stats.goals_against += 0
+	print("📈 Estadísticas actualizadas: ", team_stats)
+	
+	# 3. AGREGAR FAMA Y DINERO POR LA VICTORIA
+	process_match_fame_changes(1, 0, "win")
+	print("🎆 Fama y dinero por victoria añadidos")
+	
+	# 4. MARCAR ENTRENAMIENTO DE JORNADA 1 COMO COMPLETADO
+	if TrainingManager:
+		# Establecer el oponente de jornada 1 y marcar como completado
+		TrainingManager.set_current_opponent("Deportivo Magadios", 1)
+		TrainingManager.complete_training()
+		print("✅ Entrenamiento jornada 1 marcado como completado")
+	
+	# 5. AVANZAR AL DÍA 3
+	if DayManager:
+		DayManager.current_day = 3
+		print("📅 Día avanzado directamente a: ", DayManager.get_current_day())
+	
+	# 6. CONFIGURAR PATRULLA CANINA COMO RIVAL ACTUAL
+	if RivalTeamsManager:
+		RivalTeamsManager.set_current_rival("patrulla_canina")
+		print("🐶 Rival establecido: Patrulla Canina")
+	
+	# 7. RESETEAR ESTADO DE ENTRENAMIENTO PARA NUEVA JORNADA
+	if TrainingManager:
+		# Ahora establecer Patrulla Canina como nuevo oponente (jornada 2) sin entrenamiento completado
+		TrainingManager.set_current_opponent("Patrulla Canina", 2)
+		print("🎯 Nuevo entrenamiento configurado: vs Patrulla Canina (Jornada 2)")
+	
+	# 8. GUARDAR PROGRESO
+	auto_save()
+	print("💾 Progreso guardado")
+	
+	# 9. IR AL MENÚ INTERACTIVO PARA PODER ENTRENAR
+	print("🌅 Transicionando al menú interactivo - Listo para entrenar vs Patrulla Canina")
+	get_tree().change_scene_to_file("res://scenes/InteractiveMenu.tscn")
+
+func activate_skip_transitions_cheat():
+	skip_transitions_enabled = !skip_transitions_enabled
+	print("🎮 CHEAT TECLA G: Skip transiciones y animaciones ", "ACTIVADO" if skip_transitions_enabled else "DESACTIVADO")
+
+func is_skip_transitions_enabled() -> bool:
+	return skip_transitions_enabled

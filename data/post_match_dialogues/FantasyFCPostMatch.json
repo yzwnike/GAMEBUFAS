@@ -1,0 +1,131 @@
+{
+  "win_branch": [
+    {
+      "character": "narrator",
+      "text": "¡PITIDO FINAL! FC Bufas ha traído de vuelta a la realidad al Fantasy FC. Los soñadores rivales no pueden creer que sus jugadas de fantasía no hayan funcionado.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "¡Increíble! Chavales, habéis mantenido los pies en la tierra. ¡Gran partido!"
+    },
+    {
+      "character": "jugador1",
+      "text": "¡Ha sido como jugar contra magos que a veces olvidaban sus trucos!"
+    },
+    {
+      "character": "capitan_fantasy",
+      "text": "Imposible... ¿Cómo habéis logrado neutralizar nuestras jugadas de ensueño?"
+    },
+    {
+      "character": "yazawa",
+      "text": "Vuestro fútbol es espectacular, pero a veces os complicáis demasiado."
+    },
+    {
+      "character": "fantasy_soñador",
+      "text": "Pero... pero... ¡Yo soñé que íbamos a ganar! ¡El universo me traicionó!"
+    },
+    {
+      "character": "jugador2",
+      "text": "Jajaja, este tío creía que iba a ganar porque lo soñó. ¡Qué crack!"
+    },
+    {
+      "character": "capitan_fantasy",
+      "text": "Habéis demostrado que el fútbol simple pero efectivo puede superar a la fantasía."
+    },
+    {
+      "character": "yazawa",
+      "text": "Vuestras jugadas son increíbles cuando salen. El problema es que son muy arriesgadas."
+    },
+    {
+      "character": "fantasy_soñador",
+      "text": "Tienes razón... quizás necesitemos soñar más con los pies en el suelo."
+    }
+  ],
+  "loss_branch": [
+    {
+      "character": "narrator",
+      "text": "Pitido final. El Fantasy FC ha hecho realidad su sueño venciendo a FC Bufas. Los soñadores celebran como si hubieran conquistado otro mundo.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "Joder... nos han derrotado con pura magia. Increíble partido."
+    },
+    {
+      "character": "jugador1",
+      "text": "Ha sido como jugar contra un equipo de otro planeta..."
+    },
+    {
+      "character": "capitan_fantasy",
+      "text": "¡Victoria de ensueño! ¡Nuestras jugadas imposibles se han hecho realidad!"
+    },
+    {
+      "character": "fantasy_soñador",
+      "text": "¡Lo sabía! ¡Soñé con este momento! ¡Mis sueños premonitorios nunca fallan!"
+    },
+    {
+      "character": "yazawa",
+      "text": "Tenéis un fútbol único. Cuando os sale, es puro espectáculo."
+    },
+    {
+      "character": "capitan_fantasy",
+      "text": "Es nuestra filosofía: mejor fallar intentando algo grandioso que ganar siendo aburridos."
+    },
+    {
+      "character": "jugador2",
+      "text": "Ha sido el partido más loco que he jugado nunca. Respeto total."
+    },
+    {
+      "character": "capitan_fantasy",
+      "text": "Habéis luchado con valentía contra nuestros sueños hechos realidad."
+    },
+    {
+      "character": "yazawa",
+      "text": "Ha sido un honor jugar contra verdaderos artistas del fútbol."
+    }
+  ],
+  "draw_branch": [
+    {
+      "character": "narrator",
+      "text": "El árbitro pita el final. Empate entre la realidad de FC Bufas y los sueños del Fantasy FC. Un resultado que satisface a ambos mundos.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "Empate justo... la realidad y la fantasía en equilibrio perfecto."
+    },
+    {
+      "character": "jugador1",
+      "text": "Ha sido como jugar en un mundo donde todo era posible."
+    },
+    {
+      "character": "capitan_fantasy",
+      "text": "Empate... ni sueño ni pesadilla. ¡El resultado perfecto para un partido de fantasía!"
+    },
+    {
+      "character": "yazawa",
+      "text": "Vuestro juego es una obra de arte. Impredecible pero hermoso."
+    },
+    {
+      "character": "fantasy_soñador",
+      "text": "¡Soñé con este empate! Bueno... en realidad soñé que ganábamos 7-0, pero el empate también estaba en mis sueños."
+    },
+    {
+      "character": "jugador2",
+      "text": "Este tío tiene un sueño para cada resultado posible."
+    },
+    {
+      "character": "capitan_fantasy",
+      "text": "Habéis demostrado que la consistencia puede competir con la inspiración."
+    },
+    {
+      "character": "yazawa",
+      "text": "Y vosotros que la creatividad sin límites es un espectáculo."
+    },
+    {
+      "character": "fantasy_soñador",
+      "text": "¡Ahora sueño con que algún día juguemos juntos! ¡Sería épico!"
+    }
+  ]
+}

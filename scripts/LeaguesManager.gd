@@ -191,38 +191,91 @@ func simulate_all_matches():
 		league_standings_updated.emit(division)
 
 func simulate_division_matches(division: int):
-	"""Simula los partidos de una división específica"""
+	"""Simula los partidos de una división específica para la jornada actual"""
 	var league = leagues[division]
 	var teams = league.teams
+	var jornada = league.matches_played
 	
-	# Generar partidos para esta jornada
-	var matches = generate_round_matches(teams, league.matches_played)
+	print("⚽ Simulando División ", division, " - Jornada ", jornada)
 	
-	for match in matches:
-		if not match.home_team.is_player and not match.away_team.is_player:
-			# Solo simular si ninguno de los equipos es el jugador
-			simulate_match(match.home_team, match.away_team, division)
+	# Para Primera División: simular todos los partidos (10 equipos = 5 partidos por jornada)
+	if division == 1:
+		simulate_first_division_round(teams, jornada)
+	# Para Segunda y Tercera División: simular partidos (8 equipos = 4 partidos por jornada)
+	else:
+		simulate_lower_division_round(teams, jornada, division)
 
-func generate_round_matches(teams: Array, round: int) -> Array:
-	"""Genera los partidos de una jornada específica"""
-	var matches = []
-	var team_count = teams.size()
+func simulate_first_division_round(teams: Array, jornada: int):
+	"""Simula una jornada completa de Primera División (10 equipos = 5 partidos)"""
+	var teams_shuffled = teams.duplicate()
+	teams_shuffled.shuffle()
 	
-	# Sistema round-robin simple
-	for i in range(team_count):
-		for j in range(i + 1, team_count):
-			if (i + j + round) % 2 == 0:  # Alternar local/visitante
-				matches.append({
-					"home_team": teams[i],
-					"away_team": teams[j]
-				})
-			else:
-				matches.append({
-					"home_team": teams[j],
-					"away_team": teams[i]
-				})
+	# Simular TODOS los 5 partidos de la jornada (10 equipos / 2 = 5 partidos)
+	var matches_count = teams.size() / 2
+	print("  🏟️ Primera División - Simulando ", matches_count, " partidos")
 	
-	return matches
+	for i in range(matches_count):
+		if i * 2 + 1 < teams_shuffled.size():
+			var home_team = teams_shuffled[i * 2]
+			var away_team = teams_shuffled[i * 2 + 1]
+			simulate_match(home_team, away_team, 1)
+			print("    ⚽ ", home_team.name, " vs ", away_team.name)
+
+func simulate_lower_division_round(teams: Array, jornada: int, division: int):
+	"""Simula una jornada completa de Segunda o Tercera División (8 equipos)"""
+	var player_division = get_player_division()
+	
+	if division == player_division:
+		# División del jugador: simular solo los partidos restantes (excluyendo FC Bufas y su rival)
+		var available_teams = []
+		var current_opponent = get_current_opponent_name()  # Obtener el rival actual de FC Bufas
+		
+		print("🔍 DEBUG: Rival actual de FC Bufas: ", current_opponent)
+		
+		for team in teams:
+			if not team.is_player and team.name != current_opponent:
+				available_teams.append(team)
+				print("  ✅ Equipo disponible: ", team.name)
+			elif team.is_player:
+				print("  🚫 Excluido (jugador): ", team.name)
+			elif team.name == current_opponent:
+				print("  🚫 Excluido (rival): ", team.name)
+		
+		print("📊 Equipos disponibles para simular: ", available_teams.size())
+		
+		# Asegurar número par de equipos disponibles
+		if available_teams.size() % 2 != 0:
+			print("⚠️ Número impar de equipos disponibles (", available_teams.size(), "), uno descansará")
+			available_teams.pop_back()  # Remover el último equipo
+		
+		available_teams.shuffle()
+		
+		# Simular todos los partidos posibles con los equipos disponibles
+		var matches_to_create = available_teams.size() / 2
+		
+		var division_name = get_division_name(division)
+		print("  ", get_division_emoji(division), " ", division_name, " - Simulando ", matches_to_create, " partidos (excluyendo FC Bufas y ", current_opponent, ")")
+		
+		for i in range(matches_to_create):
+			var home_team = available_teams[i * 2]
+			var away_team = available_teams[i * 2 + 1]
+			simulate_match(home_team, away_team, division)
+			print("    ⚽ ", home_team.name, " vs ", away_team.name)
+	
+	else:
+		# División sin el jugador: simular TODOS los partidos
+		var teams_shuffled = teams.duplicate()
+		teams_shuffled.shuffle()
+		
+		var matches_count = teams.size() / 2
+		var division_name = get_division_name(division)
+		print("  ", get_division_emoji(division), " ", division_name, " - Simulando ", matches_count, " partidos")
+		
+		for i in range(matches_count):
+			var home_team = teams_shuffled[i * 2]
+			var away_team = teams_shuffled[i * 2 + 1]
+			simulate_match(home_team, away_team, division)
+			print("    ⚽ ", home_team.name, " vs ", away_team.name)
 
 func simulate_match(home_team: Dictionary, away_team: Dictionary, division: int):
 	"""Simula un partido entre dos equipos de IA"""
@@ -328,17 +381,105 @@ func update_team_stats(home_team: Dictionary, away_team: Dictionary, home_goals:
 
 func _on_player_match_completed(match_result: Dictionary):
 	"""Se ejecuta cuando el jugador completa un partido"""
-	print("🏆 Simulando partidos de otras ligas después del partido del jugador...")
+	print("🏆 Simulando jornadas de otras ligas después del partido del jugador...")
 	
-	# Incrementar partidos jugados en todas las divisiones
+	# Obtener la división del jugador
+	var player_division = get_player_division()
+	var player_team = get_player_team()
+	
+	# Actualizar estadísticas del jugador basado en el resultado
+	update_player_team_stats(match_result)
+	
+	# PRIMERA JORNADA: Simular las 3 primeras jornadas de Primera División
+	if leagues[player_division].matches_played == 0:
+		print("🎯 PRIMERA JORNADA: Simulando 3 jornadas completas de Primera División")
+		# Simular 3 jornadas completas de Primera División
+		for jornada in range(3):
+			leagues[1].matches_played = jornada + 1
+			simulate_division_matches(1)
+			print("✅ Primera División - Jornada ", jornada + 1, " simulada")
+	
+	# Incrementar jornada en la división del jugador
+	leagues[player_division].matches_played += 1
+	print("⚽ División del jugador (", player_division, ") - Jornada ", leagues[player_division].matches_played, " completada")
+	
+	# Simular UNA jornada de cada división (excepto la del jugador)
 	for division in leagues:
-		leagues[division].matches_played += 1
+		if division != player_division:
+			# Solo simular si no han superado las jornadas del jugador
+			if leagues[division].matches_played < leagues[player_division].matches_played:
+				leagues[division].matches_played = leagues[player_division].matches_played
+				simulate_division_matches(division)
+				print("📊 División ", division, " sincronizada a jornada ", leagues[division].matches_played)
 	
-	# Simular todos los demás partidos
-	simulate_all_matches()
+	# Actualizar clasificaciones
+	for division in leagues:
+		league_standings_updated.emit(division)
 	
 	# Verificar fin de temporada
 	check_season_end()
+
+func update_player_team_stats(match_result: Dictionary):
+	"""Actualiza las estadísticas del equipo del jugador basado en el resultado del partido"""
+	var player_team = get_player_team()
+	if player_team.is_empty():
+		print("❌ No se pudo encontrar el equipo del jugador")
+		return
+	
+	# Extraer información del resultado
+	var home_goals = match_result.get("home_goals", 0)
+	var away_goals = match_result.get("away_goals", 0)
+	var is_home = match_result.get("is_home", true)
+	
+	# Determinar los goles a favor y en contra del jugador
+	var player_goals_for = home_goals if is_home else away_goals
+	var player_goals_against = away_goals if is_home else home_goals
+	
+	# Actualizar estadísticas del equipo del jugador
+	player_team.matches_played += 1
+	player_team.goals_for += player_goals_for
+	player_team.goals_against += player_goals_against
+	player_team.goal_difference = player_team.goals_for - player_team.goals_against
+	
+	# Actualizar puntos y resultado
+	if player_goals_for > player_goals_against:
+		# Victoria del jugador
+		player_team.wins += 1
+		player_team.points += 3
+		player_team.form.append("W")
+		print("🎉 FC Bufas VICTORIA ", player_goals_for, "-", player_goals_against)
+	elif player_goals_for < player_goals_against:
+		# Derrota del jugador
+		player_team.losses += 1
+		player_team.form.append("L")
+		print("😞 FC Bufas derrota ", player_goals_for, "-", player_goals_against)
+	else:
+		# Empate
+		player_team.draws += 1
+		player_team.points += 1
+		player_team.form.append("D")
+		print("🤝 FC Bufas empate ", player_goals_for, "-", player_goals_against)
+	
+	# Mantener solo los últimos 5 resultados en forma
+	if player_team.form.size() > 5:
+		player_team.form.pop_front()
+	
+	# Crear registro del partido
+	var match_record = {
+		"home_team": "FC Bufas" if is_home else match_result.get("opponent", "Rival"),
+		"away_team": match_result.get("opponent", "Rival") if is_home else "FC Bufas",
+		"home_goals": home_goals,
+		"away_goals": away_goals,
+		"date": DayManager.get_current_day() if DayManager else 1
+	}
+	
+	player_team.recent_matches.append(match_record)
+	
+	# Mantener solo los últimos 5 partidos
+	if player_team.recent_matches.size() > 5:
+		player_team.recent_matches.pop_front()
+	
+	print("📊 Estadísticas de FC Bufas actualizadas: ", player_team.points, " puntos, ", player_team.wins, "V-", player_team.draws, "E-", player_team.losses, "D")
 
 func check_season_end():
 	"""Verifica si la temporada ha terminado y maneja ascensos/descensos"""
@@ -496,6 +637,48 @@ func get_recent_results(division: int, limit: int = 10) -> Array:
 func get_division_difficulty_modifier(division: int) -> int:
 	"""Devuelve el modificador de dificultad para una división"""
 	return division_difficulty.get(division, -15)
+
+func get_current_opponent_name() -> String:
+	"""Obtiene el nombre del rival actual de FC Bufas desde RivalTeamsManager"""
+	if RivalTeamsManager:
+		var current_rival_id = RivalTeamsManager.get_current_rival_id()
+		# Mapear IDs a nombres reales en Tercera División
+		match current_rival_id:
+			"deportivo_magadios":
+				return "Deportivo Magadios"
+			"patrulla_canina":
+				return "Patrulla Canina"
+			"chocolateros_fc":
+				return "Chocolateros FC"
+			"picacachorras_fc":
+				return "Picacachorras FC"
+			"inter_panzones":
+				return "Inter de Panzones"
+			"fantasy_fc":
+				return "Fantasy FC"
+			"reyes_jalisco":
+				return "Reyes de Jalisco"
+			_:
+				return "Rival desconocido"
+	else:
+		# Fallback: obtener desde el resultado del partido si está disponible
+		return "Deportivo Magadios"  # Rival por defecto para testing
+
+func get_division_name(division: int) -> String:
+	"""Devuelve el nombre de una división"""
+	return leagues.get(division, {}).get("name", "División desconocida")
+
+func get_division_emoji(division: int) -> String:
+	"""Devuelve el emoji de una división"""
+	match division:
+		1:
+			return "🏆"  # Primera División
+		2:
+			return "🥈"  # Segunda División
+		3:
+			return "🥉"  # Tercera División
+		_:
+			return "⚽"   # Fallback
 
 func get_team_form_string(team: Dictionary) -> String:
 	"""Convierte la forma del equipo en string legible"""

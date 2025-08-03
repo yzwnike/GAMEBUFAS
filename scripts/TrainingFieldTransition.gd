@@ -258,11 +258,11 @@ func create_field_lines():
 	center_line.material_override = line_material
 	viewport_3d.add_child(center_line)
 	
-	# Círculo central (horizontal, no vertical)
+	# Círculo central (horizontal, no vertical) - MÁS PEQUEÑO
 	var center_circle = MeshInstance3D.new()
 	var circle_torus = TorusMesh.new()
-	circle_torus.inner_radius = 9.0
-	circle_torus.outer_radius = 9.3
+	circle_torus.inner_radius = 5.0  # Reducido de 9.0 a 5.0
+	circle_torus.outer_radius = 5.3  # Reducido de 9.3 a 5.3
 	circle_torus.rings = 64
 	center_circle.mesh = circle_torus
 	center_circle.position = Vector3(0, 0.26, 0)
@@ -397,13 +397,13 @@ func create_goalposts():
 			viewport_3d.add_child(net_side)
 
 func create_training_stands():
-	"""Crear graderías de entrenamiento más detalladas"""
+	"""Crear graderías de entrenamiento más detalladas - FUERA DEL CAMPO"""
 	var stand_material = StandardMaterial3D.new()
 	stand_material.albedo_color = Color(0.6, 0.6, 0.7, 1)  # Gris metálico
 	stand_material.metallic = 0.3
 	stand_material.roughness = 0.7
 	
-	for side in [-18, 18]:
+	for side in [-40, 40]:  # Movido más lejos del campo
 		# Estructura principal de las gradas
 		var main_stand = MeshInstance3D.new()
 		var stand_box = BoxMesh.new()
@@ -567,29 +567,22 @@ func start_training_animation_sequence():
 	var animation_tween = create_tween()
 
 	# Desvanecer overlay
-	animation_tween.tween_property(transition_overlay, "modulate:a", 1.0, 1.0).set_delay(0.5)
+	animation_tween.tween_property(transition_overlay, "modulate:a", 1.0, 0.3).set_delay(0.2)
 
 	# Animar texto descriptivo
-	animation_tween.tween_property(description_text, "modulate:a", 1.0, 0.5).set_delay(1.0)
-	animation_tween.tween_property(subtitle_text, "modulate:a", 1.0, 0.5).set_delay(1.5)
+	animation_tween.tween_property(description_text, "modulate:a", 1.0, 0.3).set_delay(0.5)
+	animation_tween.tween_property(subtitle_text, "modulate:a", 1.0, 0.3).set_delay(0.8)
 
-	# Animar movimiento de cámara (de dron a cercano)
-	animation_tween.tween_property(camera_3d, "position", Vector3(0, 5, 15), 3.0).set_delay(2.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	# Animar movimiento de cámara (de dron a cercano) - MÁS LENTO
+	animation_tween.tween_property(camera_3d, "position", Vector3(0, 5, 15), 2.5).set_delay(1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
 	# Cambiar ángulo de cámara gradualmente
-	animation_tween.parallel().tween_method(update_camera_angle, Vector3(0, 0, 0), Vector3(-10, 0, 0), 3.0).set_delay(2.0)
+	animation_tween.parallel().tween_method(update_camera_angle, Vector3(0, 0, 0), Vector3(-10, 0, 0), 2.5).set_delay(1.0)
 	
-	# Fade out del texto primero
-	animation_tween.tween_property(description_text, "modulate:a", 0.0, 0.5).set_delay(4.5)
-	animation_tween.parallel().tween_property(subtitle_text, "modulate:a", 0.0, 0.5).set_delay(4.5)
+	# Cambiar escena EXACTAMENTE cuando termina el movimiento de cámara
+	animation_tween.tween_callback(transition_to_training_dialogue).set_delay(3.5)
 	
-	# Crear overlay de transición negro para fade final
-	animation_tween.tween_callback(create_final_fade_overlay).set_delay(5.0)
-	
-	# Fade final a negro y transición
-	animation_tween.tween_callback(start_final_fade_transition).set_delay(5.2)
-	
-	print("🎬 Secuencia de animación del campo de entrenamiento iniciada - duración total: 6.0s")
+	print("🎬 Secuencia de animación del campo de entrenamiento iniciada - duración total: 3.5s")
 
 func create_final_fade_overlay():
 	"""Crear overlay negro para transición final suave"""
@@ -607,9 +600,9 @@ func start_final_fade_transition():
 	if fade_overlay:
 		var final_tween = create_tween()
 		# Fade a negro
-		final_tween.tween_property(fade_overlay, "modulate:a", 1.0, 0.8).set_trans(Tween.TRANS_SINE)
+		final_tween.tween_property(fade_overlay, "modulate:a", 1.0, 0.5).set_trans(Tween.TRANS_SINE)
 		# Transición al diálogo
-		final_tween.tween_callback(transition_to_training_dialogue).set_delay(0.8)
+		final_tween.tween_callback(transition_to_training_dialogue).set_delay(0.6)
 
 func update_camera_angle(angle: Vector3):
 	"""Actualiza gradualmente el ángulo de la cámara"""

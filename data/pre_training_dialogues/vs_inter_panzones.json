@@ -1,0 +1,106 @@
+[
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "A ver chavales, hoy toca prepararnos para el Inter de Panzones..."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¿Los gorditos que se cansan subiendo las escaleras?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Ojo con subestimarlos! Son lentos, sí, pero tienen una resistencia sobrenatural. Es como jugar contra bulldozers con patas."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿En serio? Pero si los he visto llegar jadeando al campo..."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Ahí está su truco. Se hacen los cansados al principio, pero después de 60 minutos siguen corriendo mientras tú estás acabado."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "¿Cómo es posible eso?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Su estrategia es el desgaste. Van lento pero constante, como tortugas que nunca paran. Al final del partido, eres tú el que está muerto."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador4",
+    "text": "¿Y técnicamente qué tal están?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "No son virtuosos, pero no cometen errores. Juego simple pero efectivo. Como máquinas de vapor: lentas pero imparables."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¿Entonces tenemos que jugar rápido y acabar pronto?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Exacto. Por eso vamos a entrenar resistencia y velocidad. Si entramos en su juego de desgaste, estamos jodidos.",
+    "choices": [
+      {
+        "id": "opcion_agresiva",
+        "text": "Vamos a machacarnos para aguantar más que ellos."
+      },
+      {
+        "id": "opcion_tactica",
+        "text": "Mejor juguemos rápido y resolvamos el partido pronto."
+      },
+      {
+        "id": "opcion_confiada",
+        "text": "Con nuestra velocidad los vamos a marear."
+      }
+    ]
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Perfecto! La velocidad será nuestro as en la manga."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Es verdad que su portero una vez se quedó dormido de pie durante un partido?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Jajaja, no puedo confirmarlo, pero vi cómo hizo una parada espectacular... ¡con los ojos cerrados! Dijeron que estaba 'meditando tácticamente'."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "¿Y cómo se les marca? ¿Con GPS?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Su lentitud es su debilidad. Si los mantienes en movimiento constante, se agotan. Es como hacer que un elefante baile ballet."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador4",
+    "text": "Entendido, jefe. ¡A entrenar como gacelas entonces!"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Vamos allá! Pero recordad: respeto a su resistencia, superioridad en velocidad. ¡No dejéis que os cansen!"
+  }
+]

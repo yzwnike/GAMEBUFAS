@@ -1,0 +1,266 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4vvysor2df4h"]
+
+[ext_resource type="Script" path="res://scripts/ChaosPassingMiniGame.gd" id="1_2p3x8"]
+
+[node name="ChaosPassingMiniGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2p3x8")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.8, 0.3, 1)
+
+[node name="GameArea" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FieldBackground" type="ColorRect" parent="GameArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.3, 0.9, 0.3, 1)
+
+[node name="Ball" type="Control" parent="GameArea"]
+layout_mode = 1
+anchors_preset = 0
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TimerLabel" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -80.0
+offset_right = 200.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "TIEMPO: 00:30"
+
+[node name="LevelLabel" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "NIVEL 1/3"
+horizontal_alignment = 2
+
+[node name="PassesLabel" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 220.0
+offset_top = -80.0
+offset_right = 400.0
+offset_bottom = -40.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "PASES: 0/10"
+horizontal_alignment = 1
+
+[node name="AccuracyLabel" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 420.0
+offset_top = -80.0
+offset_right = 600.0
+offset_bottom = -40.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "PRECISIÓN: 0%"
+horizontal_alignment = 1
+
+[node name="InstructionLabel" type="Label" parent="UI/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -400.0
+offset_top = 80.0
+offset_right = -20.0
+offset_bottom = 140.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "🐕 ¡Click en jugadores para pasar!
+¡Evita que los perros intercepten!"
+horizontal_alignment = 2
+
+[node name="InstructionPanel" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -250.0
+offset_right = 350.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InstructionText" type="Label" parent="UI/InstructionPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -200.0
+offset_right = 330.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "🐕 PASES vs CAOS CANINO
+
+OBJETIVO: Completar pases precisos
+CONTROLES: Click en jugadores
+CUIDADO: Los perros interceptarán
+
+¡Mantén la calma ante el caos!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="StartButton" type="Button" parent="UI/InstructionPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = 150.0
+offset_right = 80.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "INICIAR"
+
+[node name="ResultPanel" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResultText" type="Label" parent="UI/ResultPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -150.0
+offset_right = 280.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "Resultado del minijuego"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="RetryButton" type="Button" parent="UI/ResultPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 80.0
+offset_right = -50.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "REINTENTAR"
+
+[node name="ContinueButton" type="Button" parent="UI/ResultPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = 80.0
+offset_right = 150.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CONTINUAR"
+
+[node name="NextLevelButton" type="Button" parent="UI/ResultPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = 140.0
+offset_right = 60.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "SIGUIENTE"

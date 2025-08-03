@@ -1,0 +1,146 @@
+[
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Bueno chavales, aquí tenemos a los 'Reyes de Jalisco'... ¿Habéis visto las coronas de cartón que llevan?"
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "Joder, ¿en serio van a jugar con esas cosas puestas?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Se creen la realeza del fútbol. En general son pésimos, PERO... ¿Veís a ese chino de ahí?"
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "¿El que tiene el dragón en la camiseta?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Ese es Wang Li. Hemos entrenado toda la semana para neutralizarlo. Si logramos cortarle los pases, el resto será pan comido."
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "Se ve bastante concentrado... no como el resto."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Está calculando jugadas mientras sus compañeros se pelean por quién lleva la corona más brillante."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "¿Y cuál es el plan entonces?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Simple: interceptar TODOS los pases hacia Wang Li. Sin balón, hasta el mejor jugador del mundo es inútil."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "Mira cómo calientan... parece que están practicando saques de banda desde medio campo."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Exacto. Su estrategia es simple: pelotazo largo y rezar para que alguien la baje. No os dejéis intimidar por el show."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "Oye, su capitán se está ajustando la corona... se le ha caído dos veces ya."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Jajaja, perfecto. Mientras estén preocupados por su vestuario, nosotros nos preocupamos por el fútbol."
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "¿Creéis que van a jugar todo el partido con las coronas puestas?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Conociéndolos, sí. Su orgullo no les deja admitir que es una estupidez. ¿Cómo os sentís ante esta situación?",
+    "choices": [
+      {
+        "id": "opcion_confiado",
+        "text": "Estamos listos para destronar a estos 'reyes'."
+      },
+      {
+        "id": "opcion_estrategico",
+        "text": "Hay que estar muy atentos al juego aéreo."
+      },
+      {
+        "id": "opcion_humor",
+        "text": "Espero que las coronas no se les caigan durante el partido."
+      }
+    ]
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡Esa es la actitud! Pero mantened la concentración en lo importante."
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "Mira, su portero está practicando saques largos... madre mía, qué potencia."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Sí, ese es su fuerte. Saque largo directo a sus delanteros. Mantened la línea defensiva alta para pillarlos en fuera de juego."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "Su delantero centro es bastante alto... y gordo."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Pero lento. Usad la velocidad a vuestro favor. Si gana un balón en el aire, cerradle rápido antes de que se gire."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "¿Y si nos adelantamos en el marcador?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Se van a desesperar y van a empezar a pegarle como locos al balón. Mantened la calma y controladles el tiempo."
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "Allá vienen... joder, el árbitro les está diciendo algo sobre las coronas."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Seguramente les está explicando que es peligroso. Pero conociendo a estos 'reyes', van a insistir hasta el final."
+  },
+  {
+    "background": "partido",
+    "character": "arbitro",
+    "text": "¡EQUIPOS A SUS POSICIONES! ¡EL PARTIDO VA A COMENZAR!"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡Vamos chavales! ¡A demostrar que el fútbol se juega con los pies, no con coronas!"
+  }
+]

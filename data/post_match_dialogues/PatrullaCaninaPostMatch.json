@@ -1,0 +1,131 @@
+{
+  "win_branch": [
+    {
+      "character": "narrator",
+      "text": "¡PITIDO FINAL! FC Bufas ha conseguido la victoria contra la Patrulla Canina. Los jugadores rivales celebran entre ladridos de incredulidad.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "¡Increíble! Chavales, ¡nos hemos mantenido firmes y lo conseguimos!"
+    },
+    {
+      "character": "jugador1",
+      "text": "¡No puedo creerlo! ¡Les hemos ganado en su propio juego de caos!"
+    },
+    {
+      "character": "capitan_canina",
+      "text": "¿Cómo habéis podido coordinaros tan bien? ¡Si nosotros apenas nos encontramos entre nosotros!"
+    },
+    {
+      "character": "yazawa",
+      "text": "El fútbol también es paciencia y orden, algo que estamos trabajando."
+    },
+    {
+      "character": "jugador_despistado_canina",
+      "text": "Eh... chicos, ¿por qué están celebrando? Me he perdido en los ladridos."
+    },
+    {
+      "character": "jugador2",
+      "text": "¡Jajaja! ¡Ni se ha dado cuenta de que han perdido!"
+    },
+    {
+      "character": "capitan_canina",
+      "text": "Enhorabuena... habéis jugado con una calma que nunca hemos tenido."
+    },
+    {
+      "character": "yazawa",
+      "text": "Gracias. Siempre hay un lugar para el entusiasmo en nuestro equipo, pero necesitamos orden también."
+    },
+    {
+      "character": "capitan_canina",
+      "text": "Lo pensaré... aunque primero tengo que calmar a mi equipo antes de que destruya el vestuario."
+    }
+  ],
+  "loss_branch": [
+    {
+      "character": "narrator",
+      "text": "Pitido final. FC Bufas ha perdido contra la Patrulla Canina. La alegría y los ladridos del rival son ensordecedores.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "Joder... bueno, chavales, hicimos nuestro mejor esfuerzo. Su energía era incesante."
+    },
+    {
+      "character": "jugador1",
+      "text": "Fue como jugar en medio de un torbellino..."
+    },
+    {
+      "character": "capitan_canina",
+      "text": "¡Victoria! ¡Increíble! Aunque pensaba que nos íbamos a perder en nuestro propio caos."
+    },
+    {
+      "character": "jugador_despistado_canina",
+      "text": "¿Ya ha terminado? Creo que perseguí mi propia sombra durante medio tiempo."
+    },
+    {
+      "character": "yazawa",
+      "text": "Jajaja, eso fue una tormenta. Pero bueno, hay mucho que aprender de esa pasión."
+    },
+    {
+      "character": "capitan_canina",
+      "text": "Es nuestro estilo... aunque la mitad del tiempo no sé de qué lado estoy. Pero habéis sido un dignísimo rival."
+    },
+    {
+      "character": "jugador2",
+      "text": "Gracias, fue un placer jugar contra un equipo con tanta vitalidad."
+    },
+    {
+      "character": "capitan_canina",
+      "text": "Igualmente. Y si alguna vez queréis un entrenamiento caótico, ya sabéis dónde encontrarnos."
+    },
+    {
+      "character": "jugador_despistado_canina",
+      "text": "¿Eh? ¿Hemos ganado? ¿Alguien ha visto mi camiseta?"
+    }
+  ],
+  "draw_branch": [
+    {
+      "character": "narrator",
+      "text": "El árbitro pita el final. Empate. Un partido igualado entre la calma táctica y el caos entusiasta.",
+      "background": "partido"
+    },
+    {
+      "character": "yazawa",
+      "text": "Nada mal, chavales. Empatar contra esa explosión de energía es un logro."
+    },
+    {
+      "character": "jugador1",
+      "text": "Casi les anotamos al final..."
+    },
+    {
+      "character": "capitan_canina",
+      "text": "Empate... ¡pero qué partido! Una locura de principio a fin."
+    },
+    {
+      "character": "yazawa",
+      "text": "Tío, tu equipo es incansable. ¿Cómo gestionas tanta energía?"
+    },
+    {
+      "character": "jugador_despistado_canina",
+      "text": "Estaba haciendo un regate en el aire antes de darme cuenta de que el balón estaba en el otro lado."
+    },
+    {
+      "character": "jugador2",
+      "text": "Este tío es genial. Puede que no sepa dónde está, pero le pone muchas ganas."
+    },
+    {
+      "character": "capitan_canina",
+      "text": "Habéis jugado muy bien. La calma y la estrategia son vuestras armas fuertes."
+    },
+    {
+      "character": "yazawa",
+      "text": "Gracias, y siempre estáis invitados a aprender un poco de orden cuando queráis."
+    },
+    {
+      "character": "capitan_canina",
+      "text": "Tal vez lo hagamos. Aunque antes debo encontrar a todos mis compañeros, que están despistados por el campo."
+    }
+  ]
+}

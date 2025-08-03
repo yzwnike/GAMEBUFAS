@@ -1,0 +1,116 @@
+[
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Bien chavales, ahí tenéis al Inter de Panzones... madre mía, qué plantilla más 'robusta'."
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "Joder, el más pequeño debe pesar como 120 kilos..."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Son lentos pero fuertes como toros. Su estrategia es cansar al rival... si no se cansan ellos primero."
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "¿Y cómo les hacemos frente?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Hemos entrenado resistencia toda la semana. El plan: presión alta para cansarlos rápido y juego rápido por las bandas."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "Mira, su portero está sudando y ni siquiera ha empezado el calentamiento..."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Exacto. A los 20 minutos van a estar jadear como perros. Pero cuidado: mientras tengan fuerzas, son peligrosos."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "Su centrocampista se ha sentado en el banquillo... ¿ya está cansado?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Jajaja, seguramente está 'ahorrando energías'. Pero en serio, no os confiéis. Son como mamuts: lentos pero devastadores si te pillan."
+  },
+  {
+    "background": "partido",
+    "character": "jugador1",
+    "text": "¿Habéis visto cómo hacen las entradas? Parecen excavadoras..."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Por eso os digo: velocidad y movilidad. No os quedéis quietos ni un segundo o os van a pasar por encima. ¿Cómo lo veis?",
+    "choices": [
+      {
+        "id": "opcion_confiado",
+        "text": "Estamos en forma. Vamos a correrles hasta que se agoten."
+      },
+      {
+        "id": "opcion_precaucion",
+        "text": "Hay que tener cuidado con su fuerza física."
+      },
+      {
+        "id": "opcion_humor",
+        "text": "Espero que el campo aguante tanto peso encima."
+      }
+    ]
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡Perfecto! Pero recordad: respeto al rival, siempre."
+  },
+  {
+    "background": "partido",
+    "character": "jugador2",
+    "text": "Su delantero centro está intentando hacer abdominales... creo que se ha quedado atascado."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Pobrecillo. Pero ojo, ese mismo tío puede marcar de cabeza desde el área pequeña. Manteneos alejados de los centros."
+  },
+  {
+    "background": "partido",
+    "character": "jugador3",
+    "text": "¿Y si nos van ganando?"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Se van a relajar y van a intentar mantener el resultado corriendo menos. Ahí es cuando les atacamos con todo."
+  },
+  {
+    "background": "partido",
+    "character": "jugador4",
+    "text": "Mira, ya están pidiendo agua y ni han empezado..."
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "Jajaja, esto va a ser interesante. Pero en serio, mantened el respeto. Son buena gente, solo que... bueno, necesitan un gimnasio."
+  },
+  {
+    "background": "partido",
+    "character": "arbitro",
+    "text": "¡EQUIPOS A SUS POSICIONES! ¡EL PARTIDO VA A COMENZAR!"
+  },
+  {
+    "background": "partido",
+    "character": "Yazawa",
+    "text": "¡Vamos chavales! ¡A demostrar que el fútbol se juega corriendo, no caminando!"
+  }
+]

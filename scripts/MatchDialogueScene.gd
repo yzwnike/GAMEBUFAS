@@ -21,13 +21,19 @@ func setup_dialogue_directly():
 	dialogue_system = get_node_or_null("DialogueSystem")
 	print("MatchDialogueScene: Buscando DialogueSystem... encontrado: ", dialogue_system != null)
 	
-	# Obtener el oponente actual (por ahora hardcodeado para Deportivo Magadios)
-	current_opponent = "Deportivo Magadios"
+	# Obtener el oponente actual del TrainingManager
+	current_opponent = TrainingManager.get_current_opponent()
 	print("MatchDialogueScene: Oponente actual: ", current_opponent)
 	
 	# Mapear nombres de equipos a archivos de diálogo
 	var dialogue_files = {
-		"Deportivo Magadios": "res://data/match_dialogues/vs_deportivo_magadios.json"
+		"Deportivo Magadios": "res://data/match_dialogues/vs_deportivo_magadios.json",
+		"Patrulla Canina": "res://data/match_dialogues/vs_patrulla_canina.json",
+		"Reyes de Jalisco": "res://data/match_dialogues/vs_reyes_jalisco.json",
+		"Inter de Panzones": "res://data/match_dialogues/vs_inter_panzones.json",
+		"Chocolateros FC": "res://data/match_dialogues/vs_chocolateros_fc.json",
+		"Fantasy FC": "res://data/match_dialogues/vs_fantasy_fc.json",
+		"Picacachorras FC": "res://data/match_dialogues/vs_picacachorras_fc.json"
 	}
 	
 	var dialogue_file = dialogue_files.get(current_opponent, "")
@@ -111,7 +117,7 @@ func _on_dialogue_finished():
 	
 	# Configurar el tipo de partido y el rival para el simulador
 	GameManager.set_story_flag("match_type", "dynamic")
-	GameManager.set_story_flag("rival_team", "Deportivo Magadios")
+	GameManager.set_story_flag("rival_team", current_opponent)
 	
 	# Ir al simulador dinámico en lugar del simulador normal
 	get_tree().change_scene_to_file("res://scenes/DynamicFootballSimulator.tscn")

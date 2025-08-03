@@ -54,12 +54,34 @@ func load_story():
 	var post_match_branch = GameManager.get_story_flag("post_match_branch")
 	if post_match_branch:
 		print("=== Cargando diálogo post-partido (rama: ", post_match_branch, ") ===")
-		var loaded_dialogue = GameManager.load_post_match_dialogue()
+		
+		# Intentar cargar diálogo específico del rival desde RivalTeamsManager
+		var loaded_dialogue = []
+		if RivalTeamsManager:
+			var dialogue_path = RivalTeamsManager.get_post_match_dialogue_path()
+			print("BranchingDialogue: Intentando cargar diálogo desde: ", dialogue_path)
+			
+			if dialogue_path != "":
+				loaded_dialogue = load_post_match_dialogue_from_file(dialogue_path, post_match_branch)
+				if loaded_dialogue.size() > 0:
+					print("Diálogo post-partido específico cargado con ", loaded_dialogue.size(), " líneas")
+				else:
+					print("ADVERTENCIA: Archivo de diálogo vacío, usando fallback genérico")
+			else:
+				print("ADVERTENCIA: No se encontró ruta de diálogo post-partido para el rival actual")
+		else:
+			print("ADVERTENCIA: RivalTeamsManager no disponible")
+		
+		# Si no se pudo cargar el diálogo específico, usar el genérico
+		if loaded_dialogue.size() == 0:
+			print("Cargando diálogo post-partido genérico como fallback...")
+			loaded_dialogue = GameManager.load_post_match_dialogue()
+		
 		if loaded_dialogue.size() > 0:
 			current_dialogue = loaded_dialogue
 			print("Diálogo post-partido cargado con ", loaded_dialogue.size(), " líneas")
 		else:
-			print("ERROR: No se pudo cargar el diálogo post-partido, usando historia por defecto.")
+			print("ERROR: No se pudo cargar ningún diálogo post-partido, usando historia por defecto.")
 			load_static_story()
 	else:
 		# Cargar capítulo 2 si está marcado
@@ -455,6 +477,76 @@ func skip_entire_dialogue():
 		finish_dialogue()
 	
 	print("BranchingDialogue: Diálogo saltado hasta el índice: ", current_index)
+
+func load_dialogue_from_file(file_path: String) -> Array:
+	"""Carga un archivo JSON de diálogo y retorna el array de líneas"""
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if not file:
+		print("ERROR: No se pudo abrir el archivo de diálogo: ", file_path)
+		return []
+	
+	var json_string = file.get_as_text()
+	file.close()
+	
+	var json = JSON.new()
+	var parse_result = json.parse(json_string)
+	if parse_result != OK:
+		print("ERROR: Error al parsear archivo JSON: ", file_path)
+		return []
+	
+	var dialogue_data = json.data
+	if dialogue_data is Array:
+		print("BranchingDialogue: Archivo cargado exitosamente con ", dialogue_data.size(), " líneas")
+		return dialogue_data
+	else:
+		print("ERROR: El archivo JSON no contiene un array válido: ", file_path)
+		return []
+
+func load_post_match_dialogue_from_file(file_path: String, branch: String) -> Array:
+	"""Carga un archivo JSON de diálogo post-match y retorna la rama específica"""
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if not file:
+		print("ERROR: No se pudo abrir el archivo de diálogo post-match: ", file_path)
+		return []
+	
+	var json_string = file.get_as_text()
+	file.close()
+	
+	var json = JSON.new()
+	var parse_result = json.parse(json_string)
+	if parse_result != OK:
+		print("ERROR: Error al parsear archivo JSON post-match: ", file_path)
+		return []
+	
+	var dialogue_data = json.data
+	if not dialogue_data is Dictionary:
+		print("ERROR: El archivo JSON post-match no es un diccionario válido: ", file_path)
+		return []
+	
+	# Determinar qué rama usar basándose en el resultado
+	var branch_key = ""
+	match branch:
+		"win":
+			branch_key = "win_branch"
+		"loss":
+			branch_key = "loss_branch"
+		"draw":
+			branch_key = "draw_branch"
+		_:
+			print("ERROR: Rama de diálogo post-match desconocida: ", branch)
+			return []
+	
+	if dialogue_data.has(branch_key):
+		var branch_dialogue = dialogue_data[branch_key]
+		if branch_dialogue is Array:
+			print("BranchingDialogue: Rama post-match '", branch_key, "' cargada con ", branch_dialogue.size(), " líneas")
+			return branch_dialogue
+		else:
+			print("ERROR: La rama '", branch_key, "' no es un array válido")
+			return []
+	else:
+		print("ERROR: No se encontró la rama '", branch_key, "' en el archivo post-match")
+		return []
 
 # === FUNCIONES POST-PARTIDO ===
 

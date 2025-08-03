@@ -78,8 +78,23 @@ func _on_play_pressed():
 		# Mostrar un diálogo con todos los problemas
 		show_requirements_dialog(issues)
 	else:
-		print("IR AL CAMPO - INICIANDO DIÁLOGO DE PARTIDO")
-		get_tree().change_scene_to_file("res://scenes/MatchDialogueScene.tscn")
+		print("PreMatchMenu: Botón 'IR AL CAMPO' presionado")
+		
+		# NUEVO: Cargar transición 3D del ESTADIO ÉPICO
+		print("PreMatchMenu: Iniciando transición 3D hacia el ESTADIO BUFAS...")
+		
+		# Verificar si el archivo de transición del estadio existe
+		if ResourceLoader.exists("res://scenes/MatchFieldTransition.tscn"):
+			print("PreMatchMenu: Archivo MatchFieldTransition.tscn encontrado")
+			get_tree().change_scene_to_file("res://scenes/MatchFieldTransition.tscn")
+		else:
+			print("ERROR: Archivo MatchFieldTransition.tscn no encontrado")
+			# Fallback directo al estadio
+			if ResourceLoader.exists("res://stadium_scene.tscn"):
+				print("PreMatchMenu: Usando fallback a stadium_scene.tscn")
+				get_tree().change_scene_to_file("res://stadium_scene.tscn")
+			else:
+				print("ERROR: Archivo stadium_scene.tscn tampoco encontrado")
 
 func simulate_match():
 	print("Simulando partido...")

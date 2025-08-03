@@ -33,10 +33,21 @@ func setup_ui():
 
 func simulate_other_matches():
 	print("Simulando otros partidos de la liga...")
-	LeagueManager.simulate_league_matches()
+	# El LeaguesManager ya simula automáticamente cuando se completa un partido del jugador
+	# No necesitamos hacer nada adicional aquí
 
 func display_results():
-	var league_standings = LeagueManager.get_standings()
+	# Usar el nuevo LeaguesManager para obtener las clasificaciones de Tercera División
+	var leagues_manager = get_node("/root/LeaguesManager") if get_node_or_null("/root/LeaguesManager") else null
+	var league_standings = []
+	
+	if leagues_manager:
+		# Obtener clasificación de la Tercera División (división del jugador)
+		var player_division = leagues_manager.get_player_division()
+		league_standings = leagues_manager.get_league_standings(player_division)
+	else:
+		print("❌ No se pudo encontrar LeaguesManager")
+		return
 	
 	print("=== CLASIFICACIÓN DE LA LIGA ===")
 	
@@ -62,7 +73,7 @@ func display_results():
 			var row = create_team_row(position, team_name, matches_played, points, goal_diff, false)
 			
 			# Resaltar FC Bufas
-			if team.id == "fc_bufas":
+			if team.has("is_player") and team.is_player:
 				row.modulate = Color.YELLOW
 			
 			results_container.add_child(row)

@@ -1,0 +1,293 @@
+[gd_scene load_steps=11 format=3 uid="uid://ds8bpivst6xt4"]
+
+[ext_resource type="Script" path="res://scripts/StaminaMiniGame3D.gd" id="1_st3m3"]
+[ext_resource type="PackedScene" uid="uid://ci04e1tgmdg58" path="res://otkritie-arena/source/1.fbx" id="2_fbx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(105, 2, 70)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(105, 2, 70)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.2, 0.8, 0.2, 1)
+roughness = 0.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(1, 0.3, 0.3, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2"]
+radius = 1.0
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.4, 0.7, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.7, 0.8, 1, 1)
+ambient_light_energy = 0.3
+
+[node name="StaminaMiniGame3D" type="Node3D"]
+script = ExtResource("1_st3m3")
+
+[node name="Stadium" parent="." instance=ExtResource("2_fbx")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="StadiumCollision" type="StaticBody3D" parent="Stadium"]
+
+[node name="StadiumFieldCollision" type="CollisionShape3D" parent="Stadium/StadiumCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+shape = SubResource("BoxShape3D_1")
+
+[node name="Field" type="StaticBody3D" parent="."]
+
+[node name="FieldMesh" type="MeshInstance3D" parent="Field"]
+mesh = SubResource("BoxMesh_1")
+surface_material_override/0 = SubResource("StandardMaterial3D_1")
+
+[node name="FieldCollision" type="CollisionShape3D" parent="Field"]
+shape = SubResource("BoxShape3D_1")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+fov = 90.0
+
+[node name="Panzones" type="Node3D" parent="."]
+
+[node name="Panzon1" type="CharacterBody3D" parent="Panzones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 5)
+
+[node name="PanzonMesh1" type="MeshInstance3D" parent="Panzones/Panzon1"]
+mesh = SubResource("CapsuleMesh_1")
+surface_material_override/0 = SubResource("StandardMaterial3D_2")
+
+[node name="PanzonCollision1" type="CollisionShape3D" parent="Panzones/Panzon1"]
+shape = SubResource("CapsuleShape3D_2")
+
+[node name="Panzon2" type="CharacterBody3D" parent="Panzones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 8)
+
+[node name="PanzonMesh2" type="MeshInstance3D" parent="Panzones/Panzon2"]
+mesh = SubResource("CapsuleMesh_1")
+surface_material_override/0 = SubResource("StandardMaterial3D_2")
+
+[node name="PanzonCollision2" type="CollisionShape3D" parent="Panzones/Panzon2"]
+shape = SubResource("CapsuleShape3D_2")
+
+[node name="Panzon3" type="CharacterBody3D" parent="Panzones"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
+
+[node name="PanzonMesh3" type="MeshInstance3D" parent="Panzones/Panzon3"]
+mesh = SubResource("CapsuleMesh_1")
+surface_material_override/0 = SubResource("StandardMaterial3D_2")
+
+[node name="PanzonCollision3" type="CollisionShape3D" parent="Panzones/Panzon3"]
+shape = SubResource("CapsuleShape3D_2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 10, 0)
+light_energy = 1.5
+shadow_enabled = true
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StaminaBar" type="ProgressBar" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -120.0
+offset_right = 450.0
+offset_bottom = -80.0
+grow_vertical = 0
+value = 100.0
+show_percentage = false
+
+[node name="StaminaLabel" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -140.0
+offset_right = 200.0
+offset_bottom = -120.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "RESISTENCIA:"
+
+[node name="TimerLabel" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -250.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "TIEMPO: 60s"
+horizontal_alignment = 2
+
+[node name="InstructionPanel" type="Panel" parent="UI"]
+modulate = Color(1, 1, 1, 0.95)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InstructionText" type="Label" parent="UI/InstructionPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "🏃‍♂️ MINIJUEGO DE RESISTENCIA
+
+OBJETIVO: Sobrevivir 60 segundos esquivando a los panzones del Inter
+
+CONTROLES:
+• WASD: Movimiento
+• ESPACIO: Sprint (consume stamina)
+• RATÓN: Mirar alrededor
+
+MECÁNICA:
+• Tu stamina se agota al usar sprint
+• Si tocas un panzón, pierdes stamina
+• Si tu stamina llega a 0, pierdes
+• Los panzones te persiguen cuando estás cerca
+
+¡Mantén la distancia y administra tu energía!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="StartButton" type="Button" parent="UI/InstructionPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "¡COMENZAR!"
+
+[node name="ResultPanel" type="Panel" parent="UI"]
+visible = false
+modulate = Color(1, 1, 1, 0.95)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResultText" type="Label" parent="UI/ResultPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 28
+text = "¡RESULTADO!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ContinueButton" type="Button" parent="UI/ResultPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "CONTINUAR"
+
+[node name="CrosshairPanel" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="ColorRect" parent="UI/CrosshairPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.8)

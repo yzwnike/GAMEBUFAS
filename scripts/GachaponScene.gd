@@ -79,14 +79,32 @@ func show_message(message: String):
 	print("GachaponScene: ", message)
 
 func display_player(player_data: Dictionary):
-	player_name.text = player_data.name
-	player_stats.text = "Overall: %s\nPosición: %s" % [player_data.overall, player_data.position]
-	# Intentar cargar la imagen
-	if ResourceLoader.exists(player_data.image):
-		player_image.texture = load(player_data.image)
+	print("🎊 GachaponScene: Lanzando animación épica de revelación...")
+	# Cargar la escena de animación 3D épica
+	var reveal_scene = preload("res://scenes/PlayerRevealAnimation.tscn")
+	var reveal_instance = reveal_scene.instantiate()
+	
+	# Configurar los datos del jugador para la animación
+	var player_name_text = player_data.name
+	var player_ovr = player_data.overall
+	var player_position = player_data.position
+	var player_image_path = player_data.image
+	
+	# Obtener la música del jugador desde el JSON
+	var music_path = ""
+	if player_data.has("music"):
+		music_path = player_data.music
+		print("🎵 Música del jugador: ", music_path)
 	else:
-		print("GachaponScene: No se pudo cargar la imagen: ", player_data.image)
-	result_popup.popup_centered()
+		print("🔇 No hay música asignada para: ", player_name_text)
+	
+	# Configurar los datos del jugador antes de mostrar la animación
+	reveal_instance.set_player_data(player_name_text, player_ovr, player_position, player_image_path, music_path)
+	
+	# Añadir la animación a la escena actual
+	get_tree().current_scene.add_child(reveal_instance)
+	
+	print("🌟 GachaponScene: Animación épica lanzada para ", player_name_text)
 
 func update_money_display():
 	money_label.text = "Tickets Bufas: %s" % GameManager.get_tickets_bufas()

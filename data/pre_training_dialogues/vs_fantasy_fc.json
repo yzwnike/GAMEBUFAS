@@ -1,0 +1,116 @@
+[
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Chavales, hoy nos enfrentamos al Fantasy FC..."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¿Los que intentan jugadas que ni en los videojuegos funcionan?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Exactos. Su filosofía es: 'Si no es espectacular, no merece la pena'. Intentan chilenas desde el centro del campo y regates imposibles en su propia área."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Y les salen esas locuras?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Ahí está el problema: cuando les sale, es pura magia. Cuando no... bueno, es como ver a un mago al que se le cae el conejo."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "Suena impredecible..."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Son como una caja de sorpresas: nunca sabes si va a salir un tesoro o va a explotar. Su portero intenta paradas acrobáticas... para balones que van fuera."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador4",
+    "text": "¿Entonces son fáciles de defender?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Para nada! Su impredecibilidad los hace peligrosos. No puedes anticipar qué van a hacer... ¡porque ni ellos lo saben!"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¿Y cómo se entrena contra el caos creativo?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Con táctica sólida y concentración máxima. Mientras ellos hacen malabares, nosotros jugamos fútbol inteligente.",
+    "choices": [
+      {
+        "id": "opcion_conservadora",
+        "text": "Juguemos simple y efectivo contra sus locuras."
+      },
+      {
+        "id": "opcion_creativa",
+        "text": "¿Y si probamos algunas jugadas espectaculares nosotros?"
+      },
+      {
+        "id": "opcion_tactica",
+        "text": "Concentración total, que no nos desconcentren."
+      }
+    ]
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Perfecto! La concentración será nuestra mejor defensa contra su circo."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Es verdad que una vez intentaron hacer una pirámide humana para celebrar un gol?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Y se cayeron encima del que había marcado! El pobre acabó en el hospital, pero según él 'valió la pena por el arte'."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "Están completamente locos..."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Su entrenador dice que 'el fútbol es arte, no ciencia'. El problema es que a veces su arte parece más dadaísmo que Picasso."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador4",
+    "text": "¿Y cuándo les funciona su 'arte'?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Cuando se olvidan de ser artistas y juegan por instinto. Ahí es cuando son realmente peligrosos: arte natural sin pretensiones."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "Entendido. ¡Vamos a ser los críticos de arte más duros del mundo!"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Exacto! Respetamos su creatividad, pero superamos con efectividad. ¡A entrenar táctica pura!"
+  }
+]

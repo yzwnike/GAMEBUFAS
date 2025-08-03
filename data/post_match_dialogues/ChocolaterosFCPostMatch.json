@@ -1,0 +1,131 @@
+{
+  "win_branch": [
+	{
+	  "character": "narrator",
+	  "text": "¡PITIDO FINAL! FC Bufas ha endulzado la victoria contra los Chocolateros FC. Los rivales se consolidan entre lágrimas... ¿de tristeza o de dulzura?",
+	  "background": "partido"
+	},
+	{
+	  "character": "yazawa",
+	  "text": "¡Increíble! Chavales, habéis jugado de dulce. ¡Menuda victoria!"
+	},
+	{
+	  "character": "jugador1",
+	  "text": "¡Sí! Los hemos derretido con nuestro juego."
+	},
+	{
+	  "character": "capitan_chocolateros",
+	  "text": "*Sollozando* No puede ser... ¡Estábamos tan dulces al principio! ¿Qué ha pasado?"
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Oye, habéis jugado con mucha técnica, pero os falta consistencia."
+	},
+	{
+	  "character": "chocolatero_emocional",
+	  "text": "*Llorando* ¡Es que cuando nos emocionamos mucho nos derretimos! ¡Como el chocolate al sol!"
+	},
+	{
+	  "character": "jugador2",
+	  "text": "Jajaja, estos tíos son adorables. ¿Siempre lloráis después de perder?"
+	},
+	{
+	  "character": "capitan_chocolateros",
+	  "text": "*Hipando* No podemos evitarlo... somos muy sensibles. Pero habéis jugado muy bien."
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Tenéis un fútbol muy bonito, solo necesitáis más estabilidad emocional."
+	},
+	{
+	  "character": "chocolatero_emocional",
+	  "text": "*Sonriendo entre lágrimas* ¿En serio? ¡Qué dulces sois! Ahora lloro de felicidad."
+	}
+  ],
+  "loss_branch": [
+	{
+	  "character": "narrator",
+	  "text": "Pitido final. Los Chocolateros FC han endulzado la victoria contra FC Bufas. Los rivales celebran con lágrimas de felicidad y chocolate derretido.",
+	  "background": "partido"
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Joder... nos han ganado con puro sentimiento. Bien jugado."
+	},
+	{
+	  "character": "jugador1",
+	  "text": "Ha sido como jugar contra un equipo que cambiaba de humor cada minuto..."
+	},
+	{
+	  "character": "capitan_chocolateros",
+	  "text": "*Llorando de felicidad* ¡Victoria! ¡Hemos sido dulces y amargos a la vez!"
+	},
+	{
+	  "character": "chocolatero_emocional",
+	  "text": "*Saltando* ¡Sí! ¡Cuando nos pusimos tristes jugamos mejor! ¡La tristeza nos dio poder!"
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Es impresionante cómo habéis usado vuestras emociones como arma táctica."
+	},
+	{
+	  "character": "capitan_chocolateros",
+	  "text": "Es nuestro secreto: cuando estamos felices somos técnicos, cuando estamos tristes somos letales."
+	},
+	{
+	  "character": "jugador2",
+	  "text": "Ha sido como un partido de montaña rusa emocional."
+	},
+	{
+	  "character": "capitan_chocolateros",
+	  "text": "*Secándose las lágrimas* Habéis sido muy dulces como rivales. Os respetamos mucho."
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Habéis demostrado que el fútbol también se juega con el corazón."
+	}
+  ],
+  "draw_branch": [
+	{
+	  "character": "narrator",
+	  "text": "El árbitro pita el final. Empate entre FC Bufas y los Chocolateros FC. Los rivales lloran de felicidad... y de tristeza al mismo tiempo.",
+	  "background": "partido"
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Empate justo... aunque ha sido una montaña rusa emocional."
+	},
+	{
+	  "character": "jugador1",
+	  "text": "No sabía si consolarnos o celebrar. ¡Qué partido tan extraño!"
+	},
+	{
+	  "character": "capitan_chocolateros",
+	  "text": "*Lágrimas agridulces* Empate... ¡no sé si llorar de alegría o de tristeza!"
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Vuestro juego emocional es único. Nunca había visto algo así."
+	},
+	{
+	  "character": "chocolatero_emocional",
+	  "text": "*Riendo y llorando* ¡Es que somos como el chocolate! ¡Dulces, pero con sorpresas amargas!"
+	},
+	{
+	  "character": "jugador2",
+	  "text": "Ha sido como jugar contra un equipo de actores de telenovela."
+	},
+	{
+	  "character": "capitan_chocolateros",
+	  "text": "Jajaja, es una buena descripción. Pero nuestras emociones son reales."
+	},
+	{
+	  "character": "yazawa",
+	  "text": "Y eso se nota. Habéis jugado con el alma."
+	},
+	{
+	  "character": "chocolatero_emocional",
+	  "text": "*Sollozando de felicidad* ¡Qué bonito! Ahora lloro de emoción pura."
+	}
+  ]
+}

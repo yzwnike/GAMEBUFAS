@@ -1,0 +1,111 @@
+[
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "A ver chavales, hoy tocamos entrenamiento contra la Patrulla Canina..."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "¿Los que ladran cuando marcan gol?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Esos mismos. Y no solo cuando marcan... ladran por TODO. Celebran un pase como si hubieran ganado el Mundial."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "¿Tan entusiastas son?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Imagínate un cachorro de labrador después de tomarse cinco Red Bulls. Eso multiplicado por once."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "Joder, ¿y juegan bien o solo hacen ruido?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Ahí está el problema. Tienen más energía que técnica. Corren como locos, pero sin rumbo fijo."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador4",
+    "text": "¿Entonces son fáciles de batir?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡NI DE COÑA! Su caos es su arma. No puedes predecir qué van a hacer... ¡porque ni ellos lo saben!"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "Vaya, ¿y cómo se prepara uno contra el caos puro?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Con pases rápidos y precisos. Mientras ellos corren como pollos sin cabeza, nosotros jugamos con la cabeza fría.",
+    "choices": [
+      {
+        "id": "opcion_tactica",
+        "text": "Perfecto, mantener la calma será clave."
+      },
+      {
+        "id": "opcion_humor",
+        "text": "¿Deberíamos llevar tapones para los oídos?"
+      },
+      {
+        "id": "opcion_confiado",
+        "text": "Con nuestra técnica los vamos a volver locos."
+      }
+    ]
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Exacto! La paciencia será nuestra mejor arma."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador3",
+    "text": "¿Es verdad que celebran hasta los saques de banda?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "He visto a su lateral derecho hacer una voltereta porque recuperó un balón. Su entrenador tuvo que calmarlo como si fuera un niño de cinco años."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Y cuando marcaron su último gol, se pusieron a hacer una conga en el centro del campo. El árbitro no sabía si sacarles tarjeta o aplaudir."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador1",
+    "text": "Madre mía, ¿y cómo les afecta cuando van perdiendo?"
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "Ahí es cuando se vuelven realmente peligrosos. Su desesperación se convierte en energía pura. Es como enfrentarse a una manada de lobos hambrientos."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "jugador2",
+    "text": "Joder, entonces hay que mantener la ventaja desde el principio."
+  },
+  {
+    "background": "entrenamiento",
+    "character": "Yazawa",
+    "text": "¡Vamos allá! Pero recordad: respeto a su energía, pero superioridad en técnica. ¡A practicar esos pases!"
+  }
+]
